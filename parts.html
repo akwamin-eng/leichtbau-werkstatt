@@ -26,6 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         tailwind.config = {
             darkMode: "class",
@@ -228,10 +229,217 @@
         <!-- Grid -->
         <div id="parts-grid"
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800">
-            <div class="p-12 text-center col-span-full">
-                <p class="mono text-xs uppercase tracking-widest text-gray-500 animate-pulse">Loading Live Inventory
-                    from Shopify...</p>
+
+            <!-- PART 1 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="engine">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80"
+                        alt="Mahle Piston Set" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Engine //
+                                01</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Mahle Forged Piston Set</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">BMW M10/M20. 89.5mm bore.
+                                +0.25 oversize. Race-grade forged aluminum.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€480</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Set of 4</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-001" data-name="Mahle Forged Piston Set" data-price="480" data-sku="ENG-001"
+                            data-unit="Set of 4">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            <!-- PART 2 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="suspension">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                        alt="Bilstein B12 Coilover Kit" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Suspension //
+                                02</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Bilstein B12 Pro-Kit</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">E30/E46. 30mm drop.
+                                Monotube gas-pressure. Sport-tuned valving.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€1,240</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Full Kit</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-002" data-name="Bilstein B12 Pro-Kit" data-price="1240" data-sku="SUS-002"
+                            data-unit="Full Kit">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 3 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="exhaust">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"
+                        alt="Akrapovic Titanium Exhaust" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Exhaust //
+                                03</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Akrapovic Titanium Slip-On</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">E46 M3. Grade-5 titanium.
+                                4.2kg. Racing TÜV approval included.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€2,890</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-003" data-name="Akrapovic Titanium Slip-On" data-price="2890"
+                            data-sku="EXH-003" data-unit="Per Unit">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 4 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="brakes">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80"
+                        alt="Brembo GT Big Brake Kit" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Brakes //
+                                04</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Brembo GT Big Brake Kit</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">380mm front rotors.
+                                6-piston monobloc calipers. Black anodise. E36/E46.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-neon-orange bg-orange-50 dark:bg-zinc-900 px-2 py-1 border border-orange-200 dark:border-zinc-800">3
+                            Left</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€3,450</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Front Axle</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-004" data-name="Brembo GT Big Brake Kit" data-price="3450" data-sku="BRK-004"
+                            data-unit="Front Axle">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 5 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="engine">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80"
+                        alt="Schrick Camshaft" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Engine //
+                                05</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Schrick Performance Camshaft</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">M10 272°. Increased lift
+                                and duration. Road-legal. +18hp measured gain.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€620</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Cam</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-005" data-name="Schrick Performance Camshaft" data-price="620"
+                            data-sku="ENG-005" data-unit="Per Cam">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 6 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="interior">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80"
+                        alt="Alcantara Steering Wheel" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Interior //
+                                06</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">OMP Alcantara Sport Wheel</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">350mm. Alcantara wrap.
+                                Flat-bottom. 6-bolt PCD. FIA approved.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€340</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-006" data-name="OMP Alcantara Sport Wheel" data-price="340" data-sku="INT-006"
+                            data-unit="Per Unit">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div><!-- /parts-grid -->
 
         <!-- Custom Order CTA -->
@@ -271,154 +479,26 @@
         <span class="material-symbols-outlined text-xl">contrast</span>
     </button>
 
-
     <script>
         // ── Cursor ──
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
-        const initCursor = () => {
-            document.querySelectorAll('.cursor-hover-target').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-            });
-        };
-        initCursor();
+        document.querySelectorAll('.cursor-hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
 
         // ── Reveal on Scroll ──
-        const initReveals = () => {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('shown'), i * 60); observer.unobserve(e.target); } });
-            }, { threshold: 0.08 });
-            reveals.forEach(el => observer.observe(el));
-        };
-        initReveals();
-
-        // ── SHOPIFY INTEGRATION ──
-        const domain = 'www.leichtbauwerkstatt.com';
-        const storefrontAccessToken = '926696394506a6845f32593799e52fa1';
-        const apiVersion = '2024-01';
-
-        async function shopifyFetch(query, variables = {}) {
-            const res = await fetch(`https://${domain}/api/${apiVersion}/graphql.json`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Shopify-Storefront-Access-Token': storefrontAccessToken
-                },
-                body: JSON.stringify({ query, variables })
-            });
-            return res.json();
-        }
-
-        // Fetch Products
-        async function loadProducts() {
-            const query = `
-            {
-              products(first: 20) {
-                edges {
-                  node {
-                    id
-                    title
-                    handle
-                    description
-                    productType
-                    variants(first: 1) {
-                      edges {
-                        node {
-                          id
-                          price {
-                            amount
-                            currencyCode
-                          }
-                          quantityAvailable
-                        }
-                      }
-                    }
-                    images(first: 1) {
-                      edges {
-                        node {
-                          url(transform: {maxWidth: 800, maxHeight: 600, crop: CENTER})
-                          altText
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }`;
-
-            try {
-                const { data } = await shopifyFetch(query);
-                renderProducts(data.products.edges);
-            } catch (err) {
-                console.error("Error fetching from Shopify", err);
-                document.getElementById('parts-grid').innerHTML = '<div class="p-12 text-center col-span-full"><p class="mono text-xs uppercase text-red-500">Failed to load inventory.</p></div>';
-            }
-        }
-
-        function renderProducts(edges) {
-            const grid = document.getElementById('parts-grid');
-            if (!edges || edges.length === 0) {
-                grid.innerHTML = '<div class="p-12 text-center col-span-full"><p class="mono text-xs uppercase tracking-widest text-gray-500">No products found in store.</p></div>';
-                return;
-            }
-
-            const html = edges.map((edge, index) => {
-                const p = edge.node;
-                const variant = p.variants.edges[0]?.node;
-                const price = variant?.price?.amount ? parseFloat(variant.price.amount) : 0;
-                const currency = variant?.price?.currencyCode || 'EUR';
-                const vId = variant?.id || '';
-
-                const imgUrl = p.images.edges[0]?.node?.url || 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80';
-                const type = p.productType || 'Part';
-                const formattedPrice = new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(price);
-
-                return `
-                <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="${type.toLowerCase()}">
-                    <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
-                        <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                            src="${imgUrl}" alt="${p.title}" loading="lazy" />
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex justify-between items-start">
-                            <div class="pr-2">
-                                <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">${type} // 0${index + 1}</span>
-                                <h3 class="grotesk text-lg font-bold mt-1 text-gray-900 truncate" title="${p.title}">${p.title}</h3>
-                                <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed line-clamp-2">${p.description || 'Precision engineered component.'}</p>
-                            </div>
-                            <span class="mono text-[10px] text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800 whitespace-nowrap">
-                                In Stock
-                            </span>
-                        </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
-                            <div>
-                                <p class="grotesk text-2xl font-bold text-gray-900">${formattedPrice}</p>
-                                <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
-                            </div>
-                            <button
-                                class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
-                                data-id="${vId}" data-name="${p.title}" data-price="${price}" data-currency="${currency}" data-img="${imgUrl}">
-                                <span class="material-symbols-outlined text-sm">add</span>Add
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-
-            grid.innerHTML = html;
-            initCursor();
-            initReveals();
-            attachCartListeners();
-        }
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('shown'), i * 60); observer.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        reveals.forEach(el => observer.observe(el));
 
         // ── Cart State ──
         let cart = {};
 
-        function formatPriceStr(amount, currency = 'EUR') {
-            return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
-        }
+        function formatPrice(n) { return '€' + n.toLocaleString('de-DE'); }
 
         function updateCartUI() {
             const items = Object.values(cart);
@@ -427,68 +507,60 @@
             const countEl = document.getElementById('cart-count');
             countEl.textContent = count;
             count > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
-
-            // Assume single currency for display simplicity
-            const currency = items.length > 0 ? items[0].currency : 'EUR';
-            document.getElementById('cart-total').textContent = formatPriceStr(total, currency);
+            document.getElementById('cart-total').textContent = formatPrice(total);
 
             const cartItemsEl = document.getElementById('cart-items');
             const emptyEl = document.getElementById('cart-empty');
             if (items.length === 0) { emptyEl.classList.remove('hidden'); cartItemsEl.innerHTML = ''; cartItemsEl.appendChild(emptyEl); return; }
             emptyEl.classList.add('hidden');
             cartItemsEl.innerHTML = items.map(item => `
-            <div class="flex gap-4 items-start border-b border-gray-100 dark:border-zinc-800 pb-6" id="cart-item-${item.id}">
-                <div class="w-20 h-20 bg-gray-100 dark:bg-zinc-800 flex-shrink-0 overflow-hidden">
-                    <img src="${item.img || ''}" class="w-full h-full object-cover grayscale" onerror="this.style.display='none'"/>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="grotesk font-semibold text-sm truncate" title="${item.name}">${item.name}</p>
-                    <div class="flex items-center gap-3 mt-3">
-                        <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', -1)">−</button>
-                        <span class="mono text-sm font-bold w-4 text-center">${item.qty}</span>
-                        <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', 1)">+</button>
-                        <button class="ml-auto mono text-[9px] text-gray-400 hover:text-red-500 uppercase tracking-wider transition-colors" onclick="removeItem('${item.id}')">Remove</button>
-                    </div>
-                </div>
-                <div class="text-right flex-shrink-0">
-                    <p class="grotesk font-bold">${formatPriceStr(item.price * item.qty, item.currency)}</p>
-                    <p class="mono text-[9px] text-gray-400">${formatPriceStr(item.price, item.currency)} ea.</p>
+        <div class="flex gap-4 items-start border-b border-gray-100 dark:border-zinc-800 pb-6" id="cart-item-${item.id}">
+            <div class="w-20 h-20 bg-gray-100 dark:bg-zinc-800 flex-shrink-0 overflow-hidden">
+                <img src="${item.img || ''}" class="w-full h-full object-cover grayscale" onerror="this.style.display='none'"/>
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="grotesk font-semibold text-sm truncate">${item.name}</p>
+                <p class="mono text-[9px] text-gray-400 uppercase tracking-widest mt-0.5">${item.sku} · ${item.unit}</p>
+                <div class="flex items-center gap-3 mt-3">
+                    <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', -1)">−</button>
+                    <span class="mono text-sm font-bold w-4 text-center">${item.qty}</span>
+                    <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', 1)">+</button>
+                    <button class="ml-auto mono text-[9px] text-gray-400 hover:text-red-500 uppercase tracking-wider transition-colors" onclick="removeItem('${item.id}')">Remove</button>
                 </div>
             </div>
-            `).join('');
+            <div class="text-right flex-shrink-0">
+                <p class="grotesk font-bold">${formatPrice(item.price * item.qty)}</p>
+                <p class="mono text-[9px] text-gray-400">${formatPrice(item.price)} ea.</p>
+            </div>
+        </div>
+    `).join('');
         }
 
-        window.changeQty = function (id, delta) {
+        function changeQty(id, delta) {
             if (!cart[id]) return;
             cart[id].qty = Math.max(0, cart[id].qty + delta);
             if (cart[id].qty === 0) delete cart[id];
             updateCartUI();
         }
 
-        window.removeItem = function (id) { delete cart[id]; updateCartUI(); }
+        function removeItem(id) { delete cart[id]; updateCartUI(); }
 
-        function attachCartListeners() {
-            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = btn.dataset.id;
-                    if (cart[id]) { cart[id].qty++; } else {
-                        cart[id] = {
-                            id,
-                            name: btn.dataset.name,
-                            price: parseFloat(btn.dataset.price),
-                            currency: btn.dataset.currency,
-                            img: btn.dataset.img,
-                            qty: 1
-                        };
-                    }
-                    updateCartUI();
-                    openCart();
-                    btn.textContent = '✓ Added';
-                    btn.classList.add('bg-neon-orange');
-                    setTimeout(() => { btn.innerHTML = '<span class="material-symbols-outlined text-sm">add</span>Add'; btn.classList.remove('bg-neon-orange'); }, 1200);
-                });
+        // ── Add to Cart ──
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const img = btn.closest('.part-card').querySelector('.part-img')?.src || '';
+                if (cart[id]) { cart[id].qty++; } else {
+                    cart[id] = { id, name: btn.dataset.name, price: parseInt(btn.dataset.price), sku: btn.dataset.sku, unit: btn.dataset.unit, qty: 1, img };
+                }
+                updateCartUI();
+                openCart();
+                // Micro-feedback on button
+                btn.textContent = '✓ Added';
+                btn.classList.add('bg-neon-orange');
+                setTimeout(() => { btn.innerHTML = '<span class="material-symbols-outlined text-sm">add</span>Add'; btn.classList.remove('bg-neon-orange'); }, 1200);
             });
-        }
+        });
 
         // ── Cart Drawer ──
         const cartDrawer = document.getElementById('cart-drawer');
@@ -499,7 +571,19 @@
         document.getElementById('close-cart').addEventListener('click', closeCart);
         cartOverlay.addEventListener('click', closeCart);
 
-        // ── Shopify Checkout ──
+        // ── Stripe Checkout ──
+        // NOTE: Replace 'pk_test_...' with your actual Stripe publishable key.
+        // Replace price IDs below with your Stripe Price IDs.
+        const STRIPE_KEY = 'pk_test_REPLACE_WITH_YOUR_STRIPE_PUBLISHABLE_KEY';
+        const PRICE_MAP = {
+            'part-001': 'price_REPLACE_PART_001',
+            'part-002': 'price_REPLACE_PART_002',
+            'part-003': 'price_REPLACE_PART_003',
+            'part-004': 'price_REPLACE_PART_004',
+            'part-005': 'price_REPLACE_PART_005',
+            'part-006': 'price_REPLACE_PART_006',
+        };
+
         document.getElementById('checkout-btn').addEventListener('click', async () => {
             const items = Object.values(cart);
             if (items.length === 0) return;
@@ -508,36 +592,30 @@
             btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> Redirecting...';
             btn.disabled = true;
 
-            const lines = items.map(item => ({
-                merchandiseId: item.id,
-                quantity: item.qty
-            }));
-
-            const query = `
-            mutation cartCreate($input: CartInput!) {
-              cartCreate(input: $input) {
-                cart {
-                  checkoutUrl
-                }
-                userErrors {
-                  field
-                  message
-                }
-              }
-            }`;
+            // Check if we have real Stripe keys configured
+            if (STRIPE_KEY.includes('REPLACE')) {
+                // Demo mode: show a summary alert
+                const summary = items.map(i => `${i.name} ×${i.qty} — ${formatPrice(i.price * i.qty)}`).join('\n');
+                const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+                alert(`🔧 Stripe not yet configured.\n\nOrder Summary:\n${summary}\n\nTotal: ${formatPrice(total)}\n\nReplace the STRIPE_KEY and PRICE_MAP values in parts.html with your Stripe credentials to enable real checkout.`);
+                btn.innerHTML = '<span>Proceed to Checkout</span><span class="material-symbols-outlined text-sm">arrow_forward</span>';
+                btn.disabled = false;
+                return;
+            }
 
             try {
-                const { data } = await shopifyFetch(query, { input: { lines } });
-                if (data.cartCreate.cart.checkoutUrl) {
-                    window.location.href = data.cartCreate.cart.checkoutUrl;
-                } else {
-                    console.error("Checkout errors", data.cartCreate.userErrors);
-                    alert("Unable to create checkout. Try again.");
-                    btn.innerHTML = '<span>Proceed to Checkout</span><span class="material-symbols-outlined text-sm">arrow_forward</span>';
-                    btn.disabled = false;
-                }
-            } catch (err) {
-                console.error(err);
+                const stripe = Stripe(STRIPE_KEY);
+                const lineItems = items
+                    .filter(i => PRICE_MAP[i.id])
+                    .map(i => ({ price: PRICE_MAP[i.id], quantity: i.qty }));
+                await stripe.redirectToCheckout({
+                    lineItems,
+                    mode: 'payment',
+                    successUrl: window.location.origin + '/success-state.html',
+                    cancelUrl: window.location.href,
+                });
+            } catch (e) {
+                console.error(e);
                 btn.innerHTML = 'Error — Try Again';
                 btn.disabled = false;
             }
@@ -548,20 +626,16 @@
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const filter = btn.dataset.filter.toLowerCase();
+                const filter = btn.dataset.filter;
                 document.querySelectorAll('.part-card').forEach(card => {
-                    // Match category if available, otherwise just show all unless strict filtering is needed
-                    // Because Shopify product types might not strictly match our tabs, we'll do a loose text match
-                    const productText = card.innerText.toLowerCase();
-                    const match = filter === 'all' || card.dataset.category.includes(filter) || productText.includes(filter);
+                    const match = filter === 'all' || card.dataset.category === filter;
                     card.style.display = match ? '' : 'none';
                 });
             });
         });
 
-        // ── Init ──
+        // ── Dark Mode Persistence ──
         if (localStorage.getItem('asta-theme') === 'dark') document.documentElement.classList.add('dark');
-        loadProducts();
     </script>
 </body>
 
