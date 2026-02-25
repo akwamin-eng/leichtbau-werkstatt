@@ -44,20 +44,71 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-primary dark:text-gray-200 font-sans transition-colors duration-300">
-<nav class="fixed w-full z-50 px-8 py-4 flex justify-between items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-brand-sage/10 dark:border-white/5">
-<div class="h-16 flex items-center">
-<img alt="Leichtbau Werkstatt Logo" class="h-full w-auto object-contain dark:invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6BzAJFrUCHhi3Q1GXnUPXbj0loDF5UdaZ-M7dAuwEjf38MA9G_cLoBoxB1oE_1SdHyfTIVu70KZTA6lzZaSPxs7BJOBlWiUMKB0rHzHf47TVR9M-5caAHOsMgqG4Ri_dBwxh3SQMgShKo06Alsfx2YyisF28X-l-jxz48pCX8GkVzpGmBSNwxX13J0JnjG56fhCWeQull10_KRDekpDyi9QlkiPn3RTxzE-5RBXloJx4kb_7f7dS202TSSNI4qfRIPdjwfSgOP50"/>
-</div>
-<div class="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.2em]">
-<a class="hover:text-brand-orange transition-colors" href="#">The Studio</a>
-<a class="hover:text-brand-orange transition-colors font-semibold text-brand-sage dark:text-brand-orange" href="#">Archive</a>
-<a class="hover:text-brand-orange transition-colors" href="#">Engineering</a>
-<a class="hover:text-brand-orange transition-colors" href="#">Contact</a>
-</div>
-<button class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors" onclick="document.documentElement.classList.toggle('dark')">
-<span class="material-symbols-outlined">contrast</span>
-</button>
+<nav class="fixed w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent">
+    <!-- Left: Builds + Parts -->
+    <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="index.html#builds">
+                Builds
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="index.html#parts">
+                Parts
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+    </div>
+    <!-- Center: Logo -->
+    <div class="text-center cursor-hover-target">
+        <a href="index.html">
+            <img alt="Leichtbau Werkstatt Logo" class="h-16 w-auto brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI"/>
+        </a>
+    </div>
+    <!-- Right: Gallery + Connect -->
+    <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-neon-orange" href="collection-gallery.html">
+                Gallery
+                <span class="absolute -bottom-1 left-0 w-full h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="contact.html">
+                Connect
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+    </div>
+    <!-- Mobile menu button -->
+    <button class="md:hidden text-white cursor-hover-target" id="mobile-menu-btn" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
 </nav>
+<!-- Mobile Drawer -->
+<div id="mobile-drawer" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
+    <div id="mobile-overlay" class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300"></div>
+    <div id="mobile-panel" class="absolute right-0 top-0 h-full w-72 bg-black shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="flex items-center justify-between p-6 border-b border-white/10">
+            <a href="index.html"><img alt="Logo" class="h-10 w-auto brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI"/></a>
+            <button id="mobile-close-btn" aria-label="Close menu" class="text-white"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <nav class="flex-1 flex flex-col justify-center px-8 space-y-8">
+            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="index.html#builds">Builds</a>
+            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="index.html#parts">Parts</a>
+            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="collection-gallery.html">Gallery</a>
+            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors" href="contact.html">Connect</a>
+        </nav>
+    </div>
+</div>
+<script>
+(function() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('mobile-overlay');
+    const panel = document.getElementById('mobile-panel');
+    const closeBtn = document.getElementById('mobile-close-btn');
+    if (!btn || !drawer) return;
+    function openMenu() { drawer.classList.remove('pointer-events-none'); overlay.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { overlay.classList.remove('opacity-100'); panel.classList.add('translate-x-full'); document.body.style.overflow = ''; setTimeout(() => drawer.classList.add('pointer-events-none'), 300); }
+    btn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+})();
+</script>
 <header class="pt-48 pb-24 px-8 max-w-7xl mx-auto text-center">
 <span class="text-[10px] tracking-[0.6em] uppercase text-brand-sage dark:text-brand-orange mb-4 block">Automotive Curations</span>
 <h1 class="text-5xl md:text-7xl font-display mb-8">Restoration Gallery</h1>
