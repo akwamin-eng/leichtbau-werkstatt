@@ -1,281 +1,525 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Leichtbau Werkstatt | Restoration Gallery</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&amp;family=Playfair+Display:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Leichtbau Werkstatt | Gallery</title>
+    <meta name="description" content="An artistic showcase of precision-restored European performance machines." />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#2c2e2a",
-                        "background-light": "#f4f4f2",
-                        "background-dark": "#121312",
-                        "accent-slate": "#8c8e8a",
-                        "accent-tan": "#c5beb0",
-                        "brand-sage": "#2e4a3b", // Derived from logo palette
-                        "brand-orange": "#e8a838", // Derived from logo palette
-                    },
-                    fontFamily: {
-                        display: ["Playfair Display", "serif"],
-                        sans: ["Montserrat", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0px",
-                    },
-                },
-            },
+            theme: { extend: { colors: { "neon-orange": "#FF4D00" }, fontFamily: { display: ["Space Grotesk", "sans-serif"] } } }
         };
     </script>
-<style type="text/tailwindcss">
-        .letter-spacing-widest {
-            letter-spacing: 0.3em;
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 20;
-            font-size: 18px;
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        #cursor-dot {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #FF4D00;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            z-index: 9998;
+            pointer-events: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 77, 0, 0.5);
+            transform: translate(-50%, -50%);
+            transition: transform 0.18s ease, width 0.4s ease, height 0.4s ease, border-color 0.3s ease;
+        }
+
+        body.hovering #cursor-dot {
+            width: 10px;
+            height: 10px;
+        }
+
+        body.hovering #cursor-ring {
+            width: 70px;
+            height: 70px;
+            border-color: rgba(255, 77, 0, 0.8);
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+        }
+
+        .nav-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.55);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #FF4D00;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: #FF4D00;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+            background: #FF4D00;
+        }
+
+        /* Canvas */
+        #canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Each image tile */
+        .tile {
+            position: absolute;
+            will-change: transform;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%) brightness(0.75);
+            transition: filter 0.6s ease, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .tile:hover img {
+            filter: grayscale(0%) brightness(0.95);
+            transform: scale(1.06);
+        }
+
+        /* Clip-path reveal animations */
+        @keyframes revealLeft {
+            from {
+                clip-path: inset(0 100% 0 0);
+            }
+
+            to {
+                clip-path: inset(0 0% 0 0);
+            }
+        }
+
+        @keyframes revealRight {
+            from {
+                clip-path: inset(0 0 0 100%);
+            }
+
+            to {
+                clip-path: inset(0 0 0 0%);
+            }
+        }
+
+        @keyframes revealDown {
+            from {
+                clip-path: inset(0 0 100% 0);
+            }
+
+            to {
+                clip-path: inset(0 0 0% 0);
+            }
+        }
+
+        @keyframes revealUp {
+            from {
+                clip-path: inset(100% 0 0 0);
+            }
+
+            to {
+                clip-path: inset(0% 0 0 0);
+            }
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tile {
+            opacity: 0;
+        }
+
+        .tile.rendered {
+            opacity: 1;
+        }
+
+        .tile.anim-left {
+            animation: revealLeft 1.1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        .tile.anim-right {
+            animation: revealRight 1.1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        .tile.anim-down {
+            animation: revealDown 1.1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        .tile.anim-up {
+            animation: revealUp 1.1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        /* Scroll hint */
+        #hint {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: fadeSlide 1s ease 3.5s both;
+        }
+
+        #hint-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, #FF4D00, transparent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        #hint.hidden {
+            opacity: 0;
+        }
+
+        /* Loading veil */
+        #veil {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+
+        #veil.gone {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .veil-logo {
+            width: 80px;
+            opacity: 0;
+            animation: fadeSlide 0.6s ease 0.2s forwards;
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-primary dark:text-gray-200 font-sans transition-colors duration-300">
-<nav class="fixed w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent">
-    <!-- Left: Builds + Parts -->
-    <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="index.html#builds">
-                Builds
-                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="parts.html">
-                Parts
-                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
+
+<body>
+
+    <!-- Loading veil -->
+    <div id="veil">
+        <img class="veil-logo"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI"
+            alt="" />
     </div>
-    <!-- Center: Logo -->
-    <div class="text-center cursor-hover-target">
-        <a href="index.html">
-            <img alt="Leichtbau Werkstatt Logo" class="h-16 w-auto brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI"/>
-        </a>
-    </div>
-    <!-- Right: Gallery + Connect -->
-    <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-neon-orange" href="collection-gallery.html">
-                Gallery
-                <span class="absolute -bottom-1 left-0 w-full h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="contact.html">
-                Connect
-                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-    </div>
-    <!-- Mobile menu button -->
-    <button class="md:hidden text-white cursor-hover-target" id="mobile-menu-btn" aria-label="Open menu">
-        <span class="material-symbols-outlined">menu</span>
-    </button>
-</nav>
-<!-- Mobile Drawer -->
-<div id="mobile-drawer" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
-    <div id="mobile-overlay" class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300"></div>
-    <div id="mobile-panel" class="absolute right-0 top-0 h-full w-72 bg-black shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-        <div class="flex items-center justify-between p-6 border-b border-white/10">
-            <a href="index.html"><img alt="Logo" class="h-10 w-auto brightness-0 invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI"/></a>
-            <button id="mobile-close-btn" aria-label="Close menu" class="text-white"><span class="material-symbols-outlined">close</span></button>
+
+    <!-- Custom cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Unified Nav -->
+    <nav>
+        <div style="display:flex;gap:32px;">
+            <a class="nav-link" href="index.html#builds">Builds</a>
+            <a class="nav-link" href="parts.html">Parts</a>
         </div>
-        <nav class="flex-1 flex flex-col justify-center px-8 space-y-8">
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="index.html#builds">Builds</a>
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="parts.html">Parts</a>
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="collection-gallery.html">Gallery</a>
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors" href="contact.html">Connect</a>
-        </nav>
+        <div>
+            <a href="index.html">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI"
+                    alt="Leichtbau Werkstatt" style="height:52px;width:auto;filter:brightness(0) invert(1);" />
+            </a>
+        </div>
+        <div style="display:flex;gap:32px;">
+            <a class="nav-link active" href="collection-gallery.html">Gallery</a>
+            <a class="nav-link" href="contact.html">Connect</a>
+        </div>
+    </nav>
+
+    <!-- Main canvas -->
+    <div id="canvas"></div>
+
+    <!-- Scroll hint -->
+    <div id="hint">
+        <div id="hint-line"></div>
+        <span>Move</span>
     </div>
-</div>
-<script>
-(function() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const drawer = document.getElementById('mobile-drawer');
-    const overlay = document.getElementById('mobile-overlay');
-    const panel = document.getElementById('mobile-panel');
-    const closeBtn = document.getElementById('mobile-close-btn');
-    if (!btn || !drawer) return;
-    function openMenu() { drawer.classList.remove('pointer-events-none'); overlay.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); document.body.style.overflow = 'hidden'; }
-    function closeMenu() { overlay.classList.remove('opacity-100'); panel.classList.add('translate-x-full'); document.body.style.overflow = ''; setTimeout(() => drawer.classList.add('pointer-events-none'), 300); }
-    btn.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-})();
-</script>
-<header class="pt-48 pb-24 px-8 max-w-7xl mx-auto text-center">
-<span class="text-[10px] tracking-[0.6em] uppercase text-brand-sage dark:text-brand-orange mb-4 block">Automotive Curations</span>
-<h1 class="text-5xl md:text-7xl font-display mb-8">Restoration Gallery</h1>
-<p class="max-w-2xl mx-auto text-sm md:text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed tracking-wide">
-            An exhibition of precision-engineered European legends. Each restoration represents a meticulous dialogue between historical preservation and modern performance optimization.
-        </p>
-<div class="mt-16 h-px w-32 bg-brand-orange mx-auto"></div>
-</header>
-<main class="pb-40 space-y-40 md:space-y-72 overflow-hidden">
-<section class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-<div class="order-2 md:order-1 relative group">
-<div class="aspect-[4/5] overflow-hidden bg-neutral-200 dark:bg-neutral-800 border-b-4 border-brand-sage">
-<img alt="White classic BMW 2002 vintage restoration in studio lighting" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnGNSZA5mbESTLJkYisucA5ODGVkc_5h3YV635JjfkpVG0gK_z4mZbWMCFWjpAZobfRnseKApRcWbmr1bPIsJU7kCokekyp64AIc3wjqn3RRqCLx_3a8lUXrVNNNws6sZnWIa_1D_xUwH_XcbRdQQ7DexszRlvIZxlvI7eenp3FfUvXVDISfegX2bpUCIFBRpazTQnvI0IUqyBcKjeIcVAHziPDkEusSJF9iAWmmRfU6_aXNUxyeTGxLsJJjaAHPnxW-pr7uhNioA"/>
-</div>
-<div class="absolute -bottom-8 -right-8 w-40 h-40 border-r border-b border-brand-sage/30 hidden md:block"></div>
-</div>
-<div class="order-1 md:order-2 space-y-10">
-<div>
-<span class="text-[10px] tracking-[0.5em] uppercase text-brand-sage dark:text-accent-slate mb-3 block">Chassis No. 042</span>
-<h2 class="text-4xl md:text-6xl font-display">2002 Tii Heritage</h2>
-</div>
-<div class="space-y-5 font-light text-[11px] tracking-[0.15em] text-gray-600 dark:text-gray-400">
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Year</span>
-<span class="uppercase">1973</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Restoration Level</span>
-<span class="uppercase">Stage III Concours</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Key Features</span>
-<span class="uppercase">S14 Engine Swap, Alpina Wheels</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Exterior</span>
-<span class="uppercase">Chamonix White / Marine Blue</span>
-</div>
-</div>
-<p class="text-sm font-light italic leading-relaxed text-gray-500 max-w-md">
-                    The ultimate expression of the "Neue Klasse" spirit. A complete nut-and-bolt restoration featuring a balanced high-revving engine heart.
-                </p>
-<button class="px-10 py-5 border border-primary dark:border-gray-200 text-[10px] uppercase tracking-[0.3em] hover:bg-primary hover:text-white dark:hover:bg-brand-orange dark:hover:border-brand-orange dark:hover:text-black transition-all duration-500 group flex items-center gap-6">
-                    Inquire About Project
-                    <span class="material-symbols-outlined transition-transform group-hover:translate-x-2 text-brand-orange group-hover:text-white dark:group-hover:text-black">arrow_right_alt</span>
-</button>
-</div>
-</section>
-<section class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-<div class="space-y-10">
-<div>
-<span class="text-[10px] tracking-[0.5em] uppercase text-brand-sage dark:text-accent-slate mb-3 block">Chassis No. 057</span>
-<h2 class="text-4xl md:text-6xl font-display">Delta Integrale Evoluzione</h2>
-</div>
-<div class="space-y-5 font-light text-[11px] tracking-[0.15em] text-gray-600 dark:text-gray-400">
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Year</span>
-<span class="uppercase">1992</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Restoration Level</span>
-<span class="uppercase">Group A Spec</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Key Features</span>
-<span class="uppercase">Garrett Turbo, Martini Racing Livery</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Exterior</span>
-<span class="uppercase">Rosso Corsa / Alcantara</span>
-</div>
-</div>
-<p class="text-sm font-light italic leading-relaxed text-gray-500 max-w-md">
-                    Stripped to the bare metal and reimagined. Focus on weight reduction and visceral feedback without sacrificing the timeless rally-bred silhouette.
-                </p>
-<button class="px-10 py-5 border border-primary dark:border-gray-200 text-[10px] uppercase tracking-[0.3em] hover:bg-primary hover:text-white dark:hover:bg-brand-orange dark:hover:border-brand-orange dark:hover:text-black transition-all duration-500 group flex items-center gap-6">
-                    Inquire About Project
-                    <span class="material-symbols-outlined transition-transform group-hover:translate-x-2 text-brand-orange group-hover:text-white dark:group-hover:text-black">arrow_right_alt</span>
-</button>
-</div>
-<div class="relative group">
-<div class="aspect-[4/5] overflow-hidden bg-neutral-200 dark:bg-neutral-800 border-b-4 border-brand-sage">
-<img alt="Red classic Lancia Delta Integrale in studio" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6f3ol6eFLHC7QBZdkww0BeL9yeD2tRKh5kU8zRuoO_KVY9rUyKVvPmdcwjfwZL_jdxt_aT99RjdNsRVWUS0ThY_HOb2cm1_I4y-C1A7950PZ-pDTPg5EBjvrkba8M5sC0ZXRVm9p3NkmA5hslYckktOtZZLYavcWuvNAeiTuxlntH295wl7Z1F5C8tzp9PNL1l592ysXVKLS_4JVbAn-CINe9-24lL1dhN00D5sGRGd_znhkStu6Gs29agVyPNBxr8fO_4nByst8"/>
-</div>
-<div class="absolute -top-8 -left-8 w-40 h-40 border-l border-t border-brand-sage/30 hidden md:block"></div>
-</div>
-</section>
-<section class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-<div class="relative group">
-<div class="aspect-[4/5] overflow-hidden bg-neutral-200 dark:bg-neutral-800 border-b-4 border-brand-sage">
-<img alt="Silver BMW E46 M3 in studio setting" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaLfYqXRywOQXy6AqosU6IB8ecHozXhswsVZRDwUmn0sqj8I34G-ezvemqEwTmSHXWcH-4GUxOfIQNjNfVoA3nsmoVDblVBTNPG7IT9V2LT7sZQPryJcPfCjvmUwjc0ol8ob1hfQZYTjsIjF3iS7-gY8Kgci92qFjBslheCZsUrmM9EyLXe4lQ2Jyrwpx_t-Xkquyly8T05Eh_R7Yd25zCbfnLGjqM9gaUlSxDvmiiD3WPqpGDqTu434vIn6oqxFH-WNPuxtUvc4o"/>
-</div>
-</div>
-<div class="space-y-10">
-<div>
-<span class="text-[10px] tracking-[0.5em] uppercase text-brand-sage dark:text-accent-slate mb-3 block">Chassis No. 018</span>
-<h2 class="text-4xl md:text-6xl font-display">E46 M3 CSL Interpretation</h2>
-</div>
-<div class="space-y-5 font-light text-[11px] tracking-[0.15em] text-gray-600 dark:text-gray-400">
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Year</span>
-<span class="uppercase">2003</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Restoration Level</span>
-<span class="uppercase">OEM Plus</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Key Features</span>
-<span class="uppercase">Carbon Airbox, SMG to Manual Swap</span>
-</div>
-<div class="flex border-b border-black/5 dark:border-white/10 pb-3">
-<span class="w-40 uppercase opacity-60">Exterior</span>
-<span class="uppercase">Silver Grey / Anthracite</span>
-</div>
-</div>
-<p class="text-sm font-light italic leading-relaxed text-gray-500 max-w-md">
-                    The modern classic perfected. Enhanced induction noise and tactile engagement define this ultimate driving machine restoration.
-                </p>
-<button class="px-10 py-5 border border-primary dark:border-gray-200 text-[10px] uppercase tracking-[0.3em] hover:bg-primary hover:text-white dark:hover:bg-brand-orange dark:hover:border-brand-orange dark:hover:text-black transition-all duration-500 group flex items-center gap-6">
-                    Inquire About Project
-                    <span class="material-symbols-outlined transition-transform group-hover:translate-x-2 text-brand-orange group-hover:text-white dark:group-hover:text-black">arrow_right_alt</span>
-</button>
-</div>
-</section>
-</main>
-<footer class="bg-primary text-white dark:bg-black/95 py-32 px-8 border-t border-brand-sage/20">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20 md:gap-12 items-start">
-<div class="space-y-8">
-<div class="h-24 opacity-90 invert dark:invert-0">
-<img alt="Leichtbau Werkstatt Logo" class="h-full w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF842LZ1coemNpRat5LsWoasDzePCSplsgxj5H1PIjyMsAfqhiXrSmfwnhwrZvLwtHVUaIQyz0ll8AGR6WEIimB9SZx38KBrGGPg_zsDY9cr4D469b37LmJ6nx7BsWGEhehVQqKfC40KN69GjGiGq46FsBMqpVmhjKLx6TnWk9uy5SJ0kEDou3QPmGdXuIBYKdqYNelVkp10kKI6FOVfPZgp1kowMfr6rph8SbjByNzAZe94zqXLNe8fT2eFDaBNsgGLmI1tdhf1w"/>
-</div>
-<p class="text-[11px] font-light text-gray-400 tracking-widest leading-loose">
-                    Automotive engineering as fine art. We specialize in the preservation and performance optimization of 20th-century European icons.
-                </p>
-</div>
-<div class="space-y-8">
-<h4 class="text-[10px] uppercase tracking-[0.5em] text-brand-orange">Exploration</h4>
-<ul class="space-y-5 text-[10px] font-light tracking-[0.25em]">
-<li><a class="hover:text-brand-orange transition-colors" href="#">Current Inventory</a></li>
-<li><a class="hover:text-brand-orange transition-colors" href="#">Process &amp; Standards</a></li>
-<li><a class="hover:text-brand-orange transition-colors" href="#">Restoration Tiers</a></li>
-<li><a class="hover:text-brand-orange transition-colors" href="#">Privacy</a></li>
-</ul>
-</div>
-<div class="space-y-8">
-<h4 class="text-[10px] uppercase tracking-[0.5em] text-brand-orange">Connect</h4>
-<div class="flex gap-8">
-<a class="hover:text-brand-orange transition-colors" href="#"><span class="material-symbols-outlined">camera_enhance</span></a>
-<a class="hover:text-brand-orange transition-colors" href="#"><span class="material-symbols-outlined">precision_manufacturing</span></a>
-<a class="hover:text-brand-orange transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
-</div>
-<div class="pt-10">
-<form class="flex border-b border-white/20 pb-3">
-<input class="bg-transparent border-none text-[9px] tracking-[0.4em] focus:ring-0 w-full placeholder:text-gray-600 uppercase" placeholder="Subscribe to the logbook" type="email"/>
-<button class="material-symbols-outlined text-sm hover:text-brand-orange transition-colors" type="submit">arrow_forward</button>
-</form>
-</div>
-</div>
-</div>
-<div class="max-w-7xl mx-auto mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] uppercase tracking-[0.4em] text-gray-500">
-<p>© 2024 Leichtbau Werkstatt</p>
-<p>Mastered in Germany</p>
-<p>Design by Minimalist</p>
-</div>
-</footer>
-<a class="fixed bottom-10 right-10 w-14 h-14 border border-brand-sage/20 dark:border-white/10 flex items-center justify-center hover:bg-brand-sage hover:text-white dark:hover:bg-brand-orange dark:hover:text-black transition-all duration-500 z-50 group" href="#">
-<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">keyboard_double_arrow_up</span>
-</a>
-</body></html>
+
+    <script>
+        // ═══════════════════════════════════════════════
+        //  DATA — curated car images with layout coords
+        //  Each tile: { src, alt, x(vw), y(vh), w(vw), h(vh), depth, rot, anim }
+        //  depth: 0=bg(slow) → 1=fg(fast)
+        // ═══════════════════════════════════════════════
+        const TILES = [
+            // Large hero — centre-left
+            {
+                src: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=85',
+                alt: 'Classic Porsche 911',
+                x: 6, y: 10, w: 38, h: 52, depth: 0.15, rot: -1.5, anim: 'anim-left', delay: 0
+            },
+            // Wide landscape — top right
+            {
+                src: 'https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?w=1200&q=85',
+                alt: 'BMW M3 E30',
+                x: 47, y: 5, w: 46, h: 30, depth: 0.3, rot: 1.0, anim: 'anim-right', delay: 160
+            },
+            // Mid-right portrait
+            {
+                src: 'https://images.unsplash.com/photo-1588258219511-64eb629cb833?w=900&q=85',
+                alt: 'Porsche detail',
+                x: 68, y: 37, w: 25, h: 40, depth: 0.5, rot: 2.2, anim: 'anim-up', delay: 320
+            },
+            // Bottom-left landscape
+            {
+                src: 'https://images.unsplash.com/photo-1469285994282-454cbe0bd05a?w=1000&q=85',
+                alt: 'Alpha Romeo',
+                x: 3, y: 67, w: 32, h: 30, depth: 0.25, rot: -0.8, anim: 'anim-down', delay: 200
+            },
+            // Small square — upper mid
+            {
+                src: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=700&q=85',
+                alt: 'Classic interior',
+                x: 38, y: 43, w: 18, h: 22, depth: 0.6, rot: -2.5, anim: 'anim-left', delay: 380
+            },
+            // Bottom-centre landscape
+            {
+                src: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=85',
+                alt: 'Ferrari silhouette',
+                x: 28, y: 70, w: 38, h: 28, depth: 0.2, rot: 1.2, anim: 'anim-up', delay: 440
+            },
+            // Far right bottom small
+            {
+                src: 'https://images.unsplash.com/photo-1579789723621-9d743a4ffe8a?w=800&q=85',
+                alt: 'Vintage dashboard',
+                x: 80, y: 65, w: 17, h: 32, depth: 0.7, rot: -3.0, anim: 'anim-right', delay: 560
+            },
+            // Background large — far left mid
+            {
+                src: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&q=85',
+                alt: 'Road silhouette',
+                x: -2, y: 32, w: 22, h: 36, depth: 0.08, rot: 0.5, anim: 'anim-left', delay: 100
+            },
+            // Upper-centre micro
+            {
+                src: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=700&q=85',
+                alt: 'Wheel detail',
+                x: 47, y: 37, w: 13, h: 16, depth: 0.8, rot: 4.0, anim: 'anim-down', delay: 480
+            },
+        ];
+
+        // ═══════════════════════════════════════════════
+        //  BUILD TILES
+        // ═══════════════════════════════════════════════
+        const canvas = document.getElementById('canvas');
+        const tileEls = [];
+
+        TILES.forEach((t, i) => {
+            const div = document.createElement('div');
+            div.className = `tile ${t.anim}`;
+            div.style.cssText = `
+        left: ${t.x}vw; top: ${t.y}vh;
+        width: ${t.w}vw; height: ${t.h}vh;
+        transform: rotate(${t.rot}deg);
+        animation-delay: ${t.delay + 600}ms;
+        transition: box-shadow 0.5s ease;
+    `;
+            div.setAttribute('data-depth', t.depth);
+            div.setAttribute('data-base-rot', t.rot);
+
+            const img = document.createElement('img');
+            img.src = t.src;
+            img.alt = t.alt;
+            img.loading = 'eager';
+            div.appendChild(img);
+
+            div.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            div.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+
+            canvas.appendChild(div);
+            tileEls.push(div);
+        });
+
+        // ═══════════════════════════════════════════════
+        //  REVEAL after veil lifts
+        // ═══════════════════════════════════════════════
+        let allLoaded = 0;
+        const totalImgs = TILES.length;
+        tileEls.forEach(el => {
+            const img = el.querySelector('img');
+            const onLoad = () => {
+                allLoaded++;
+                if (allLoaded >= totalImgs) startExperience();
+            };
+            if (img.complete) onLoad(); else img.addEventListener('load', onLoad);
+            img.addEventListener('error', onLoad); // don't block on errors
+        });
+
+        // Fallback — start after 2.5s regardless
+        setTimeout(startExperience, 2500);
+
+        let started = false;
+        function startExperience() {
+            if (started) return;
+            started = true;
+            const veil = document.getElementById('veil');
+            veil.classList.add('gone');
+            setTimeout(() => {
+                veil.remove();
+                tileEls.forEach(el => el.classList.add('rendered'));
+            }, 900);
+        }
+
+        // ═══════════════════════════════════════════════
+        //  MOUSE PARALLAX
+        // ═══════════════════════════════════════════════
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let currentX = mouseX;
+        let currentY = mouseY;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            // Move cursor elements
+            document.getElementById('cursor-dot').style.left = e.clientX + 'px';
+            document.getElementById('cursor-dot').style.top = e.clientY + 'px';
+            document.getElementById('cursor-ring').style.left = e.clientX + 'px';
+            document.getElementById('cursor-ring').style.top = e.clientY + 'px';
+        });
+
+        const MAX_SHIFT = 60; // px max shift at depth=1
+
+        function tick() {
+            // Smooth lerp towards mouse position
+            currentX += (mouseX - currentX) * 0.07;
+            currentY += (mouseY - currentY) * 0.07;
+
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+            const normX = (currentX - cx) / cx; // -1 to +1
+            const normY = (currentY - cy) / cy;
+
+            tileEls.forEach(el => {
+                const depth = parseFloat(el.getAttribute('data-depth'));
+                const baseRot = parseFloat(el.getAttribute('data-base-rot'));
+                const tx = normX * MAX_SHIFT * depth;
+                const ty = normY * MAX_SHIFT * depth;
+                // Subtle tilt based on horizontal mouse position
+                const tilt = normX * depth * 1.5;
+                el.style.transform = `translate(${tx}px, ${ty}px) rotate(${baseRot + tilt}deg)`;
+            });
+
+            requestAnimationFrame(tick);
+        }
+        tick();
+
+        // ═══════════════════════════════════════════════
+        //  HIDE HINT on first move
+        // ═══════════════════════════════════════════════
+        let hintHidden = false;
+        document.addEventListener('mousemove', () => {
+            if (!hintHidden) {
+                hintHidden = true;
+                document.getElementById('hint').classList.add('hidden');
+            }
+        }, { once: true });
+    </script>
+</body>
+
+</html>
