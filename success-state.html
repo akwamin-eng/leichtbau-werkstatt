@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leichtbau Werkstatt | Transmission Received</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        accent: "#3B82F6",
+                        "neon-orange": "#FF4D00",
+                        "background-light": "#F5F5F0", // Light beige/off-white
+                        "background-dark": "#050505",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0px",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .grotesk-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-primary flex flex-col min-h-screen">
+<nav class="fixed w-full z-50 px-6 py-6 flex justify-between items-center">
+<div class="text-center opacity-0 pointer-events-none">
+</div>
+<button class="md:hidden text-black">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+<main class="flex-grow flex flex-col items-center justify-center px-6 relative">
+<div class="max-w-2xl w-full text-center flex flex-col items-center animate-fade-in-up">
+<div class="mb-12 relative">
+<div class="w-32 h-32 md:w-40 md:h-40 relative flex items-center justify-center">
+<img alt="Leichtbau Werkstatt Mark" class="w-full h-full object-contain mix-blend-multiply opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A" style="clip-path: circle(22% at 50% 15%); transform: scale(3);"/>
+</div>
+</div>
+<h1 class="grotesk-display text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 leading-tight">
+                Transmission<br/>Received.
+            </h1>
+<div class="max-w-md mx-auto space-y-6 mb-16">
+<p class="font-light text-sm md:text-base leading-relaxed text-gray-800">
+                    Our team is reviewing your project. Expect a response within 48 hours. In the meantime, discover our latest builds.
+                </p>
+</div>
+<a class="inline-block bg-black text-white px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange hover:text-white transition-colors duration-300" href="#">
+                Back to Gallery
+            </a>
+</div>
+<div class="fixed top-0 left-0 w-full h-2 bg-black z-50"></div>
+<div class="fixed bottom-0 left-0 w-full h-2 bg-black z-50"></div>
+<div class="fixed left-0 top-0 h-full w-2 bg-black z-50 hidden md:block"></div>
+<div class="fixed right-0 top-0 h-full w-2 bg-black z-50 hidden md:block"></div>
+<div class="absolute top-12 left-12 w-4 h-4 border-l-2 border-t-2 border-black hidden md:block"></div>
+<div class="absolute top-12 right-12 w-4 h-4 border-r-2 border-t-2 border-black hidden md:block"></div>
+<div class="absolute bottom-12 left-12 w-4 h-4 border-l-2 border-b-2 border-black hidden md:block"></div>
+<div class="absolute bottom-12 right-12 w-4 h-4 border-r-2 border-b-2 border-black hidden md:block"></div>
+</main>
+<footer class="absolute bottom-6 w-full text-center pb-4">
+<p class="text-[10px] uppercase tracking-widest font-mono text-gray-500">
+            Leichtbau Werkstatt // Munich
+        </p>
+</footer>
+
+</body></html>
