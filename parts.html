@@ -226,7 +226,13 @@
         </div>
 
         <!-- Grid -->
-        <div id="parts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800"><div class="p-12 text-center col-span-full"><p class="mono text-xs uppercase tracking-widest text-gray-500 animate-pulse">Loading Live Inventory from Shopify...</p></div></div><!-- /parts-grid -->
+        <div id="parts-grid"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800">
+            <div class="p-12 text-center col-span-full">
+                <p class="mono text-xs uppercase tracking-widest text-gray-500 animate-pulse">Loading Live Inventory
+                    from Shopify...</p>
+            </div>
+        </div><!-- /parts-grid -->
 
         <!-- Custom Order CTA -->
         <div
@@ -265,7 +271,7 @@
         <span class="material-symbols-outlined text-xl">contrast</span>
     </button>
 
-    
+
     <script>
         // ── Cursor ──
         const cursor = document.getElementById('cursor');
@@ -289,7 +295,7 @@
         initReveals();
 
         // ── SHOPIFY INTEGRATION ──
-        const domain = 'leichtbauwerkstatt.myshopify.com';
+        const domain = 'www.leichtbauwerkstatt.com';
         const storefrontAccessToken = '926696394506a6845f32593799e52fa1';
         const apiVersion = '2024-01';
 
@@ -364,7 +370,7 @@
                 const price = variant?.price?.amount ? parseFloat(variant.price.amount) : 0;
                 const currency = variant?.price?.currencyCode || 'EUR';
                 const vId = variant?.id || '';
-                
+
                 const imgUrl = p.images.edges[0]?.node?.url || 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80';
                 const type = p.productType || 'Part';
                 const formattedPrice = new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(price);
@@ -410,8 +416,8 @@
         // ── Cart State ──
         let cart = {};
 
-        function formatPriceStr(amount, currency = 'EUR') { 
-            return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount); 
+        function formatPriceStr(amount, currency = 'EUR') {
+            return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
         }
 
         function updateCartUI() {
@@ -421,7 +427,7 @@
             const countEl = document.getElementById('cart-count');
             countEl.textContent = count;
             count > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
-            
+
             // Assume single currency for display simplicity
             const currency = items.length > 0 ? items[0].currency : 'EUR';
             document.getElementById('cart-total').textContent = formatPriceStr(total, currency);
@@ -452,27 +458,27 @@
             `).join('');
         }
 
-        window.changeQty = function(id, delta) {
+        window.changeQty = function (id, delta) {
             if (!cart[id]) return;
             cart[id].qty = Math.max(0, cart[id].qty + delta);
             if (cart[id].qty === 0) delete cart[id];
             updateCartUI();
         }
 
-        window.removeItem = function(id) { delete cart[id]; updateCartUI(); }
+        window.removeItem = function (id) { delete cart[id]; updateCartUI(); }
 
         function attachCartListeners() {
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const id = btn.dataset.id;
                     if (cart[id]) { cart[id].qty++; } else {
-                        cart[id] = { 
-                            id, 
-                            name: btn.dataset.name, 
-                            price: parseFloat(btn.dataset.price), 
+                        cart[id] = {
+                            id,
+                            name: btn.dataset.name,
+                            price: parseFloat(btn.dataset.price),
                             currency: btn.dataset.currency,
                             img: btn.dataset.img,
-                            qty: 1 
+                            qty: 1
                         };
                     }
                     updateCartUI();
