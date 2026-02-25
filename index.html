@@ -523,9 +523,10 @@
                     </p>
                 </div>
                 <div class="w-full md:w-auto flex-1">
-                    <form class="flex flex-col gap-4 w-full">
+                    <form class="flex flex-col gap-4 w-full" name="commission-list" method="POST" data-netlify="true"
+                        action="/success-state.html">
                         <div class="relative group">
-                            <input
+                            <input name="email"
                                 class="w-full bg-transparent border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-neon-orange text-lg font-mono placeholder:text-white/30 transition-colors rounded-none cursor-hover-target"
                                 placeholder="ENTER YOUR EMAIL" required="" type="email" />
                             <div

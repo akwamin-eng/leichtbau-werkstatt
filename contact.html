@@ -228,21 +228,22 @@
                     Tell us about your machine. We take on a limited number of builds each year to ensure uncompromising
                     quality.
                 </p>
-                <form class="space-y-12">
+                <form class="space-y-12" name="project-inquiry" method="POST" data-netlify="true"
+                    action="/success-state.html">
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group">
                             <label
                                 class="block text-[10px] uppercase tracking-widest mb-2 text-gray-500 group-focus-within:text-neon-orange transition-colors">Name</label>
-                            <input
+                            <input name="name"
                                 class="w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder:text-gray-300 dark:placeholder:text-zinc-700"
-                                placeholder="Your Name" type="text" />
+                                placeholder="Your Name" type="text" required />
                         </div>
                         <div class="group">
                             <label
                                 class="block text-[10px] uppercase tracking-widest mb-2 text-gray-500 group-focus-within:text-neon-orange transition-colors">Email</label>
-                            <input
+                            <input name="email"
                                 class="w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder:text-gray-300 dark:placeholder:text-zinc-700"
-                                placeholder="email@address.com" type="email" />
+                                placeholder="email@address.com" type="email" required />
                         </div>
                     </div>
                     <div class="group">
@@ -275,7 +276,7 @@
                     <div class="group">
                         <label
                             class="block text-[10px] uppercase tracking-widest mb-2 text-gray-500 group-focus-within:text-neon-orange transition-colors">Message</label>
-                        <textarea
+                        <textarea name="message"
                             class="w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder:text-gray-300 dark:placeholder:text-zinc-700 resize-none"
                             placeholder="Tell us about the vehicle and your vision..." rows="4"></textarea>
                     </div>

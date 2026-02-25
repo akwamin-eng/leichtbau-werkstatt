@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Leichtbau Werkstatt | Transmission Received</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-<script>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Leichtbau Werkstatt | Transmission Received</title>
+    <meta name="description"
+        content="Thank you for contacting Leichtbau Werkstatt. We have received your inquiry and will be in touch shortly." />
+    <meta name="robots" content="noindex" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -31,7 +40,7 @@
             },
         };
     </script>
-<style type="text/tailwindcss">
+    <style type="text/tailwindcss">
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -41,104 +50,129 @@
         }
     </style>
 </head>
+
 <body class="bg-background-light text-primary flex flex-col min-h-screen">
-<nav class="fixed w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent">
-    <!-- Left: Builds + Parts -->
-    <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="index.html#builds">
+    <nav
+        class="fixed w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent">
+        <!-- Left: Builds + Parts -->
+        <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
+                href="index.html#builds">
                 Builds
-                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
             </a>
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="parts.html">
+            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
+                href="parts.html">
                 Parts
-                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
             </a>
-    </div>
-    <!-- Center: Logo -->
-    <div class="text-center cursor-hover-target">
-        <a href="index.html">
-            <img alt="Leichtbau Werkstatt Logo" class="h-16 w-auto brightness-0 invert" src="assets/logo-color.png"/>
-        </a>
-    </div>
-    <!-- Right: Gallery + Connect -->
-    <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="collection-gallery.html">
-                Gallery
-                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-neon-orange" href="contact.html">
-                Connect
-                <span class="absolute -bottom-1 left-0 w-full h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-    </div>
-    <!-- Mobile menu button -->
-    <button class="md:hidden text-white cursor-hover-target" id="mobile-menu-btn" aria-label="Open menu">
-        <span class="material-symbols-outlined">menu</span>
-    </button>
-</nav>
-<!-- Mobile Drawer -->
-<div id="mobile-drawer" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
-    <div id="mobile-overlay" class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300"></div>
-    <div id="mobile-panel" class="absolute right-0 top-0 h-full w-72 bg-black shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-        <div class="flex items-center justify-between p-6 border-b border-white/10">
-            <a href="index.html"><img alt="Logo" class="h-10 w-auto brightness-0 invert" src="assets/logo-color.png"/></a>
-            <button id="mobile-close-btn" aria-label="Close menu" class="text-white"><span class="material-symbols-outlined">close</span></button>
         </div>
-        <nav class="flex-1 flex flex-col justify-center px-8 space-y-8">
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="index.html#builds">Builds</a>
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="parts.html">Parts</a>
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="collection-gallery.html">Gallery</a>
-            <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors" href="contact.html">Connect</a>
-        </nav>
+        <!-- Center: Logo -->
+        <div class="text-center cursor-hover-target">
+            <a href="index.html">
+                <img alt="Leichtbau Werkstatt Logo" class="h-16 w-auto brightness-0 invert"
+                    src="assets/logo-color.png" />
+            </a>
+        </div>
+        <!-- Right: Gallery + Connect -->
+        <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
+                href="collection-gallery.html">
+                Gallery
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-neon-orange"
+                href="contact.html">
+                Connect
+                <span
+                    class="absolute -bottom-1 left-0 w-full h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </div>
+        <!-- Mobile menu button -->
+        <button class="md:hidden text-white cursor-hover-target" id="mobile-menu-btn" aria-label="Open menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </nav>
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
+        <div id="mobile-overlay" class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300"></div>
+        <div id="mobile-panel"
+            class="absolute right-0 top-0 h-full w-72 bg-black shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <a href="index.html"><img alt="Logo" class="h-10 w-auto brightness-0 invert"
+                        src="assets/logo-color.png" /></a>
+                <button id="mobile-close-btn" aria-label="Close menu" class="text-white"><span
+                        class="material-symbols-outlined">close</span></button>
+            </div>
+            <nav class="flex-1 flex flex-col justify-center px-8 space-y-8">
+                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
+                    href="index.html#builds">Builds</a>
+                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
+                    href="parts.html">Parts</a>
+                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
+                    href="collection-gallery.html">Gallery</a>
+                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors"
+                    href="contact.html">Connect</a>
+            </nav>
+        </div>
     </div>
-</div>
-<script>
-(function() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const drawer = document.getElementById('mobile-drawer');
-    const overlay = document.getElementById('mobile-overlay');
-    const panel = document.getElementById('mobile-panel');
-    const closeBtn = document.getElementById('mobile-close-btn');
-    if (!btn || !drawer) return;
-    function openMenu() { drawer.classList.remove('pointer-events-none'); overlay.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); document.body.style.overflow = 'hidden'; }
-    function closeMenu() { overlay.classList.remove('opacity-100'); panel.classList.add('translate-x-full'); document.body.style.overflow = ''; setTimeout(() => drawer.classList.add('pointer-events-none'), 300); }
-    btn.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-})();
-</script>
-<main class="flex-grow flex flex-col items-center justify-center px-6 relative">
-<div class="max-w-2xl w-full text-center flex flex-col items-center animate-fade-in-up">
-<div class="mb-12 relative">
-<div class="w-32 h-32 md:w-40 md:h-40 relative flex items-center justify-center">
-<img alt="Leichtbau Werkstatt Mark" class="w-full h-full object-contain mix-blend-multiply opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A" style="clip-path: circle(22% at 50% 15%); transform: scale(3);"/>
-</div>
-</div>
-<h1 class="grotesk-display text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 leading-tight">
-                Transmission<br/>Received.
+    <script>
+        (function () {
+            const btn = document.getElementById('mobile-menu-btn');
+            const drawer = document.getElementById('mobile-drawer');
+            const overlay = document.getElementById('mobile-overlay');
+            const panel = document.getElementById('mobile-panel');
+            const closeBtn = document.getElementById('mobile-close-btn');
+            if (!btn || !drawer) return;
+            function openMenu() { drawer.classList.remove('pointer-events-none'); overlay.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); document.body.style.overflow = 'hidden'; }
+            function closeMenu() { overlay.classList.remove('opacity-100'); panel.classList.add('translate-x-full'); document.body.style.overflow = ''; setTimeout(() => drawer.classList.add('pointer-events-none'), 300); }
+            btn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+        })();
+    </script>
+    <main class="flex-grow flex flex-col items-center justify-center px-6 relative">
+        <div class="max-w-2xl w-full text-center flex flex-col items-center animate-fade-in-up">
+            <div class="mb-12 relative">
+                <div class="w-32 h-32 md:w-40 md:h-40 relative flex items-center justify-center">
+                    <img alt="Leichtbau Werkstatt Mark"
+                        class="w-full h-full object-contain mix-blend-multiply opacity-90"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A"
+                        style="clip-path: circle(22% at 50% 15%); transform: scale(3);" />
+                </div>
+            </div>
+            <h1 class="grotesk-display text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 leading-tight">
+                Transmission<br />Received.
             </h1>
-<div class="max-w-md mx-auto space-y-6 mb-16">
-<p class="font-light text-sm md:text-base leading-relaxed text-gray-800">
-                    Our team is reviewing your project. Expect a response within 48 hours. In the meantime, discover our latest builds.
+            <div class="max-w-md mx-auto space-y-6 mb-16">
+                <p class="font-light text-sm md:text-base leading-relaxed text-gray-800">
+                    Our team is reviewing your project. Expect a response within 48 hours. In the meantime, discover our
+                    latest builds.
                 </p>
-</div>
-<a class="inline-block bg-black text-white px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange hover:text-white transition-colors duration-300" href="#">
+            </div>
+            <a class="inline-block bg-black text-white px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange hover:text-white transition-colors duration-300"
+                href="#">
                 Back to Gallery
             </a>
-</div>
-<div class="fixed top-0 left-0 w-full h-2 bg-black z-50"></div>
-<div class="fixed bottom-0 left-0 w-full h-2 bg-black z-50"></div>
-<div class="fixed left-0 top-0 h-full w-2 bg-black z-50 hidden md:block"></div>
-<div class="fixed right-0 top-0 h-full w-2 bg-black z-50 hidden md:block"></div>
-<div class="absolute top-12 left-12 w-4 h-4 border-l-2 border-t-2 border-black hidden md:block"></div>
-<div class="absolute top-12 right-12 w-4 h-4 border-r-2 border-t-2 border-black hidden md:block"></div>
-<div class="absolute bottom-12 left-12 w-4 h-4 border-l-2 border-b-2 border-black hidden md:block"></div>
-<div class="absolute bottom-12 right-12 w-4 h-4 border-r-2 border-b-2 border-black hidden md:block"></div>
-</main>
-<footer class="absolute bottom-6 w-full text-center pb-4">
-<p class="text-[10px] uppercase tracking-widest font-mono text-gray-500">
+        </div>
+        <div class="fixed top-0 left-0 w-full h-2 bg-black z-50"></div>
+        <div class="fixed bottom-0 left-0 w-full h-2 bg-black z-50"></div>
+        <div class="fixed left-0 top-0 h-full w-2 bg-black z-50 hidden md:block"></div>
+        <div class="fixed right-0 top-0 h-full w-2 bg-black z-50 hidden md:block"></div>
+        <div class="absolute top-12 left-12 w-4 h-4 border-l-2 border-t-2 border-black hidden md:block"></div>
+        <div class="absolute top-12 right-12 w-4 h-4 border-r-2 border-t-2 border-black hidden md:block"></div>
+        <div class="absolute bottom-12 left-12 w-4 h-4 border-l-2 border-b-2 border-black hidden md:block"></div>
+        <div class="absolute bottom-12 right-12 w-4 h-4 border-r-2 border-b-2 border-black hidden md:block"></div>
+    </main>
+    <footer class="absolute bottom-6 w-full text-center pb-4">
+        <p class="text-[10px] uppercase tracking-widest font-mono text-gray-500">
             Leichtbau Werkstatt // Munich
         </p>
-</footer>
+    </footer>
 
-</body></html>
+</body>
+
+</html>
