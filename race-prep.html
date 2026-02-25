@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Race Prep | Leichtbau Werkstatt</title>
+    <meta name="description"
+        content="Season-ready race preparation — corner weights, alignment, safety compliance, and data logging. Leichtbau Werkstatt gets you to the grid." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'neon-orange': '#E8642A', 'primary': '#0A0A0A' }, fontFamily: { grotesk: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], serif: ['Playfair Display', 'serif'] } } } };</script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 72px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        nav .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+            margin-left: 2rem;
+        }
+
+        nav .nav-links a:hover {
+            color: #E8642A;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            filter: brightness(0.3) contrast(1.15) saturate(1.2);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0a0a0a 0%, rgba(10, 10, 10, 0.3) 50%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 3rem 5rem;
+            max-width: 900px;
+        }
+
+        .process-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #E8642A;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            line-height: 0.9;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .ticker-wrap {
+            background: #E8642A;
+            overflow: hidden;
+            height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: ticker 28s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0 3rem;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        section {
+            padding: 8rem 3rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .overline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #E8642A;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .body-text {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.55);
+            max-width: 540px;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .split img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+        }
+
+        .service-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 3rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .service-row:first-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .service-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #E8642A;
+            letter-spacing: 0.2em;
+            min-width: 44px;
+            padding-top: 4px;
+        }
+
+        .service-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .service-detail {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.65;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid rgba(232, 100, 42, 0.35);
+            color: rgba(232, 100, 42, 0.8);
+            padding: 0.25rem 0.75rem;
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .stat {
+            background: #0a0a0a;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #E8642A;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 0.4rem;
+        }
+
+        .cta-block {
+            background: #0f0f0f;
+            border: 1px solid rgba(232, 100, 42, 0.25);
+            padding: 5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: #fff;
+            font-style: italic;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #E8642A;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #d0561f;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: border-color 0.2s;
+            margin-left: 1rem;
+        }
+
+        .btn-ghost:hover {
+            border-color: #E8642A;
+            color: #E8642A;
+        }
+
+        @media(max-width:768px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .split {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta-block {
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="main-nav">
+        <div class="nav-links" style="display:flex;">
+            <a href="index.html#builds">Builds</a>
+            <a href="parts.html">Parts</a>
+        </div>
+        <div class="nav-logo"><a href="index.html"><img src="assets/logo-white.png" alt="Leichtbau Werkstatt" /></a>
+        </div>
+        <div class="nav-links" style="display:flex;justify-content:flex-end;">
+            <a href="collection-gallery.html">Gallery</a>
+            <a href="contact.html">Connect</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-bg">
+            <img src="assets/race-prep-bmw.png" alt="Blue BMW E30 race car — Race Prep" />
+        </div>
+        <div class="hero-content">
+            <span class="process-tag">Process 02 &nbsp;/&nbsp; Leichtbau Werkstatt</span>
+            <h1 class="hero-title">RACE<br />PREP</h1>
+            <p class="hero-sub">From garage to grid. Season-ready.</p>
+        </div>
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker-track">
+            <span class="ticker-item">Corner Weights</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Alignment Setup</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Safety Compliance</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Data Logging</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Tech Inspection Ready</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Driver Fitout</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Corner Weights</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Alignment Setup</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Safety Compliance</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Data Logging</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Tech Inspection Ready</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Driver Fitout</span><span class="ticker-item">—</span>
+        </div>
+    </div>
+
+    <section>
+        <div class="section-inner split">
+            <div>
+                <span class="overline">The Service</span>
+                <h2 class="section-title">Built for<br /><em
+                        style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;">the limit.</em>
+                </h2>
+                <p class="body-text" style="margin-top:2rem;">Race prep isn't an oil change and a prayer. It's a
+                    systematic, documented process that ensures your car arrives at the circuit compliant, balanced, and
+                    ready to be driven at its absolute limit — safely.</p>
+                <p class="body-text" style="margin-top:1.5rem;">We've prepped cars for hillclimb, circuit racing,
+                    trackday series, and time attack. The process is the same regardless of class: methodical,
+                    mechanical, honest.</p>
+            </div>
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY6WhjWFtVXEYtkZT642eBwczf0uND9NuR_guLBWUHpcBmnz1i6JeoJqxooBhGAWDD8op25qD64xGFRjU1L3aVX8BLSdvi0inkvdiGRXjlTO2GYi9LYPt6rUYyzdIQcCo9lmIbbApKT-yX4CSV4KWnAHOdsOdTDFyN00DnlLADflEqS4Ww2tBH1uNLqRFCDnVrRPid3zOnsYsJHafBkwBqsBHfOvwIGX1GWsZPxOdDkNnHwsSr51tfrPNkBuKbTvN4Cr7kzxW2wzw"
+                alt="Engine assembly" style="filter:grayscale(100%);" />
+        </div>
+    </section>
+
+    <section style="padding:0 3rem 6rem;">
+        <div class="section-inner">
+            <div class="stat-row">
+                <div class="stat">
+                    <div class="stat-val">12+</div>
+                    <div class="stat-label">Classes prepped</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">100%</div>
+                    <div class="stat-label">Tech pass rate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">FIA</div>
+                    <div class="stat-label">&amp; DMSB compliant</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">Pre-</div>
+                    <div class="stat-label">season slots open</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background:#050505;">
+        <div class="section-inner">
+            <span class="overline">Services Included</span>
+            <h2 class="section-title" style="margin-bottom:4rem;">Everything it takes<br />to pass scrutineering.</h2>
+
+            <div class="service-row">
+                <div class="service-num">01</div>
+                <div>
+                    <div class="service-name">Corner Weight &amp; Ballast</div>
+                    <div class="service-detail">Four-corner weight measurement and correction via spring preload and
+                        ballast placement. We target your class minimum and optimise cross-weight for your circuit type.
+                    </div>
+                    <div class="service-tags"><span class="tag">Scales</span><span class="tag">Spring rate
+                            matching</span><span class="tag">Ballast calc</span></div>
+                </div>
+            </div>
+            <div class="service-row">
+                <div class="service-num">02</div>
+                <div>
+                    <div class="service-name">Race Alignment Setup</div>
+                    <div class="service-detail">Camber, toe, and caster set to your circuit geometry. We work from your
+                        tyre manufacturer's data and track experience — not a factory road spec.</div>
+                    <div class="service-tags"><span class="tag">4-wheel alignment jig</span><span class="tag">Camber
+                            boards</span><span class="tag">Session notes</span></div>
+                </div>
+            </div>
+            <div class="service-row">
+                <div class="service-num">03</div>
+                <div>
+                    <div class="service-name">Safety Compliance Check</div>
+                    <div class="service-detail">Full scrutineering simulation: cage measurement, harness expiry, seat
+                        mounting, fire system inspection, and roll hoop homologation document verification.</div>
+                    <div class="service-tags"><span class="tag">FIA SFI</span><span class="tag">Harness
+                            check</span><span class="tag">Extinguisher cert</span></div>
+                </div>
+            </div>
+            <div class="service-row">
+                <div class="service-num">04</div>
+                <div>
+                    <div class="service-name">Fluid &amp; Consumable Service</div>
+                    <div class="service-detail">Racing brake fluid flush, gear oil, diff oil, coolant concentration, and
+                        tyre pressure baseline. Nothing carries over from last season dirty.</div>
+                    <div class="service-tags"><span class="tag">Castrol React</span><span class="tag">Full
+                            flush</span><span class="tag">Coolant spec</span></div>
+                </div>
+            </div>
+            <div class="service-row">
+                <div class="service-num">05</div>
+                <div>
+                    <div class="service-name">Data System Setup</div>
+                    <div class="service-detail">AiM, MoTeC, or Starlane logger configuration. Channel mapping, trigger
+                        wheel verification, and download template creation so you have clean data from lap one.</div>
+                    <div class="service-tags"><span class="tag">AiM EVO5</span><span class="tag">MoTeC C125</span><span
+                            class="tag">GPS module</span></div>
+                </div>
+            </div>
+            <div class="service-row">
+                <div class="service-num">06</div>
+                <div>
+                    <div class="service-name">Pre-Event Document Pack</div>
+                    <div class="service-detail">We compile your homologation papers, log book annotations, extinguisher
+                        certification, and harness docs into a single scrutineering folder. You drive — we handle the
+                        paperwork.</div>
+                    <div class="service-tags"><span class="tag">Logbook</span><span class="tag">Homologation
+                            doc</span><span class="tag">Cert folder</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-inner">
+            <div class="cta-block">
+                <div>
+                    <span class="overline" style="margin-bottom:1rem;">Book your prep slot</span>
+                    <div class="cta-title">Race season starts<br />before the first event.</div>
+                </div>
+                <div>
+                    <a href="contact.html" class="btn-primary">Reserve a Slot</a>
+                    <a href="assembly.html" class="btn-ghost">Assembly Service →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        style="border-top:1px solid rgba(255,255,255,0.07);padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <img src="assets/logo-white.png" alt="Leichtbau Werkstatt" style="height:32px;width:auto;opacity:0.6;" />
+        <span
+            style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);">©
+            2025 Leichtbau Werkstatt — Munich</span>
+        <a href="contact.html"
+            style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">Connect
+            →</a>
+    </footer>
+</body>
+
+</html>

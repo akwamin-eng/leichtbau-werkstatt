@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assembly | Leichtbau Werkstatt</title>
+    <meta name="description"
+        content="Precision mechanical assembly — engine rebuilds, drivetrain overhauls, and final build sign-off. Every bolt torqued. Every seal replaced. Leichtbau Werkstatt." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'neon-orange': '#E8642A', 'primary': '#0A0A0A' }, fontFamily: { grotesk: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], serif: ['Playfair Display', 'serif'] } } } };</script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 72px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        nav .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+            margin-left: 2rem;
+        }
+
+        nav .nav-links a:hover {
+            color: #E8642A;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.25) contrast(1.2);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0a0a0a 0%, rgba(10, 10, 10, 0.25) 55%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 3rem 5rem;
+            max-width: 900px;
+        }
+
+        .process-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #E8642A;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            line-height: 0.9;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        section {
+            padding: 8rem 3rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .overline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #E8642A;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .body-text {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.55);
+            max-width: 540px;
+        }
+
+        /* Accordion-style specs */
+        .spec-accordion {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .spec-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .spec-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .spec-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #E8642A;
+            letter-spacing: 0.2em;
+            min-width: 44px;
+        }
+
+        .spec-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            flex: 1;
+        }
+
+        .spec-arrow {
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .spec-body {
+            padding: 0 0 2rem 84px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        details[open] .spec-arrow {
+            transform: rotate(90deg);
+        }
+
+        details[open] .spec-title {
+            color: #E8642A;
+        }
+
+        /* Gallery masonry */
+        .masonry {
+            columns: 3;
+            gap: 4px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 4px;
+            overflow: hidden;
+            display: block;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.5s, transform 0.5s;
+        }
+
+        .masonry-item:hover img {
+            filter: grayscale(0);
+            transform: scale(1.04);
+        }
+
+        /* Stats */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .stat {
+            background: #0a0a0a;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #E8642A;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 0.4rem;
+        }
+
+        /* Quote */
+        .quote-block {
+            border-left: 3px solid #E8642A;
+            padding: 2rem 3rem;
+            background: #0d0d0d;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .quote-attr {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 1.2rem;
+        }
+
+        /* CTA */
+        .cta-block {
+            background: #0f0f0f;
+            border: 1px solid rgba(232, 100, 42, 0.25);
+            padding: 5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: #fff;
+            font-style: italic;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #E8642A;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #d0561f;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: border-color 0.2s;
+            margin-left: 1rem;
+        }
+
+        .btn-ghost:hover {
+            border-color: #E8642A;
+            color: #E8642A;
+        }
+
+        @media(max-width:768px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .masonry {
+                columns: 2;
+            }
+
+            .cta-block {
+                padding: 3rem 2rem;
+            }
+
+            .spec-body {
+                padding: 0 0 1.5rem 52px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="main-nav">
+        <div class="nav-links" style="display:flex;">
+            <a href="index.html#builds">Builds</a>
+            <a href="parts.html">Parts</a>
+        </div>
+        <div class="nav-logo"><a href="index.html"><img src="assets/logo-white.png" alt="Leichtbau Werkstatt" /></a>
+        </div>
+        <div class="nav-links" style="display:flex;justify-content:flex-end;">
+            <a href="collection-gallery.html">Gallery</a>
+            <a href="contact.html">Connect</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-bg">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY6WhjWFtVXEYtkZT642eBwczf0uND9NuR_guLBWUHpcBmnz1i6JeoJqxooBhGAWDD8op25qD64xGFRjU1L3aVX8BLSdvi0inkvdiGRXjlTO2GYi9LYPt6rUYyzdIQcCo9lmIbbApKT-yX4CSV4KWnAHOdsOdTDFyN00DnlLADflEqS4Ww2tBH1uNLqRFCDnVrRPid3zOnsYsJHafBkwBqsBHfOvwIGX1GWsZPxOdDkNnHwsSr51tfrPNkBuKbTvN4Cr7kzxW2wzw"
+                alt="Engine assembly detail" />
+        </div>
+        <div class="hero-content">
+            <span class="process-tag">Process 03 &nbsp;/&nbsp; Leichtbau Werkstatt</span>
+            <h1 class="hero-title">ASSEM<br />BLY</h1>
+            <p class="hero-sub">Every bolt torqued. Every seal replaced.</p>
+        </div>
+    </div>
+
+    <section>
+        <div class="section-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;">
+            <div>
+                <span class="overline">The Philosophy</span>
+                <h2 class="section-title">Mechanical<br /><em
+                        style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;">obsession.</em>
+                </h2>
+                <p class="body-text" style="margin-top:2rem;">Assembly is where everything either comes together
+                    correctly — or eventually fails catastrophically at speed. We don't build fast cars. We build cars
+                    that are built correctly, which then happen to be fast.</p>
+                <p class="body-text" style="margin-top:1.5rem;">Every component carries a torque spec. Every gasket gets
+                    its proper compression. Every bearing gets its clearance measured — not assumed. This is what
+                    mechanical respect looks like.</p>
+            </div>
+            <div class="quote-block">
+                <div class="quote-text">"The details are not the details. They make the design."</div>
+                <div class="quote-attr">— Charles Eames</div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding:0 3rem 6rem;">
+        <div class="section-inner">
+            <div class="stat-row">
+                <div class="stat">
+                    <div class="stat-val">ARP</div>
+                    <div class="stat-label">Hardware standard</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">OEM+</div>
+                    <div class="stat-label">Spec or better</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">0</div>
+                    <div class="stat-label">Assumed clearances</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">Full</div>
+                    <div class="stat-label">Build documentation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background:#050505;">
+        <div class="section-inner">
+            <span class="overline">Assembly Services</span>
+            <h2 class="section-title" style="margin-bottom:4rem;">What we build.</h2>
+
+            <div class="spec-accordion">
+                <details class="spec-item">
+                    <summary class="spec-header">
+                        <span class="spec-num">01</span>
+                        <span class="spec-title">Engine Rebuild</span>
+                        <span class="spec-arrow">→</span>
+                    </summary>
+                    <div class="spec-body">Full disassembly, hot-tank cleaning, bearing clearance measurement with
+                        plastigauge, ring gap filing, and assembly with ARP hardware throughout. We use OEM or better
+                        sealing surfaces and apply correct torque sequences. Build sheet provided on delivery.</div>
+                </details>
+                <details class="spec-item">
+                    <summary class="spec-header">
+                        <span class="spec-num">02</span>
+                        <span class="spec-title">Gearbox &amp; Differential</span>
+                        <span class="spec-arrow">→</span>
+                    </summary>
+                    <div class="spec-body">Synchro replacement, bearing renewal, and gear selector rebuild. LSD service
+                        and rebuild including clutch pack inspection and shim stack adjustment. Sequential and
+                        dog-engagement box fitting and alignment.</div>
+                </details>
+                <details class="spec-item">
+                    <summary class="spec-header">
+                        <span class="spec-num">03</span>
+                        <span class="spec-title">Cooling System</span>
+                        <span class="spec-arrow">→</span>
+                    </summary>
+                    <div class="spec-body">Radiator, thermostat, water pump, and hose replacement with pressure test
+                        before sign-off. Racing applications: custom aluminium rad positioning, swirl pot installation,
+                        and overflow system plumbing.</div>
+                </details>
+                <details class="spec-item">
+                    <summary class="spec-header">
+                        <span class="spec-num">04</span>
+                        <span class="spec-title">Suspension &amp; Geometry</span>
+                        <span class="spec-arrow">→</span>
+                    </summary>
+                    <div class="spec-body">Full bush replacement in polyurethane or spherical rose joints depending on
+                        application. Coilover fitment, adjustable arm installation, and geometry baseline on our
+                        four-post jig after every suspension assembly.</div>
+                </details>
+                <details class="spec-item">
+                    <summary class="spec-header">
+                        <span class="spec-num">05</span>
+                        <span class="spec-title">Braking System</span>
+                        <span class="spec-arrow">→</span>
+                    </summary>
+                    <div class="spec-body">Caliper rebuild or replacement, big brake kit fitting, braided line
+                        installation, and brake bias bar setup for competition cars. Master cylinder sizing and pedal
+                        box geometry verification included.</div>
+                </details>
+                <details class="spec-item">
+                    <summary class="spec-header">
+                        <span class="spec-num">06</span>
+                        <span class="spec-title">Final Sign-Off</span>
+                        <span class="spec-arrow">→</span>
+                    </summary>
+                    <div class="spec-body">Full torque verification of all critical fasteners. Fluid fill and bleed.
+                        Cold and warm idle adjustment. Short road test or dyno pull (where applicable) with notes.
+                        Delivery with complete build documentation folder.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-inner">
+            <div class="cta-block">
+                <div>
+                    <span class="overline" style="margin-bottom:1rem;">Start a build</span>
+                    <div class="cta-title">Bring us a project.<br />We'll build it right.</div>
+                </div>
+                <div>
+                    <a href="contact.html" class="btn-primary">Enquire Now</a>
+                    <a href="fabrication.html" class="btn-ghost">Fabrication →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        style="border-top:1px solid rgba(255,255,255,0.07);padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <img src="assets/logo-white.png" alt="Leichtbau Werkstatt" style="height:32px;width:auto;opacity:0.6;" />
+        <span
+            style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);">©
+            2025 Leichtbau Werkstatt — Munich</span>
+        <a href="contact.html"
+            style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">Connect
+            →</a>
+    </footer>
+</body>
+
+</html>

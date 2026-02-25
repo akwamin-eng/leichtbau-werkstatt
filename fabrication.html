@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabrication | Leichtbau Werkstatt</title>
+    <meta name="description"
+        content="Hand-formed metalwork, roll cage construction, and structural restoration. Leichtbau Werkstatt Fabrication — where raw metal becomes precision engineering." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { 'neon-orange': '#E8642A', 'primary': '#0A0A0A' },
+                    fontFamily: {
+                        grotesk: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .grotesk-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 72px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        nav .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+            margin-left: 2rem;
+        }
+
+        nav .nav-links a:hover,
+        nav .nav-links a.active {
+            color: #E8642A;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.35) contrast(1.1);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0a0a0a 0%, rgba(10, 10, 10, 0.4) 50%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 3rem 5rem;
+            max-width: 900px;
+        }
+
+        .process-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #E8642A;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            line-height: 0.9;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 8rem 3rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .overline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #E8642A;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        h2.section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .body-text {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.55);
+            max-width: 540px;
+        }
+
+        /* CAPABILITIES GRID */
+        .cap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cap-item {
+            background: #0a0a0a;
+            padding: 2.5rem;
+            transition: background 0.3s;
+        }
+
+        .cap-item:hover {
+            background: #111;
+        }
+
+        .cap-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: #E8642A;
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+        }
+
+        .cap-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .cap-desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+        }
+
+        /* PROCESS STEPS */
+        .step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            align-items: start;
+        }
+
+        .step:first-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.12);
+            line-height: 1;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.7;
+        }
+
+        /* GALLERY STRIP */
+        .gallery-strip {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            grid-template-rows: 480px;
+            gap: 4px;
+        }
+
+        .gallery-strip .tall {
+            grid-row: span 1;
+        }
+
+        .gallery-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%);
+            transition: filter 0.6s, transform 0.6s;
+        }
+
+        .gallery-strip div:hover img {
+            filter: grayscale(0);
+            transform: scale(1.03);
+        }
+
+        .gallery-strip div {
+            overflow: hidden;
+        }
+
+        /* CTA */
+        .cta-block {
+            background: #0f0f0f;
+            border: 1px solid rgba(232, 100, 42, 0.25);
+            padding: 5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: #fff;
+            font-style: italic;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #E8642A;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #d0561f;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: border-color 0.2s;
+            margin-left: 1rem;
+        }
+
+        .btn-ghost:hover {
+            border-color: #E8642A;
+            color: #E8642A;
+        }
+
+        /* STAT ROW */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            margin: 5rem 0;
+        }
+
+        .stat {
+            background: #0a0a0a;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #E8642A;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 0.4rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .cap-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-strip {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 220px 220px;
+            }
+
+            .gallery-strip div:first-child {
+                grid-column: span 2;
+            }
+
+            .stat-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cta-block {
+                padding: 3rem 2rem;
+            }
+
+            .step {
+                grid-template-columns: 52px 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav id="main-nav">
+        <div class="nav-links" style="display:flex;">
+            <a href="index.html#builds">Builds</a>
+            <a href="parts.html">Parts</a>
+        </div>
+        <div class="nav-logo">
+            <a href="index.html"><img src="assets/logo-white.png" alt="Leichtbau Werkstatt" /></a>
+        </div>
+        <div class="nav-links" style="display:flex; justify-content:flex-end;">
+            <a href="collection-gallery.html">Gallery</a>
+            <a href="contact.html">Connect</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-bg">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXtaLjNvksE9tjIDP97mO3743Tiyyn_6phITSZTfoG64Zy90gJjwe0PS_ZVMmS5rKPN3k0Z8KDuOEH0DDrGcRj2dHNLfev1sUbknTrhInhvv04M1VzxYXmKsGGdRG8PHsj42ldPsN_5Us1Qt8-05sOhTYTXhQ2dT9nA6fFzHB3RwbbAFiqCG2cJfLGRBHpUnpPaq48zzLgI_6LWaGNHcxHfpE1YAr-clv298fRJjj2jrSowYSgNRrWkNv3NSWh8GX3yJZjy3z2G4Q"
+                alt="Welding fabrication sparks" />
+        </div>
+        <div class="hero-content">
+            <span class="process-tag">Process 01 &nbsp;/&nbsp; Leichtbau Werkstatt</span>
+            <h1 class="hero-title">FABRI<br />CATION</h1>
+            <p class="hero-sub">Metal as medium. Structure as statement.</p>
+        </div>
+    </div>
+
+    <!-- INTRO -->
+    <section style="padding-top: 7rem; padding-bottom: 5rem;">
+        <div class="section-inner" style="display:grid; grid-template-columns:1fr 1fr; gap: 6rem; align-items:center;">
+            <div>
+                <span class="overline">What We Do</span>
+                <h2 class="section-title">Steel shaped<br /><em class="serif-display font-normal"
+                        style="font-style:italic;">by hand.</em></h2>
+            </div>
+            <div>
+                <p class="body-text">Our fabrication work starts where every other shop stops. We hand-form panels,
+                    construct purpose-built roll cages, and restore structural metalwork to a standard that factory
+                    sheets never specified. Metal isn't a byproduct of our process — it's the whole point.</p>
+                <p class="body-text" style="margin-top:1.5rem;">Every weld is ground, inspected, and signed off before
+                    it leaves the bench. We don't hide our work behind filler — we let the metal speak for itself.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section style="padding: 0 3rem;">
+        <div class="section-inner">
+            <div class="stat-row">
+                <div class="stat">
+                    <div class="stat-val">18+</div>
+                    <div class="stat-label">Years fabricating</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">FIA</div>
+                    <div class="stat-label">Cage rated builds</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">TIG</div>
+                    <div class="stat-label">& MIG certified</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">0</div>
+                    <div class="stat-label">Compromises made</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section>
+        <div class="section-inner">
+            <span class="overline">Capabilities</span>
+            <h2 class="section-title" style="margin-bottom: 3rem;">What the shop<br />can do.</h2>
+            <div class="cap-grid">
+                <div class="cap-item">
+                    <div class="cap-num">01</div>
+                    <div class="cap-title">Roll Cage Construction</div>
+                    <div class="cap-desc">FIA-compliant multi-point cages built in chromoly or DOM steel. We design,
+                        bend, and weld in-house — no outsourced tubes.</div>
+                </div>
+                <div class="cap-item">
+                    <div class="cap-num">02</div>
+                    <div class="cap-title">Panel Fabrication</div>
+                    <div class="cap-desc">Hand-beaten aluminium and steel panels. Flared arches, replacement floors,
+                        custom firewalls — shaped to factory tolerances or beyond.</div>
+                </div>
+                <div class="cap-item">
+                    <div class="cap-num">03</div>
+                    <div class="cap-title">Structural Restoration</div>
+                    <div class="cap-desc">Rust-through repair, sill replacement, chassis rail reconstruction. Structural
+                        work is the foundation — we don't paint over problems.</div>
+                </div>
+                <div class="cap-item">
+                    <div class="cap-num">04</div>
+                    <div class="cap-title">Custom Metalwork</div>
+                    <div class="cap-desc">Dashboards, transmission tunnels, fuel cell enclosures, fire suppression
+                        mounts. If you can sketch it, we can build it.</div>
+                </div>
+                <div class="cap-item">
+                    <div class="cap-num">05</div>
+                    <div class="cap-title">Seam Welding</div>
+                    <div class="cap-desc">Full chassis seam welding for torsional rigidity — essential on any car that
+                        will be driven with intent at the limit.</div>
+                </div>
+                <div class="cap-item">
+                    <div class="cap-num">06</div>
+                    <div class="cap-title">Subframe Modification</div>
+                    <div class="cap-desc">Reinforcement plates, geometry corrections, and custom mounts for engines that
+                        didn't come in the car from the factory.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS STEPS -->
+    <section style="background: #050505;">
+        <div class="section-inner">
+            <span class="overline">Our Process</span>
+            <h2 class="section-title" style="margin-bottom: 4rem;">How a job moves<br />through the shop.</h2>
+            <div class="step">
+                <div class="step-num">01</div>
+                <div>
+                    <div class="step-title">Inspection & Measurement</div>
+                    <div class="step-desc">The car is stripped to bare metal where required. We map existing structure
+                        with a datum gauge and photograph every surface before a single cut is made.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <div>
+                    <div class="step-title">Design & Material Selection</div>
+                    <div class="step-desc">Depending on application — road restoration or full race build — we spec the
+                        correct alloy, wall thickness, and join geometry. We document this before we order steel.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <div>
+                    <div class="step-title">Fabrication & Fitment</div>
+                    <div class="step-desc">All cutting, bending, and welding happens in-house. Each piece is test-fitted
+                        before final weld. Roll cage nodes are verified geometrically before sign-off.</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">04</div>
+                <div>
+                    <div class="step-title">Inspection & Surface Prep</div>
+                    <div class="step-desc">Welds are dressed, ground, and inspected. Structural pieces are epoxy-primed
+                        before any subsequent process (paint, underseal, or assembly) proceeds.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY STRIP -->
+    <section style="padding: 0;">
+        <div class="gallery-strip">
+            <div>
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXtaLjNvksE9tjIDP97mO3743Tiyyn_6phITSZTfoG64Zy90gJjwe0PS_ZVMmS5rKPN3k0Z8KDuOEH0DDrGcRj2dHNLfev1sUbknTrhInhvv04M1VzxYXmKsGGdRG8PHsj42ldPsN_5Us1Qt8-05sOhTYTXhQ2dT9nA6fFzHB3RwbbAFiqCG2cJfLGRBHpUnpPaq48zzLgI_6LWaGNHcxHfpE1YAr-clv298fRJjj2jrSowYSgNRrWkNv3NSWh8GX3yJZjy3z2G4Q"
+                    alt="Welding sparks" />
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&auto=format&fit=crop"
+                    alt="Metal fabrication detail" />
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=600&q=80&auto=format&fit=crop"
+                    alt="Workshop tools" />
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+        <div class="section-inner">
+            <div class="cta-block">
+                <div>
+                    <span class="overline" style="margin-bottom:1rem;">Ready to start?</span>
+                    <div class="cta-title">Bring us your project.<br />We'll tell you what's possible.</div>
+                </div>
+                <div>
+                    <a href="contact.html" class="btn-primary">Enquire Now</a>
+                    <a href="index.html#parts" class="btn-ghost">View Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer
+        style="border-top: 1px solid rgba(255,255,255,0.07); padding: 3rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <img src="assets/logo-white.png" alt="Leichtbau Werkstatt" style="height:32px; width:auto; opacity:0.6;" />
+        <span
+            style="font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.2);">©
+            2025 Leichtbau Werkstatt — Munich</span>
+        <a href="contact.html"
+            style="font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:#E8642A; text-decoration:none;">Connect
+            →</a>
+    </footer>
+</body>
+
+</html>
