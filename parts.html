@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Leichtbau Werkstatt | Parts Catalog</title>
+    <meta name="description"
+        content="Precision parts for discerning builds. Curated German performance components, sourced, verified, and ready to ship." />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        "neon-orange": "#FF4D00",
+                        "background-light": "#F5F5F5",
+                        "background-dark": "#050505",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        sans: ["Inter", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"],
+                        serif: ["Playfair Display", "serif"],
+                    },
+                    borderRadius: { DEFAULT: "0px" },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .grotesk { font-family: 'Space Grotesk', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    #cursor {
+        position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+        border: 1px solid #FF4D00; border-radius: 50%; pointer-events: none;
+        z-index: 10000; transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background-color 0.2s; mix-blend-mode: difference;
+    }
+    #cursor.hovered { width: 60px; height: 60px; background-color: rgba(255,77,0,0.2); box-shadow: 0 0 20px rgba(255,77,0,0.4); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #111; }
+    ::-webkit-scrollbar-thumb { background: #FF4D00; border-radius: 3px; }
+    .part-card { transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease; }
+    .part-card:hover { transform: translateY(-4px); }
+    .part-card:hover .part-img { transform: scale(1.04); }
+    .part-img { transition: transform 0.7s cubic-bezier(0.23,1,0.32,1); }
+    .badge { font-family: 'JetBrains Mono', monospace; }
+    /* Cart drawer */
+    #cart-drawer { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    #cart-drawer.open { transform: translateX(0); }
+    #cart-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    #cart-overlay.open { opacity: 1; pointer-events: all; }
+    .qty-btn:hover { background: #FF4D00; color: white; }
+    .filter-btn.active { background: #000; color: #fff; }
+    .dark .filter-btn.active { background: #fff; color: #000; }
+    .dark body, .dark .bg-background-light { background-color: #050505 !important; }
+    .dark .part-card { background-color: #111 !important; border-color: #222 !important; }
+    .dark .part-card .text-gray-900 { color: #f5f5f5 !important; }
+    .dark .part-card .text-gray-500 { color: #888 !important; }
+    .dark .part-card .text-gray-400 { color: #666 !important; }
+    .dark .border-gray-200 { border-color: #222 !important; }
+    .dark .bg-gray-50 { background-color: #0a0a0a !important; }
+    .dark .text-gray-900 { color: #f5f5f5 !important; }
+    .dark .text-gray-600 { color: #999 !important; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.shown { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-primary dark:text-gray-100 selection:bg-neon-orange selection:text-white">
+    <div id="cursor"></div>
+
+    <!-- ===== UNIFIED NAV ===== -->
+    <nav class="fixed w-full z-50 px-6 py-6 flex justify-between items-center transition-all duration-300 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-black/5 dark:border-white/5"
+        id="main-nav">
+        <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+            <a class="hover:text-neon-orange transition-colors relative group" href="index.html#builds">Builds<span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span></a>
+            <a class="hover:text-neon-orange transition-colors relative group text-neon-orange"
+                href="parts.html">Parts<span class="absolute -bottom-1 left-0 w-full h-[1px] bg-neon-orange"></span></a>
+        </div>
+        <div class="text-center cursor-hover-target">
+            <a href="index.html">
+                <img alt="Leichtbau Werkstatt Logo" class="h-14 w-auto dark:brightness-0 dark:invert brightness-0"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI" />
+            </a>
+        </div>
+        <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold items-center gap-6">
+            <a class="hover:text-neon-orange transition-colors relative group"
+                href="collection-gallery.html">Gallery<span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span></a>
+            <a class="hover:text-neon-orange transition-colors relative group" href="contact.html">Connect<span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span></a>
+            <!-- Cart button -->
+            <button id="cart-btn" class="relative cursor-hover-target group ml-4" aria-label="Open cart">
+                <span
+                    class="material-symbols-outlined text-xl group-hover:text-neon-orange transition-colors">shopping_bag</span>
+                <span id="cart-count"
+                    class="absolute -top-2 -right-2 w-4 h-4 bg-neon-orange text-white mono text-[9px] rounded-full flex items-center justify-center hidden">0</span>
+            </button>
+        </div>
+        <button class="md:hidden text-current" id="mobile-menu-btn" aria-label="Open menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </nav>
+
+    <!-- ===== CART DRAWER ===== -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-[80] cursor-pointer"></div>
+    <aside id="cart-drawer"
+        class="fixed right-0 top-0 h-full w-full max-w-[420px] bg-white dark:bg-zinc-950 z-[90] flex flex-col shadow-2xl border-l border-gray-100 dark:border-zinc-900">
+        <div class="flex justify-between items-center px-8 py-6 border-b border-gray-100 dark:border-zinc-900">
+            <h2 class="grotesk text-sm font-bold uppercase tracking-[0.2em]">Your Order</h2>
+            <button id="close-cart" aria-label="Close cart" class="hover:text-neon-orange transition-colors"><span
+                    class="material-symbols-outlined">close</span></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+            <div id="cart-empty"
+                class="flex flex-col items-center justify-center h-full text-center py-20 text-gray-400">
+                <span class="material-symbols-outlined text-5xl mb-4 opacity-30">inventory_2</span>
+                <p class="mono text-xs uppercase tracking-widest">No parts selected yet.</p>
+            </div>
+        </div>
+        <div class="px-8 py-6 border-t border-gray-100 dark:border-zinc-900 space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span class="mono uppercase tracking-widest text-xs text-gray-500">Subtotal</span>
+                <span id="cart-total" class="grotesk font-bold text-xl">€0</span>
+            </div>
+            <p class="mono text-[10px] text-gray-400 uppercase tracking-widest">Shipping &amp; duties calculated at
+                checkout.</p>
+            <button id="checkout-btn"
+                class="w-full bg-black dark:bg-white text-white dark:text-black py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group">
+                <span>Proceed to Checkout</span>
+                <span
+                    class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </button>
+            <p
+                class="mono text-[9px] text-gray-400 text-center uppercase tracking-widest flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm">lock</span>Secured by Stripe
+            </p>
+        </div>
+    </aside>
+
+    <!-- ===== HERO ===== -->
+    <header
+        class="pt-40 pb-20 px-8 bg-background-light dark:bg-background-dark border-b border-gray-100 dark:border-zinc-900 reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                <div>
+                    <span class="mono text-[10px] uppercase tracking-[0.5em] text-neon-orange block mb-4">Precision
+                        Components</span>
+                    <h1 class="grotesk text-6xl md:text-8xl font-bold uppercase leading-none tracking-tighter">
+                        Parts<br /><span class="text-gray-300 dark:text-zinc-700">Catalog</span></h1>
+                </div>
+                <p class="text-sm text-gray-500 max-w-sm leading-relaxed font-light border-l-2 border-neon-orange pl-4">
+                    Sourced, tested, and approved by our workshop. Every part on this list has placed itself inside one
+                    of our builds. No filler. No fluff.
+                </p>
+            </div>
+            <!-- Stats bar -->
+            <div
+                class="mt-16 flex flex-wrap items-center gap-0 border border-gray-200 dark:border-zinc-800 divide-x divide-gray-200 dark:divide-zinc-800">
+                <div class="px-8 py-5">
+                    <p class="mono text-[9px] uppercase tracking-[0.4em] text-gray-400 mb-1">Parts In Stock</p>
+                    <p class="grotesk text-2xl font-bold">24</p>
+                </div>
+                <div class="px-8 py-5">
+                    <p class="mono text-[9px] uppercase tracking-[0.4em] text-gray-400 mb-1">Avg. Lead Time</p>
+                    <p class="grotesk text-2xl font-bold">3–7 Days</p>
+                </div>
+                <div class="px-8 py-5">
+                    <p class="mono text-[9px] uppercase tracking-[0.4em] text-gray-400 mb-1">Verified Builds</p>
+                    <p class="grotesk text-2xl font-bold">62</p>
+                </div>
+                <div class="px-8 py-5">
+                    <p class="mono text-[9px] uppercase tracking-[0.4em] text-gray-400 mb-1">Ships From</p>
+                    <p class="grotesk text-2xl font-bold">Munich, DE</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== CATALOG ===== -->
+    <main class="max-w-7xl mx-auto px-8 py-20" id="main-content">
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-12 reveal" id="filter-bar">
+            <button
+                class="filter-btn active mono text-[10px] uppercase tracking-widest px-5 py-2 border border-gray-200 dark:border-zinc-700 hover:border-black dark:hover:border-white transition-all"
+                data-filter="all">All Parts</button>
+            <button
+                class="filter-btn mono text-[10px] uppercase tracking-widest px-5 py-2 border border-gray-200 dark:border-zinc-700 hover:border-black dark:hover:border-white transition-all"
+                data-filter="engine">Engine</button>
+            <button
+                class="filter-btn mono text-[10px] uppercase tracking-widest px-5 py-2 border border-gray-200 dark:border-zinc-700 hover:border-black dark:hover:border-white transition-all"
+                data-filter="suspension">Suspension</button>
+            <button
+                class="filter-btn mono text-[10px] uppercase tracking-widest px-5 py-2 border border-gray-200 dark:border-zinc-700 hover:border-black dark:hover:border-white transition-all"
+                data-filter="exhaust">Exhaust</button>
+            <button
+                class="filter-btn mono text-[10px] uppercase tracking-widest px-5 py-2 border border-gray-200 dark:border-zinc-700 hover:border-black dark:hover:border-white transition-all"
+                data-filter="interior">Interior</button>
+            <button
+                class="filter-btn mono text-[10px] uppercase tracking-widest px-5 py-2 border border-gray-200 dark:border-zinc-700 hover:border-black dark:hover:border-white transition-all"
+                data-filter="brakes">Brakes</button>
+        </div>
+
+        <!-- Grid -->
+        <div id="parts-grid"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800">
+
+            <!-- PART 1 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="engine">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80"
+                        alt="Mahle Piston Set" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Engine //
+                                01</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Mahle Forged Piston Set</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">BMW M10/M20. 89.5mm bore.
+                                +0.25 oversize. Race-grade forged aluminum.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€480</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Set of 4</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-001" data-name="Mahle Forged Piston Set" data-price="480" data-sku="ENG-001"
+                            data-unit="Set of 4">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 2 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="suspension">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                        alt="Bilstein B12 Coilover Kit" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Suspension //
+                                02</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Bilstein B12 Pro-Kit</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">E30/E46. 30mm drop.
+                                Monotube gas-pressure. Sport-tuned valving.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€1,240</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Full Kit</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-002" data-name="Bilstein B12 Pro-Kit" data-price="1240" data-sku="SUS-002"
+                            data-unit="Full Kit">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 3 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="exhaust">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80"
+                        alt="Akrapovic Titanium Exhaust" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Exhaust //
+                                03</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Akrapovic Titanium Slip-On</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">E46 M3. Grade-5 titanium.
+                                4.2kg. Racing TÜV approval included.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€2,890</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-003" data-name="Akrapovic Titanium Slip-On" data-price="2890"
+                            data-sku="EXH-003" data-unit="Per Unit">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 4 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="brakes">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80"
+                        alt="Brembo GT Big Brake Kit" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Brakes //
+                                04</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Brembo GT Big Brake Kit</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">380mm front rotors.
+                                6-piston monobloc calipers. Black anodise. E36/E46.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-neon-orange bg-orange-50 dark:bg-zinc-900 px-2 py-1 border border-orange-200 dark:border-zinc-800">3
+                            Left</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€3,450</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Front Axle</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-004" data-name="Brembo GT Big Brake Kit" data-price="3450" data-sku="BRK-004"
+                            data-unit="Front Axle">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 5 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="engine">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80"
+                        alt="Schrick Camshaft" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Engine //
+                                05</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">Schrick Performance Camshaft</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">M10 272°. Increased lift
+                                and duration. Road-legal. +18hp measured gain.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€620</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Cam</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-005" data-name="Schrick Performance Camshaft" data-price="620"
+                            data-sku="ENG-005" data-unit="Per Cam">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PART 6 -->
+            <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="interior">
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80"
+                        alt="Alcantara Steering Wheel" />
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">Interior //
+                                06</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900">OMP Alcantara Sport Wheel</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed">350mm. Alcantara wrap.
+                                Flat-bottom. 6-bolt PCD. FIA approved.</p>
+                        </div>
+                        <span
+                            class="mono text-xs text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800">In
+                            Stock</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€340</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
+                            data-id="part-006" data-name="OMP Alcantara Sport Wheel" data-price="340" data-sku="INT-006"
+                            data-unit="Per Unit">
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /parts-grid -->
+
+        <!-- Custom Order CTA -->
+        <div
+            class="mt-px bg-black dark:bg-zinc-900 p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-8 reveal border border-gray-200 dark:border-zinc-800 mt-0">
+            <div>
+                <span class="mono text-[10px] uppercase tracking-[0.4em] text-neon-orange block mb-3">Custom
+                    Sourcing</span>
+                <h3 class="grotesk text-3xl md:text-4xl font-bold text-white uppercase leading-tight">Can't find
+                    what<br />you need?</h3>
+                <p class="text-gray-400 text-sm font-light mt-4 max-w-sm leading-relaxed">We source to order. Send us a
+                    chassis number and a list — we'll handle the rest.</p>
+            </div>
+            <a href="contact.html"
+                class="inline-flex items-center gap-3 border border-white text-white px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange hover:border-neon-orange transition-all duration-300 group whitespace-nowrap">
+                Request a Part
+                <span
+                    class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-black text-white py-12 px-8 border-t border-white/10">
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
+            <p class="mono text-[10px] uppercase tracking-widest mb-4 md:mb-0">© 2024 Leichtbau Werkstatt</p>
+            <img alt="Small Logo" class="h-8 w-auto invert opacity-50"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK_oWwmQYaX3z5BZh4_OvdDH7N3YO6EmW7zBpxO33TwnjJk_MN6rn_818i9pl5uI9ybZhGhn7SnsobHFV7FIglEj9SD7pHhwVKMqN5Ws-BQ8zORL03mPuo7Dzk8BVZ-XnV-GSUxF-wohxRkKb6SWbcV9LJIwqSa4FHm_x41rNh7pojuLwHJmisqdToNCYuKP38nLbJWa_QZe0k_sxk2Iaj5lmhaEKLEwvJOdig1cZzl0ZHc4HDMGHpAN8MoLf7T73iRbWikl-13mI" />
+            <p class="mono text-[10px] uppercase tracking-widest">Munich // Berlin // Tokyo</p>
+        </div>
+    </footer>
+
+    <!-- Dark mode toggle -->
+    <button
+        class="fixed bottom-8 right-8 w-12 h-12 bg-neon-orange text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center z-50 hover:-translate-y-1 transition-transform border-2 border-black cursor-hover-target"
+        onclick="document.documentElement.classList.toggle('dark')" aria-label="Toggle dark mode">
+        <span class="material-symbols-outlined text-xl">contrast</span>
+    </button>
+
+    <script>
+        // ── Cursor ──
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+        document.querySelectorAll('.cursor-hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // ── Reveal on Scroll ──
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('shown'), i * 60); observer.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        reveals.forEach(el => observer.observe(el));
+
+        // ── Cart State ──
+        let cart = {};
+
+        function formatPrice(n) { return '€' + n.toLocaleString('de-DE'); }
+
+        function updateCartUI() {
+            const items = Object.values(cart);
+            const count = items.reduce((s, i) => s + i.qty, 0);
+            const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+            const countEl = document.getElementById('cart-count');
+            countEl.textContent = count;
+            count > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
+            document.getElementById('cart-total').textContent = formatPrice(total);
+
+            const cartItemsEl = document.getElementById('cart-items');
+            const emptyEl = document.getElementById('cart-empty');
+            if (items.length === 0) { emptyEl.classList.remove('hidden'); cartItemsEl.innerHTML = ''; cartItemsEl.appendChild(emptyEl); return; }
+            emptyEl.classList.add('hidden');
+            cartItemsEl.innerHTML = items.map(item => `
+        <div class="flex gap-4 items-start border-b border-gray-100 dark:border-zinc-800 pb-6" id="cart-item-${item.id}">
+            <div class="w-20 h-20 bg-gray-100 dark:bg-zinc-800 flex-shrink-0 overflow-hidden">
+                <img src="${item.img || ''}" class="w-full h-full object-cover grayscale" onerror="this.style.display='none'"/>
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="grotesk font-semibold text-sm truncate">${item.name}</p>
+                <p class="mono text-[9px] text-gray-400 uppercase tracking-widest mt-0.5">${item.sku} · ${item.unit}</p>
+                <div class="flex items-center gap-3 mt-3">
+                    <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', -1)">−</button>
+                    <span class="mono text-sm font-bold w-4 text-center">${item.qty}</span>
+                    <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', 1)">+</button>
+                    <button class="ml-auto mono text-[9px] text-gray-400 hover:text-red-500 uppercase tracking-wider transition-colors" onclick="removeItem('${item.id}')">Remove</button>
+                </div>
+            </div>
+            <div class="text-right flex-shrink-0">
+                <p class="grotesk font-bold">${formatPrice(item.price * item.qty)}</p>
+                <p class="mono text-[9px] text-gray-400">${formatPrice(item.price)} ea.</p>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        function changeQty(id, delta) {
+            if (!cart[id]) return;
+            cart[id].qty = Math.max(0, cart[id].qty + delta);
+            if (cart[id].qty === 0) delete cart[id];
+            updateCartUI();
+        }
+
+        function removeItem(id) { delete cart[id]; updateCartUI(); }
+
+        // ── Add to Cart ──
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const img = btn.closest('.part-card').querySelector('.part-img')?.src || '';
+                if (cart[id]) { cart[id].qty++; } else {
+                    cart[id] = { id, name: btn.dataset.name, price: parseInt(btn.dataset.price), sku: btn.dataset.sku, unit: btn.dataset.unit, qty: 1, img };
+                }
+                updateCartUI();
+                openCart();
+                // Micro-feedback on button
+                btn.textContent = '✓ Added';
+                btn.classList.add('bg-neon-orange');
+                setTimeout(() => { btn.innerHTML = '<span class="material-symbols-outlined text-sm">add</span>Add'; btn.classList.remove('bg-neon-orange'); }, 1200);
+            });
+        });
+
+        // ── Cart Drawer ──
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartOverlay = document.getElementById('cart-overlay');
+        function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+        document.getElementById('cart-btn').addEventListener('click', openCart);
+        document.getElementById('close-cart').addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        // ── Stripe Checkout ──
+        // NOTE: Replace 'pk_test_...' with your actual Stripe publishable key.
+        // Replace price IDs below with your Stripe Price IDs.
+        const STRIPE_KEY = 'pk_test_REPLACE_WITH_YOUR_STRIPE_PUBLISHABLE_KEY';
+        const PRICE_MAP = {
+            'part-001': 'price_REPLACE_PART_001',
+            'part-002': 'price_REPLACE_PART_002',
+            'part-003': 'price_REPLACE_PART_003',
+            'part-004': 'price_REPLACE_PART_004',
+            'part-005': 'price_REPLACE_PART_005',
+            'part-006': 'price_REPLACE_PART_006',
+        };
+
+        document.getElementById('checkout-btn').addEventListener('click', async () => {
+            const items = Object.values(cart);
+            if (items.length === 0) return;
+
+            const btn = document.getElementById('checkout-btn');
+            btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> Redirecting...';
+            btn.disabled = true;
+
+            // Check if we have real Stripe keys configured
+            if (STRIPE_KEY.includes('REPLACE')) {
+                // Demo mode: show a summary alert
+                const summary = items.map(i => `${i.name} ×${i.qty} — ${formatPrice(i.price * i.qty)}`).join('\n');
+                const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+                alert(`🔧 Stripe not yet configured.\n\nOrder Summary:\n${summary}\n\nTotal: ${formatPrice(total)}\n\nReplace the STRIPE_KEY and PRICE_MAP values in parts.html with your Stripe credentials to enable real checkout.`);
+                btn.innerHTML = '<span>Proceed to Checkout</span><span class="material-symbols-outlined text-sm">arrow_forward</span>';
+                btn.disabled = false;
+                return;
+            }
+
+            try {
+                const stripe = Stripe(STRIPE_KEY);
+                const lineItems = items
+                    .filter(i => PRICE_MAP[i.id])
+                    .map(i => ({ price: PRICE_MAP[i.id], quantity: i.qty }));
+                await stripe.redirectToCheckout({
+                    lineItems,
+                    mode: 'payment',
+                    successUrl: window.location.origin + '/success-state.html',
+                    cancelUrl: window.location.href,
+                });
+            } catch (e) {
+                console.error(e);
+                btn.innerHTML = 'Error — Try Again';
+                btn.disabled = false;
+            }
+        });
+
+        // ── Filters ──
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.part-card').forEach(card => {
+                    const match = filter === 'all' || card.dataset.category === filter;
+                    card.style.display = match ? '' : 'none';
+                });
+            });
+        });
+
+        // ── Dark Mode Persistence ──
+        if (localStorage.getItem('asta-theme') === 'dark') document.documentElement.classList.add('dark');
+    </script>
+</body>
+
+</html>
