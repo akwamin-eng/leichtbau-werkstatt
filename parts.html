@@ -95,13 +95,15 @@
 </style>
     <!-- OpenGraph & Social Meta Tags -->
     <meta property="og:title" content="Leichtbau Werkstatt" />
-    <meta property="og:description" content="Redefining the analog driving experience. Vintage soul, modern precision." />
+    <meta property="og:description"
+        content="Redefining the analog driving experience. Vintage soul, modern precision." />
     <meta property="og:image" content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" />
     <meta property="og:url" content="https://www.leichtbauwerkstatt.com/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Leichtbau Werkstatt" />
-    <meta name="twitter:description" content="Redefining the analog driving experience. Vintage soul, modern precision." />
+    <meta name="twitter:description"
+        content="Redefining the analog driving experience. Vintage soul, modern precision." />
     <meta name="twitter:image" content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" />
     <script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
 </head>
@@ -243,7 +245,8 @@
         </div>
 
         <!-- Grid -->
-        <div id="parts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800">
+        <div id="parts-grid"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800">
             <!-- Dynamic Shopify Products will load here -->
             <div id="parts-loader" class="col-span-full py-32 flex flex-col items-center justify-center text-gray-400">
                 <span class="material-symbols-outlined text-4xl animate-spin mb-4">progress_activity</span>
@@ -277,7 +280,7 @@
             class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
             <p class="mono text-[10px] uppercase tracking-widest mb-4 md:mb-0">© 2024 Leichtbau Werkstatt</p>
             <img alt="Small Logo" class="h-8 w-auto invert opacity-50" src="assets/logo-color.png" />
-            <p class="mono text-[10px] uppercase tracking-widest">Munich // Berlin // Tokyo</p>
+            <p class="mono text-[10px] uppercase tracking-widest">Los Angeles // SoCal // San Diego</p>
         </div>
     </footer>
 
@@ -331,10 +334,10 @@
             // 2. Fetch Products
             const products = await client.product.fetchAll();
             renderProducts(products);
-            
+
             // 3. Bind Checkout Button
             document.getElementById('checkout-btn').addEventListener('click', () => {
-                if(checkout.lineItems.length > 0) {
+                if (checkout.lineItems.length > 0) {
                     window.location.href = checkout.webUrl;
                 }
             });
@@ -347,7 +350,7 @@
         function renderProducts(products) {
             const grid = document.getElementById('parts-grid');
             grid.innerHTML = ''; // Clear loader
-            
+
             if (products.length === 0) {
                 grid.innerHTML = `<div class="col-span-full py-20 text-center text-gray-500 mono text-xs uppercase">No products available at the moment.</div>`;
                 return;
@@ -357,10 +360,10 @@
                 const variant = product.variants[0];
                 const price = variant.price.amount;
                 const src = product.images.length > 0 ? product.images[0].src : 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80';
-                
+
                 // Determine category from tags or product type for the filter
                 let category = product.productType ? product.productType.toLowerCase() : 'custom';
-                
+
                 const card = document.createElement('div');
                 card.className = "part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target shown";
                 card.dataset.category = category;
@@ -373,7 +376,7 @@
                 <div class="p-6 space-y-4">
                     <div class="flex justify-between items-start">
                         <div class="pr-2">
-                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">${category} // 0${i+1}</span>
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">${category} // 0${i + 1}</span>
                             <h3 class="grotesk text-lg font-bold mt-1 text-gray-900 truncate" title="${product.title}">${product.title}</h3>
                             <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed line-clamp-2">${product.description || 'Premium aftermarket component.'}</p>
                         </div>
@@ -403,25 +406,25 @@
                     const ogHtml = btn.innerHTML;
                     btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> Syncing';
                     btn.disabled = true;
-                    
+
                     const variantId = btn.dataset.variantId;
                     const lineItemsToAdd = [{ variantId, quantity: 1 }];
-                    
+
                     try {
                         checkout = await client.checkout.addLineItems(checkout.id, lineItemsToAdd);
                         updateCartUI();
                         openCart();
-                        
+
                         btn.innerHTML = '✓ Added';
                         btn.classList.add('bg-neon-orange');
                         btn.classList.remove('bg-black', 'dark:bg-white');
-                        setTimeout(() => { 
-                            btn.innerHTML = ogHtml; 
-                            btn.classList.remove('bg-neon-orange'); 
+                        setTimeout(() => {
+                            btn.innerHTML = ogHtml;
+                            btn.classList.remove('bg-neon-orange');
                             btn.classList.add('bg-black', 'dark:bg-white');
                             btn.disabled = false;
                         }, 1200);
-                    } catch(err) {
+                    } catch (err) {
                         console.error(err);
                         btn.innerHTML = 'Error';
                         setTimeout(() => { btn.innerHTML = ogHtml; btn.disabled = false; }, 2000);
@@ -433,22 +436,22 @@
         function updateCartUI() {
             const countEl = document.getElementById('cart-count');
             const totalItems = checkout.lineItems.reduce((acc, item) => acc + item.quantity, 0);
-            
+
             countEl.textContent = totalItems;
             totalItems > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
-            
+
             document.getElementById('cart-total').textContent = formatPriceStr(checkout.totalPrice.amount, checkout.totalPrice.currencyCode);
 
             const cartItemsEl = document.getElementById('cart-items');
             const emptyEl = document.getElementById('cart-empty');
-            
-            if (checkout.lineItems.length === 0) { 
-                emptyEl.classList.remove('hidden'); 
-                cartItemsEl.innerHTML = ''; 
-                cartItemsEl.appendChild(emptyEl); 
-                return; 
+
+            if (checkout.lineItems.length === 0) {
+                emptyEl.classList.remove('hidden');
+                cartItemsEl.innerHTML = '';
+                cartItemsEl.appendChild(emptyEl);
+                return;
             }
-            
+
             emptyEl.classList.add('hidden');
             cartItemsEl.innerHTML = checkout.lineItems.map(item => `
             <div class="flex gap-4 items-start border-b border-gray-100 dark:border-zinc-800 pb-6">
@@ -472,21 +475,21 @@
             `).join('');
         }
 
-        window.updateLineItem = async function(id, quantity) {
-            if(quantity === 0) {
+        window.updateLineItem = async function (id, quantity) {
+            if (quantity === 0) {
                 return removeLineItem(id);
             }
             try {
-                checkout = await client.checkout.updateLineItems(checkout.id, [{id, quantity}]);
+                checkout = await client.checkout.updateLineItems(checkout.id, [{ id, quantity }]);
                 updateCartUI();
-            } catch(e) { console.error(e); }
+            } catch (e) { console.error(e); }
         }
 
-        window.removeLineItem = async function(id) {
+        window.removeLineItem = async function (id) {
             try {
                 checkout = await client.checkout.removeLineItems(checkout.id, [id]);
                 updateCartUI();
-            } catch(e) { console.error(e); }
+            } catch (e) { console.error(e); }
         }
 
         document.querySelectorAll('.filter-btn').forEach(btn => {

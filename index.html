@@ -278,11 +278,17 @@
                     src="assets/logo-color.png" />
             </a>
         </div>
-        <!-- Right: Gallery + Connect -->
+        <!-- Right: Gallery + Events + Connect -->
         <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
             <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
                 href="collection-gallery.html">
                 Gallery
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
+                href="events.html">
+                Events
                 <span
                     class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
             </a>
@@ -316,6 +322,8 @@
                     href="parts.html">Parts</a>
                 <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
                     href="collection-gallery.html">Gallery</a>
+                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
+                    href="events.html">Events</a>
                 <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors"
                     href="contact.html">Connect</a>
             </nav>
@@ -506,19 +514,65 @@
                             class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
                             Service →</span>
                     </a>
-                    <div
-                        class="flex flex-col justify-center items-center md:items-start p-12 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-black self-center">
+                    <div class="flex flex-col justify-center items-center md:items-start p-12 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-black self-center"
+                        id="quote-card">
                         <img alt="Leichtbau Icon" class="h-12 w-auto mb-6 opacity-80 invert dark:invert-0"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A" />
-                        <p
-                            class="serif-display text-2xl italic dark:text-white text-center md:text-left leading-relaxed">
-                            "The details are not the details. They make the design."
+                        <p id="rotating-quote"
+                            class="serif-display text-2xl italic dark:text-white text-center md:text-left leading-relaxed transition-opacity duration-700">
                         </p>
-                        <p class="text-xs uppercase tracking-widest mt-6 text-gray-500">— Charles Eames</p>
+                        <p id="rotating-attr"
+                            class="text-xs uppercase tracking-widest mt-6 text-gray-500 transition-opacity duration-700">
+                        </p>
+                        <!-- Dots -->
+                        <div class="flex gap-2 mt-8" id="quote-dots"></div>
                     </div>
-                </div>
-            </div>
-        </section>
+                    <script>
+                        (function () {
+                            const quotes = [
+                                { text: "\u201cTo finish first, first you must finish.\u201d", attr: "\u2014 Race Driver\u2019s Axiom" },
+                                { text: "\u201cWhen you\u2019re racing, it\u2019s life. Anything that happens before or after is just waiting.\u201d", attr: "\u2014 Steve McQueen" },
+                                { text: "\u201cRacing is the constant search for perfection in an imperfect world.\u201d", attr: "\u2014 Niki Lauda" },
+                                { text: "\u201cA car is useless in New York, essential everywhere else. The same with American Express.\u201d", attr: "\u2014 Andrew Tobias" },
+                                { text: "\u201cSpeed has never killed anyone. Suddenly becoming stationary — that\u2019s what gets you.\u201d", attr: "\u2014 Jeremy Clarkson" }
+                            ];
+                            let current = 0;
+                            const qEl = document.getElementById('rotating-quote');
+                            const aEl = document.getElementById('rotating-attr');
+                            const dotsContainer = document.getElementById('quote-dots');
+
+                            // Build dots
+                            quotes.forEach((_, i) => {
+                                const dot = document.createElement('button');
+                                dot.className = 'w-1.5 h-1.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-neon-orange scale-125' : 'bg-gray-300 dark:bg-zinc-700');
+                                dot.setAttribute('aria-label', 'Quote ' + (i + 1));
+                                dot.addEventListener('click', () => showQuote(i));
+                                dotsContainer.appendChild(dot);
+                            });
+
+                            function showQuote(idx) {
+                                qEl.style.opacity = '0';
+                                aEl.style.opacity = '0';
+                                setTimeout(() => {
+                                    current = idx;
+                                    qEl.textContent = quotes[idx].text;
+                                    aEl.textContent = quotes[idx].attr;
+                                    qEl.style.opacity = '1';
+                                    aEl.style.opacity = '1';
+                                    // Update dots
+                                    dotsContainer.querySelectorAll('button').forEach((d, i) => {
+                                        d.className = 'w-1.5 h-1.5 rounded-full transition-all duration-300 ' + (i === idx ? 'bg-neon-orange scale-125' : 'bg-gray-300 dark:bg-zinc-700');
+                                    });
+                                }, 350);
+                            }
+
+                            showQuote(0);
+                            setInterval(() => showQuote((current + 1) % quotes.length), 5000);
+                        })();
+                    <\/script>
+                </div >
+            </div >
+        </section >
         <section class="bg-black text-white py-32 px-6 relative overflow-hidden">
             <div class="absolute inset-0 z-0">
                 <img alt="Dark garage background" class="w-full h-full object-cover opacity-20"
@@ -596,17 +650,6 @@
                                 class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
                             <span class="text-xs font-bold uppercase tracking-widest dark:text-white">Instagram</span>
                         </a>
-                        <a class="group flex items-center space-x-2 cursor-hover-target" href="#">
-                            <span
-                                class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
-                            <span class="text-xs font-bold uppercase tracking-widest dark:text-white">Soundcloud</span>
-                        </a>
-                        <a class="group flex items-center space-x-2 cursor-hover-target" href="#">
-                            <span
-                                class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
-                            <span class="text-xs font-bold uppercase tracking-widest dark:text-white">Resident
-                                Advisor</span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -619,11 +662,11 @@
                 </p>
                 <img alt="Small Logo" class="h-8 w-auto invert opacity-50" src="assets/logo-color.png" />
                 <p class="text-[10px] uppercase tracking-widest font-mono">
-                    Munich // Berlin // Tokyo
+                    Los Angeles // SoCal // San Diego
                 </p>
             </div>
         </footer>
-    </main>
+    </main >
     <button
         class="fixed bottom-8 right-8 w-12 h-12 bg-neon-orange text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] flex items-center justify-center z-50 hover:-translate-y-1 transition-transform active:translate-y-0 active:shadow-none border-2 border-black cursor-hover-target"
         onclick="document.documentElement.classList.toggle('dark')">
@@ -713,11 +756,11 @@
                 }
             }, 6000); // 6 seconds after page load
         });
-    </script>
+                    </script>
 
 
-    <!-- Anti-Inspection & Asset Protection -->
-    <script>
+                    <!-- Anti-Inspection & Asset Protection -->
+                    <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function (e) {
             // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
@@ -733,7 +776,7 @@
                 return false;
             }
         };
-    </script>
+                    </script>
 </body>
 
 </html>

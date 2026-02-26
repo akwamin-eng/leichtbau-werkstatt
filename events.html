@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events | Leichtbau Werkstatt</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/favicon.png" />
+
+    <meta name="description"
+        content="Track days, car meets, and motorsport events hosted by Leichtbau Werkstatt — Los Angeles, SoCal, and San Diego. Join the community." />
+    <link rel="canonical" href="https://leichtbau-werkstatt.com/events.html" />
+    <meta property="og:title" content="Events | Leichtbau Werkstatt" />
+    <meta property="og:description"
+        content="Track days, car meets, and motorsport events hosted by Leichtbau Werkstatt in Southern California." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: #E8642A;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            box-shadow: 0 0 10px rgba(232, 100, 42, 0.6);
+        }
+
+        #cursor.hovered {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(232, 100, 42, 0.15);
+            border: 1px solid rgba(232, 100, 42, 0.5);
+            box-shadow: 0 0 20px rgba(232, 100, 42, 0.3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #E8642A;
+            border-radius: 3px;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 72px;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        nav .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+            margin-left: 2rem;
+        }
+
+        nav .nav-links a:hover,
+        nav .nav-links a.active {
+            color: #E8642A;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            background: #050505;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+            filter: brightness(0.28) contrast(1.15) saturate(1.1);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0a0a0a 0%, rgba(10, 10, 10, 0.3) 55%, transparent 100%);
+        }
+
+        /* Animated grid overlay */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(232, 100, 42, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232, 100, 42, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 3rem 5rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .process-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #E8642A;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 700;
+            line-height: 0.88;
+            color: #fff;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title em {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 1.5rem;
+            font-style: italic;
+        }
+
+        /* TICKER */
+        .ticker-wrap {
+            background: #E8642A;
+            overflow: hidden;
+            height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: ticker 32s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0 3rem;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 6rem 3rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .overline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #E8642A;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        /* EVENT CARDS */
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            margin-top: 4rem;
+        }
+
+        .event-card {
+            background: #0a0a0a;
+            display: grid;
+            grid-template-columns: 140px 1fr auto;
+            gap: 0;
+            align-items: stretch;
+            transition: background 0.3s;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        .event-card:hover {
+            background: #111;
+        }
+
+        .event-card:hover::before {
+            background: #E8642A;
+        }
+
+        .event-date-block {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .event-month {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #E8642A;
+        }
+
+        .event-day {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+            margin: 0.2rem 0;
+        }
+
+        .event-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .event-body {
+            padding: 2.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .event-type-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid rgba(232, 100, 42, 0.4);
+            color: rgba(232, 100, 42, 0.9);
+            padding: 0.2rem 0.7rem;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .event-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .event-meta-item .material-symbols-outlined {
+            font-size: 0.85rem;
+            color: rgba(232, 100, 42, 0.6);
+        }
+
+        .event-desc {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.65;
+            max-width: 55ch;
+        }
+
+        .event-action {
+            padding: 2.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.07);
+            min-width: 180px;
+        }
+
+        .event-status-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.9rem;
+        }
+
+        .badge-open {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            color: rgba(74, 222, 128, 0.9);
+        }
+
+        .badge-limited {
+            background: rgba(232, 100, 42, 0.1);
+            border: 1px solid rgba(232, 100, 42, 0.4);
+            color: #E8642A;
+        }
+
+        .badge-sold-out {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .badge-invite {
+            background: rgba(147, 51, 234, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            color: rgba(167, 92, 254, 0.9);
+        }
+
+        .btn-register {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.8rem 1.8rem;
+            background: #E8642A;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-register:hover {
+            background: #d05620;
+            transform: translateY(-1px);
+        }
+
+        .btn-register.ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: default;
+        }
+
+        .btn-register.ghost:hover {
+            transform: none;
+        }
+
+        /* PAST EVENTS */
+        .past-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .past-card {
+            background: #0a0a0a;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .past-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #E8642A, transparent);
+            opacity: 0.4;
+        }
+
+        .past-card-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.04);
+            line-height: 1;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .past-card-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #E8642A;
+            margin-bottom: 0.75rem;
+        }
+
+        .past-card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .past-card-venue {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* NEWSLETTER CTA */
+        .cta-block {
+            background: #0f0f0f;
+            border: 1px solid rgba(232, 100, 42, 0.2);
+            padding: 5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #fff;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .cta-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 1rem;
+            max-width: 40ch;
+            line-height: 1.7;
+            border-left: 2px solid #E8642A;
+            padding-left: 1rem;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 0;
+            min-width: 340px;
+        }
+
+        .cta-form input {
+            flex: 1;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: none;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 1rem 1.5rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .cta-form input:focus {
+            border-color: #E8642A;
+        }
+
+        .cta-form button {
+            background: #E8642A;
+            color: #fff;
+            border: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 1rem 1.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .cta-form button:hover {
+            background: #d05620;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem 4rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .event-card {
+                grid-template-columns: 90px 1fr;
+            }
+
+            .event-action {
+                display: none;
+            }
+
+            .event-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .past-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-block {
+                padding: 3rem 2rem;
+                flex-direction: column;
+            }
+
+            .cta-form {
+                min-width: unset;
+                width: 100%;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .event-card {
+                grid-template-columns: 1fr;
+            }
+
+            .event-date-block {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+                flex-direction: row;
+                gap: 0.75rem;
+                justify-content: flex-start;
+                padding: 1.25rem 1.5rem;
+            }
+
+            .event-day {
+                font-size: 2rem;
+            }
+
+            .event-body {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.shown {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cursor"></div>
+
+    <!-- NAV -->
+    <nav id="main-nav">
+        <div class="nav-links" style="display:flex;">
+            <a href="index.html#services">Services</a>
+            <a href="parts.html">Parts</a>
+        </div>
+        <div class="nav-logo"><a href="index.html"><img src="assets/logo-white.png" alt="Leichtbau Werkstatt" /></a>
+        </div>
+        <div class="nav-links" style="display:flex;justify-content:flex-end;">
+            <a href="collection-gallery.html">Gallery</a>
+            <a href="events.html" class="active">Events</a>
+            <a href="contact.html">Connect</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-bg">
+            <img class="hero-bg-img"
+                src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1600&q=80&auto=format&fit=crop"
+                alt="Race cars on track" />
+        </div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <span class="process-tag">Leichtbau Werkstatt // SoCal Events Calendar</span>
+            <h1 class="hero-title">On<br /><em>the Grid.</em></h1>
+            <p class="hero-sub">Track days, private meets & motorsport gatherings — Southern California.</p>
+        </div>
+    </div>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker-track">
+            <span class="ticker-item">Willow Springs</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Auto Club Speedway</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Thermal Club</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Streets of Willow</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Buttonwillow Raceway</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Circuit of the Americas</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Track Days // Car Meets // Shop Nights</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Willow Springs</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Auto Club Speedway</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Thermal Club</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Streets of Willow</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Buttonwillow Raceway</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Circuit of the Americas</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Track Days // Car Meets // Shop Nights</span><span class="ticker-item">—</span>
+        </div>
+    </div>
+
+    <!-- UPCOMING EVENTS -->
+    <section>
+        <div class="section-inner">
+            <div class="reveal">
+                <span class="overline">2025 Calendar</span>
+                <h2 class="section-title">Upcoming<br /><em
+                        style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;">Events.</em>
+                </h2>
+            </div>
+
+            <div class="events-grid">
+
+                <!-- Event 1 -->
+                <div class="event-card reveal">
+                    <div class="event-date-block">
+                        <div class="event-month">Mar</div>
+                        <div class="event-day">15</div>
+                        <div class="event-year">2025</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type-tag">Track Day</span>
+                        <div class="event-title">Spring Shakedown — Streets of Willow</div>
+                        <div class="event-meta">
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                Willow Springs, CA
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                7:00 AM – 5:00 PM
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">group</span>
+                                Limited to 35 cars
+                            </span>
+                        </div>
+                        <p class="event-desc">Open lapping day on Streets of Willow. All cars welcome — beginner and
+                            advanced run groups. Leichtbau will have a pit presence for quick adjustments, corner weight
+                            checks, and alignment tweaks between sessions.</p>
+                    </div>
+                    <div class="event-action">
+                        <span class="event-status-badge badge-open">Open</span>
+                        <a href="contact.html" class="btn-register">Register →</a>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="event-card reveal">
+                    <div class="event-date-block">
+                        <div class="event-month">Apr</div>
+                        <div class="event-day">05</div>
+                        <div class="event-year">2025</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type-tag">Shop Night</span>
+                        <div class="event-title">Werkstatt Nights — Costa Mesa Open Garage</div>
+                        <div class="event-meta">
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                865 W 18th St, Costa Mesa
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                6:00 PM – 10:00 PM
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">group</span>
+                                Invite only
+                            </span>
+                        </div>
+                        <p class="event-desc">Monthly open-garage evening at the workshop. A rotating build on the lift,
+                            curated listening, and good company. Commission list clients and their guests only for this
+                            edition. Bring something interesting to drink.</p>
+                    </div>
+                    <div class="event-action">
+                        <span class="event-status-badge badge-invite">Invite Only</span>
+                        <a href="contact.html" class="btn-register">Enquire →</a>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="event-card reveal">
+                    <div class="event-date-block">
+                        <div class="event-month">Apr</div>
+                        <div class="event-day">26</div>
+                        <div class="event-year">2025</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type-tag">Car Meet</span>
+                        <div class="event-title">SoCal Analog — Early Morning Gather</div>
+                        <div class="event-meta">
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                Dockweiler State Beach, LA
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                6:00 AM – 9:00 AM
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">group</span>
+                                Open attendance
+                            </span>
+                        </div>
+                        <p class="event-desc">Sunrise meet at Dockweiler with a focus on European classics, air-cooled
+                            machines, and anything with a soul. No show scoring. No trophies. Just good cars, ocean air,
+                            and coffee from a sensible thermos.</p>
+                    </div>
+                    <div class="event-action">
+                        <span class="event-status-badge badge-open">Open</span>
+                        <a href="contact.html" class="btn-register">RSVP →</a>
+                    </div>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="event-card reveal">
+                    <div class="event-date-block">
+                        <div class="event-month">May</div>
+                        <div class="event-day">10</div>
+                        <div class="event-year">2025</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type-tag">Track Day</span>
+                        <div class="event-title">Leichtbau Track Day — Buttonwillow Raceway</div>
+                        <div class="event-meta">
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                Buttonwillow, CA
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                7:30 AM – 6:00 PM
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">group</span>
+                                28 spots remaining
+                            </span>
+                        </div>
+                        <p class="event-desc">Full-day private lapping event at Buttonwillow, Configuration 13CW.
+                            On-site
+                            tech support from the Leichtbau crew all day. Run groups by experience level. Helmets,
+                            harnesses, and logbooks checked before each session.</p>
+                    </div>
+                    <div class="event-action">
+                        <span class="event-status-badge badge-limited">Filling Fast</span>
+                        <a href="contact.html" class="btn-register">Register →</a>
+                    </div>
+                </div>
+
+                <!-- Event 5 -->
+                <div class="event-card reveal">
+                    <div class="event-date-block">
+                        <div class="event-month">Jun</div>
+                        <div class="event-day">21</div>
+                        <div class="event-year">2025</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type-tag">Tour</span>
+                        <div class="event-title">Angeles Crest Backroad Run</div>
+                        <div class="event-meta">
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                Angeles Crest Hwy, LA County
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                5:30 AM – 11:00 AM
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">group</span>
+                                12 car limit
+                            </span>
+                        </div>
+                        <p class="event-desc">Pre-summer road run up Angeles Crest before the temperatures peak. Small
+                            group, curated machines, zero nonsense. Breakfast debrief at the top. Commission list
+                            priority for registration.</p>
+                    </div>
+                    <div class="event-action">
+                        <span class="event-status-badge badge-limited">3 Spots Left</span>
+                        <a href="contact.html" class="btn-register">Register →</a>
+                    </div>
+                </div>
+
+                <!-- Event 6 — Sold Out -->
+                <div class="event-card reveal" style="opacity: 0.6;">
+                    <div class="event-date-block">
+                        <div class="event-month">Feb</div>
+                        <div class="event-day">22</div>
+                        <div class="event-year">2025</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type-tag">Track Day</span>
+                        <div class="event-title">Valentine's Day Lapping — Thermal Club</div>
+                        <div class="event-meta">
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">location_on</span>
+                                Thermal, CA
+                            </span>
+                            <span class="event-meta-item">
+                                <span class="material-symbols-outlined">schedule</span>
+                                8:00 AM – 4:00 PM
+                            </span>
+                        </div>
+                        <p class="event-desc">Private members' day at Thermal Club. Full facility, two configurations
+                            running simultaneously. Sold out in 48 hours — join the commission list for early access to
+                            future events.</p>
+                    </div>
+                    <div class="event-action">
+                        <span class="event-status-badge badge-sold-out">Sold Out</span>
+                        <a class="btn-register ghost">Closed</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PAST EVENTS -->
+    <section style="background:#050505; padding-top: 0;">
+        <div class="section-inner">
+            <div class="reveal">
+                <span class="overline">Archive</span>
+                <h2 class="section-title" style="margin-bottom: 3rem;">Past <em
+                        style="font-family:'Playfair Display',serif;font-weight:400;font-style:italic;">Events.</em>
+                </h2>
+            </div>
+            <div class="past-grid">
+                <div class="past-card reveal">
+                    <div class="past-card-num">01</div>
+                    <div class="past-card-date">Oct 12, 2024</div>
+                    <div class="past-card-title">Fall Track Day — Willow Springs</div>
+                    <div class="past-card-venue">Big Willow, Rosamond CA · 40 cars</div>
+                </div>
+                <div class="past-card reveal">
+                    <div class="past-card-num">02</div>
+                    <div class="past-card-date">Sep 7, 2024</div>
+                    <div class="past-card-title">Werkstatt Garage Night #04</div>
+                    <div class="past-card-venue">Costa Mesa Shop · 865 W 18th St</div>
+                </div>
+                <div class="past-card reveal">
+                    <div class="past-card-num">03</div>
+                    <div class="past-card-date">Aug 3, 2024</div>
+                    <div class="past-card-title">Pacific Coast Sunrise Run</div>
+                    <div class="past-card-venue">PCH, Malibu to San Diego · 10 cars</div>
+                </div>
+                <div class="past-card reveal">
+                    <div class="past-card-num">04</div>
+                    <div class="past-card-date">Jul 20, 2024</div>
+                    <div class="past-card-title">Buttonwillow Summer Laps</div>
+                    <div class="past-card-venue">Configuration 13CW · 32 entrants</div>
+                </div>
+                <div class="past-card reveal">
+                    <div class="past-card-num">05</div>
+                    <div class="past-card-date">May 18, 2024</div>
+                    <div class="past-card-title">SoCal Analog Car Meet — Vol. 01</div>
+                    <div class="past-card-venue">Dockweiler State Beach · 120 cars</div>
+                </div>
+                <div class="past-card reveal">
+                    <div class="past-card-num">06</div>
+                    <div class="past-card-date">Mar 9, 2024</div>
+                    <div class="past-card-title">Inaugural Werkstatt Track Day</div>
+                    <div class="past-card-venue">Streets of Willow · 24 cars</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / NOTIFY -->
+    <section>
+        <div class="section-inner">
+            <div class="cta-block reveal">
+                <div>
+                    <div class="cta-title">Never miss<br />an event.</div>
+                    <p class="cta-sub">Commission list members get 48-hour early access to all events before public
+                        announcement. Spots are always limited.</p>
+                </div>
+                <div>
+                    <form class="cta-form" name="events-notify" method="POST" data-netlify="true"
+                        action="/success-state.html">
+                        <input type="email" name="email" placeholder="Your email address" required />
+                        <button type="submit">Notify Me</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="assets/logo-white.png" alt="Leichtbau Werkstatt" style="height:32px;width:auto;opacity:0.6;" />
+        <span
+            style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);">©
+            2025 Leichtbau Werkstatt — Los Angeles // SoCal // San Diego</span>
+        <a href="contact.html"
+            style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">Connect
+            →</a>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .event-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('shown'), i * 60);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        reveals.forEach(el => observer.observe(el));
+    </script>
+
+    <!-- Anti-Inspection & Asset Protection -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (
+                event.keyCode == 123 ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 74) ||
+                (e.ctrlKey && e.keyCode == 85) ||
+                (e.metaKey && e.altKey && e.keyCode == 73) ||
+                (e.metaKey && e.altKey && e.keyCode == 74) ||
+                (e.metaKey && e.keyCode == 85)
+            ) {
+                return false;
+            }
+        };
+    </script>
+</body>
+
+</html>
