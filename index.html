@@ -567,7 +567,8 @@
                                 }, 350);
                             }
 
-                            showQuote(0);
+                            const startIdx = Math.floor(Math.random() * quotes.length);
+                            showQuote(startIdx);
                             setInterval(() => showQuote((current + 1) % quotes.length), 5000);
                         })();
                     </script>
