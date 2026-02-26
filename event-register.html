@@ -492,6 +492,8 @@
                 netlify-honeypot="bot-field" id="reg-form">
                 <!-- Netlify honeypot -->
                 <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+                <!-- Required for Netlify to route submissions -->
+                <input type="hidden" name="form-name" value="event-registration" />
                 <!-- Hidden fields populated by JS from URL params -->
                 <input type="hidden" name="event-name" id="hidden-event-name" />
                 <input type="hidden" name="event-date" id="hidden-event-date" />

@@ -1037,7 +1037,9 @@
                 </div>
                 <div>
                     <form class="cta-form" name="events-notify" method="POST" data-netlify="true"
-                        action="event-success.html">
+                        netlify-honeypot="bot-field" action="event-success.html">
+                        <input type="hidden" name="form-name" value="events-notify" />
+                        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
                         <input type="email" name="email" placeholder="Your email address" required />
                         <button type="submit">Notify Me</button>
                     </form>
