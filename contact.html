@@ -262,19 +262,19 @@
                 <form class="space-y-12" name="project-inquiry" method="POST" data-netlify="true"
                     action="/success-state.html">
                     <div class="grid md:grid-cols-2 gap-8">
-                        <div class="group">
-                            <label
-                                class="block text-[10px] uppercase tracking-widest mb-2 text-gray-500 group-focus-within:text-neon-orange transition-colors">Name</label>
-                            <input name="name"
-                                class="w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder:text-gray-300 dark:placeholder:text-zinc-700"
+                        <div class="relative group mt-4">
+                            <input name="name" id="name"
+                                class="peer w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder-transparent"
                                 placeholder="Your Name" type="text" required />
+                            <label for="name"
+                                class="absolute left-0 -top-3.5 text-[10px] uppercase tracking-widest text-gray-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-neon-orange cursor-text">Name</label>
                         </div>
-                        <div class="group">
-                            <label
-                                class="block text-[10px] uppercase tracking-widest mb-2 text-gray-500 group-focus-within:text-neon-orange transition-colors">Email</label>
-                            <input name="email"
-                                class="w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder:text-gray-300 dark:placeholder:text-zinc-700"
+                        <div class="relative group mt-4">
+                            <input name="email" id="email"
+                                class="peer w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder-transparent"
                                 placeholder="email@address.com" type="email" required />
+                            <label for="email"
+                                class="absolute left-0 -top-3.5 text-[10px] uppercase tracking-widest text-gray-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-neon-orange cursor-text">Email</label>
                         </div>
                     </div>
                     <div class="group">
@@ -304,12 +304,12 @@
                             </label>
                         </div>
                     </div>
-                    <div class="group">
-                        <label
-                            class="block text-[10px] uppercase tracking-widest mb-2 text-gray-500 group-focus-within:text-neon-orange transition-colors">Message</label>
-                        <textarea name="message"
-                            class="w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder:text-gray-300 dark:placeholder:text-zinc-700 resize-none"
-                            placeholder="Tell us about the vehicle and your vision..." rows="4"></textarea>
+                    <div class="relative group mt-4">
+                        <textarea name="message" id="message"
+                            class="peer w-full bg-transparent border-0 border-b border-gray-300 dark:border-zinc-700 py-3 px-0 focus:ring-0 focus:border-neon-orange text-lg transition-colors placeholder-transparent resize-none"
+                            placeholder="Tell us about the vehicle and your vision..." rows="4" required></textarea>
+                        <label for="message"
+                            class="absolute left-0 -top-3.5 text-[10px] uppercase tracking-widest text-gray-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:text-neon-orange cursor-text">Message</label>
                     </div>
                     <div class="pt-6">
                         <button
