@@ -1,240 +1,230 @@
 import re
 
-with open('parts.html', 'r') as f:
+with open('parts.html', 'r', encoding='utf-8') as f:
     html = f.read()
 
-# Remove static parts grid
-html = re.sub(
-    r'<div id="parts-grid"[^>]*>.*?</div><!-- /parts-grid -->',
-    r'<div id="parts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800"><div class="p-12 text-center col-span-full"><p class="mono text-xs uppercase tracking-widest text-gray-500 animate-pulse">Loading Live Inventory from Shopify...</p></div></div><!-- /parts-grid -->',
-    html,
-    flags=re.DOTALL
-)
+# 1. Add Shopify Buy SDK to head
+if 'shopify-buy' not in html:
+    html = html.replace('</head>', '    <script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>\n</head>')
 
-# Remove Stripe script
-html = re.sub(r'<script src="https://js\.stripe\.com/v3/"></script>\s*', '', html)
+# 2. Replace the static grid with an empty container and a loader
+static_grid_regex = re.compile(r'<div id="parts-grid"[^>]*>.*?</div><!-- /parts-grid -->', re.DOTALL)
 
-# Replace Javascript
-js_code = """
-    <script>
-        // ── Cursor ──
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
-        const initCursor = () => {
-            document.querySelectorAll('.cursor-hover-target').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-            });
-        };
-        initCursor();
+replacement_grid = """<div id="parts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-800">
+            <!-- Dynamic Shopify Products will load here -->
+            <div id="parts-loader" class="col-span-full py-32 flex flex-col items-center justify-center text-gray-400">
+                <span class="material-symbols-outlined text-4xl animate-spin mb-4">progress_activity</span>
+                <p class="mono text-[10px] uppercase tracking-widest">Syncing Live Inventory...</p>
+            </div>
+        </div><!-- /parts-grid -->"""
 
-        // ── Reveal on Scroll ──
-        const initReveals = () => {
-            const reveals = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('shown'), i * 60); observer.unobserve(e.target); } });
-            }, { threshold: 0.08 });
-            reveals.forEach(el => observer.observe(el));
-        };
-        initReveals();
+html = static_grid_regex.sub(replacement_grid, html)
 
-        // ── SHOPIFY INTEGRATION ──
-        const domain = 'leichtbauwerkstatt.myshopify.com';
-        const storefrontAccessToken = '926696394506a6845f32593799e52fa1';
-        const apiVersion = '2024-01';
+# 3. Replace the static Javascript with the dynamic Shopify script
+static_js_regex = re.compile(r'// ── Cart State ──.*?// ── Dark Mode Persistence ──', re.DOTALL)
 
-        async function shopifyFetch(query, variables = {}) {
-            const res = await fetch(`https://${domain}/api/${apiVersion}/graphql.json`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Shopify-Storefront-Access-Token': storefrontAccessToken
-                },
-                body: JSON.stringify({ query, variables })
-            });
-            return res.json();
-        }
+dynamic_js = """// ── Shopify Storefront API Integration ──
+        const client = ShopifyBuy.buildClient({
+            domain: 'leichtbau-werkstatt.myshopify.com',
+            storefrontAccessToken: 'e5e8a5b292e7c3b999c0ac7b3d3ab2c6' // Public unauthenticated storefront API token
+        });
 
-        // Fetch Products
-        async function loadProducts() {
-            const query = `
-            {
-              products(first: 20) {
-                edges {
-                  node {
-                    id
-                    title
-                    handle
-                    description
-                    productType
-                    variants(first: 1) {
-                      edges {
-                        node {
-                          id
-                          price {
-                            amount
-                            currencyCode
-                          }
-                          quantityAvailable
-                        }
-                      }
-                    }
-                    images(first: 1) {
-                      edges {
-                        node {
-                          url(transform: {maxWidth: 800, maxHeight: 600, crop: CENTER})
-                          altText
-                        }
-                      }
-                    }
-                  }
+        let cartId = localStorage.getItem('shopify_cart_id');
+        let checkout;
+
+        async function initShopify() {
+            // 1. Initialize or fetch Checkout (Cart)
+            if (cartId) {
+                checkout = await client.checkout.fetch(cartId);
+                // If the checkout was completed, create a new one
+                if (checkout && checkout.completedAt) {
+                    checkout = await client.checkout.create();
+                    localStorage.setItem('shopify_cart_id', checkout.id);
                 }
-              }
-            }`;
-
-            try {
-                const { data } = await shopifyFetch(query);
-                renderProducts(data.products.edges);
-            } catch (err) {
-                console.error("Error fetching from Shopify", err);
-                document.getElementById('parts-grid').innerHTML = '<div class="p-12 text-center col-span-full"><p class="mono text-xs uppercase text-red-500">Failed to load inventory.</p></div>';
+            } else {
+                checkout = await client.checkout.create();
+                localStorage.setItem('shopify_cart_id', checkout.id);
             }
+            updateCartUI();
+
+            // 2. Fetch Products
+            const products = await client.product.fetchAll();
+            renderProducts(products);
+            
+            // 3. Bind Checkout Button
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                if(checkout.lineItems.length > 0) {
+                    window.location.href = checkout.webUrl;
+                }
+            });
         }
 
-        function renderProducts(edges) {
+        function formatPriceStr(amount, currency = 'EUR') {
+            return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount);
+        }
+
+        function renderProducts(products) {
             const grid = document.getElementById('parts-grid');
-            if (!edges || edges.length === 0) {
-                grid.innerHTML = '<div class="p-12 text-center col-span-full"><p class="mono text-xs uppercase tracking-widest text-gray-500">No products found in store.</p></div>';
+            grid.innerHTML = ''; // Clear loader
+            
+            if (products.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center text-gray-500 mono text-xs uppercase">No products available at the moment.</div>`;
                 return;
             }
 
-            const html = edges.map((edge, index) => {
-                const p = edge.node;
-                const variant = p.variants.edges[0]?.node;
-                const price = variant?.price?.amount ? parseFloat(variant.price.amount) : 0;
-                const currency = variant?.price?.currencyCode || 'EUR';
-                const vId = variant?.id || '';
+            products.forEach((product, i) => {
+                const variant = product.variants[0];
+                const price = variant.price.amount;
+                const src = product.images.length > 0 ? product.images[0].src : 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80';
                 
-                const imgUrl = p.images.edges[0]?.node?.url || 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80';
-                const type = p.productType || 'Part';
-                const formattedPrice = new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(price);
-
-                return `
-                <div class="part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target" data-category="${type.toLowerCase()}">
-                    <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900">
-                        <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                            src="${imgUrl}" alt="${p.title}" loading="lazy" />
+                // Determine category from tags or product type for the filter
+                let category = product.productType ? product.productType.toLowerCase() : 'custom';
+                
+                const card = document.createElement('div');
+                card.className = "part-card bg-white dark:bg-zinc-950 p-0 reveal cursor-hover-target shown";
+                card.dataset.category = category;
+                card.innerHTML = `
+                <div class="overflow-hidden aspect-[4/3] bg-gray-100 dark:bg-zinc-900 relative">
+                    <img class="part-img w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        src="${src}" loading="lazy" alt="${product.title}" />
+                    ${!product.availableForSale ? `<div class="absolute inset-0 bg-black/60 flex items-center justify-center"><span class="bg-neon-orange text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1">Sold Out</span></div>` : ''}
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div class="pr-2">
+                            <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">${category} // 0${i+1}</span>
+                            <h3 class="grotesk text-lg font-bold mt-1 text-gray-900 truncate" title="${product.title}">${product.title}</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed line-clamp-2">${product.description || 'Premium aftermarket component.'}</p>
+                        </div>
+                        ${product.availableForSale ? `
+                        <span class="mono text-[10px] text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800 whitespace-nowrap">
+                            In Stock
+                        </span>` : ''}
                     </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex justify-between items-start">
-                            <div class="pr-2">
-                                <span class="badge text-[9px] uppercase tracking-[0.3em] text-neon-orange">${type} // 0${index + 1}</span>
-                                <h3 class="grotesk text-lg font-bold mt-1 text-gray-900 truncate" title="${p.title}">${p.title}</h3>
-                                <p class="text-xs text-gray-500 mt-1 font-light leading-relaxed line-clamp-2">${p.description || 'Precision engineered component.'}</p>
-                            </div>
-                            <span class="mono text-[10px] text-gray-400 bg-gray-50 dark:bg-zinc-900 px-2 py-1 border border-gray-200 dark:border-zinc-800 whitespace-nowrap">
-                                In Stock
-                            </span>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
+                        <div>
+                            <p class="grotesk text-2xl font-bold text-gray-900">€${price}</p>
+                            <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
                         </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-zinc-800">
-                            <div>
-                                <p class="grotesk text-2xl font-bold text-gray-900">${formattedPrice}</p>
-                                <p class="mono text-[9px] text-gray-400 uppercase">Per Unit</p>
-                            </div>
-                            <button
-                                class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2"
-                                data-id="${vId}" data-name="${p.title}" data-price="${price}" data-currency="${currency}" data-img="${imgUrl}">
-                                <span class="material-symbols-outlined text-sm">add</span>Add
-                            </button>
-                        </div>
+                        <button
+                            class="add-to-cart-btn bg-black dark:bg-white text-white dark:text-black px-6 py-3 text-[10px] uppercase tracking-widest font-bold hover:bg-neon-orange dark:hover:bg-neon-orange dark:hover:text-white transition-all duration-300 flex items-center gap-2 ${!product.availableForSale ? 'opacity-50 cursor-not-allowed' : ''}"
+                            data-variant-id="${variant.id}" ${!product.availableForSale ? 'disabled' : ''}>
+                            <span class="material-symbols-outlined text-sm">add</span>Add
+                        </button>
                     </div>
                 </div>`;
-            }).join('');
+                grid.appendChild(card);
+            });
 
-            grid.innerHTML = html;
-            initCursor();
-            initReveals();
-            attachCartListeners();
-        }
-
-        // ── Cart State ──
-        let cart = {};
-
-        function formatPriceStr(amount, currency = 'EUR') { 
-            return new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(amount); 
+            // Bind add to cart events for the newly rendered buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const ogHtml = btn.innerHTML;
+                    btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> Syncing';
+                    btn.disabled = true;
+                    
+                    const variantId = btn.dataset.variantId;
+                    const lineItemsToAdd = [{ variantId, quantity: 1 }];
+                    
+                    try {
+                        checkout = await client.checkout.addLineItems(checkout.id, lineItemsToAdd);
+                        updateCartUI();
+                        openCart();
+                        
+                        btn.innerHTML = '✓ Added';
+                        btn.classList.add('bg-neon-orange');
+                        btn.classList.remove('bg-black', 'dark:bg-white');
+                        setTimeout(() => { 
+                            btn.innerHTML = ogHtml; 
+                            btn.classList.remove('bg-neon-orange'); 
+                            btn.classList.add('bg-black', 'dark:bg-white');
+                            btn.disabled = false;
+                        }, 1200);
+                    } catch(err) {
+                        console.error(err);
+                        btn.innerHTML = 'Error';
+                        setTimeout(() => { btn.innerHTML = ogHtml; btn.disabled = false; }, 2000);
+                    }
+                });
+            });
         }
 
         function updateCartUI() {
-            const items = Object.values(cart);
-            const count = items.reduce((s, i) => s + i.qty, 0);
-            const total = items.reduce((s, i) => s + i.price * i.qty, 0);
             const countEl = document.getElementById('cart-count');
-            countEl.textContent = count;
-            count > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
+            const totalItems = checkout.lineItems.reduce((acc, item) => acc + item.quantity, 0);
             
-            // Assume single currency for display simplicity
-            const currency = items.length > 0 ? items[0].currency : 'EUR';
-            document.getElementById('cart-total').textContent = formatPriceStr(total, currency);
+            countEl.textContent = totalItems;
+            totalItems > 0 ? countEl.classList.remove('hidden') : countEl.classList.add('hidden');
+            
+            document.getElementById('cart-total').textContent = formatPriceStr(checkout.totalPrice.amount, checkout.totalPrice.currencyCode);
 
             const cartItemsEl = document.getElementById('cart-items');
             const emptyEl = document.getElementById('cart-empty');
-            if (items.length === 0) { emptyEl.classList.remove('hidden'); cartItemsEl.innerHTML = ''; cartItemsEl.appendChild(emptyEl); return; }
+            
+            if (checkout.lineItems.length === 0) { 
+                emptyEl.classList.remove('hidden'); 
+                cartItemsEl.innerHTML = ''; 
+                cartItemsEl.appendChild(emptyEl); 
+                return; 
+            }
+            
             emptyEl.classList.add('hidden');
-            cartItemsEl.innerHTML = items.map(item => `
-            <div class="flex gap-4 items-start border-b border-gray-100 dark:border-zinc-800 pb-6" id="cart-item-${item.id}">
+            cartItemsEl.innerHTML = checkout.lineItems.map(item => `
+            <div class="flex gap-4 items-start border-b border-gray-100 dark:border-zinc-800 pb-6">
                 <div class="w-20 h-20 bg-gray-100 dark:bg-zinc-800 flex-shrink-0 overflow-hidden">
-                    <img src="${item.img || ''}" class="w-full h-full object-cover grayscale" onerror="this.style.display='none'"/>
+                    <img src="${item.variant.image ? item.variant.image.src : ''}" class="w-full h-full object-cover grayscale" onerror="this.style.display='none'"/>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="grotesk font-semibold text-sm truncate" title="${item.name}">${item.name}</p>
+                    <p class="grotesk font-semibold text-sm truncate" title="${item.title}">${item.title}</p>
                     <div class="flex items-center gap-3 mt-3">
-                        <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', -1)">−</button>
-                        <span class="mono text-sm font-bold w-4 text-center">${item.qty}</span>
-                        <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="changeQty('${item.id}', 1)">+</button>
-                        <button class="ml-auto mono text-[9px] text-gray-400 hover:text-red-500 uppercase tracking-wider transition-colors" onclick="removeItem('${item.id}')">Remove</button>
+                        <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="updateLineItem('${item.id}', ${item.quantity - 1})">−</button>
+                        <span class="mono text-sm font-bold w-4 text-center">${item.quantity}</span>
+                        <button class="qty-btn w-7 h-7 border border-gray-200 dark:border-zinc-700 text-sm font-bold flex items-center justify-center transition-all" onclick="updateLineItem('${item.id}', ${item.quantity + 1})">+</button>
+                        <button class="ml-auto mono text-[9px] text-gray-400 hover:text-red-500 uppercase tracking-wider transition-colors" onclick="removeLineItem('${item.id}')">Remove</button>
                     </div>
                 </div>
                 <div class="text-right flex-shrink-0">
-                    <p class="grotesk font-bold">${formatPriceStr(item.price * item.qty, item.currency)}</p>
-                    <p class="mono text-[9px] text-gray-400">${formatPriceStr(item.price, item.currency)} ea.</p>
+                    <p class="grotesk font-bold">${formatPriceStr(item.variant.price.amount * item.quantity, item.variant.price.currencyCode)}</p>
+                    <p class="mono text-[9px] text-gray-400">${formatPriceStr(item.variant.price.amount, item.variant.price.currencyCode)} ea.</p>
                 </div>
             </div>
             `).join('');
         }
 
-        window.changeQty = function(id, delta) {
-            if (!cart[id]) return;
-            cart[id].qty = Math.max(0, cart[id].qty + delta);
-            if (cart[id].qty === 0) delete cart[id];
-            updateCartUI();
+        window.updateLineItem = async function(id, quantity) {
+            if(quantity === 0) {
+                return removeLineItem(id);
+            }
+            try {
+                checkout = await client.checkout.updateLineItems(checkout.id, [{id, quantity}]);
+                updateCartUI();
+            } catch(e) { console.error(e); }
         }
 
-        window.removeItem = function(id) { delete cart[id]; updateCartUI(); }
+        window.removeLineItem = async function(id) {
+            try {
+                checkout = await client.checkout.removeLineItems(checkout.id, [id]);
+                updateCartUI();
+            } catch(e) { console.error(e); }
+        }
 
-        function attachCartListeners() {
-            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = btn.dataset.id;
-                    if (cart[id]) { cart[id].qty++; } else {
-                        cart[id] = { 
-                            id, 
-                            name: btn.dataset.name, 
-                            price: parseFloat(btn.dataset.price), 
-                            currency: btn.dataset.currency,
-                            img: btn.dataset.img,
-                            qty: 1 
-                        };
-                    }
-                    updateCartUI();
-                    openCart();
-                    btn.textContent = '✓ Added';
-                    btn.classList.add('bg-neon-orange');
-                    setTimeout(() => { btn.innerHTML = '<span class="material-symbols-outlined text-sm">add</span>Add'; btn.classList.remove('bg-neon-orange'); }, 1200);
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.part-card').forEach(card => {
+                    // Match subset of string for custom loose categories
+                    const match = filter === 'all' || card.dataset.category.includes(filter);
+                    card.style.display = match ? '' : 'none';
                 });
             });
-        }
+        });
 
-        // ── Cart Drawer ──
+        // Initialize wrapper
+        initShopify();
+
+        // ── Cart Drawer Events ──
         const cartDrawer = document.getElementById('cart-drawer');
         const cartOverlay = document.getElementById('cart-overlay');
         function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -243,73 +233,9 @@ js_code = """
         document.getElementById('close-cart').addEventListener('click', closeCart);
         cartOverlay.addEventListener('click', closeCart);
 
-        // ── Shopify Checkout ──
-        document.getElementById('checkout-btn').addEventListener('click', async () => {
-            const items = Object.values(cart);
-            if (items.length === 0) return;
+        // ── Dark Mode Persistence ──"""
 
-            const btn = document.getElementById('checkout-btn');
-            btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> Redirecting...';
-            btn.disabled = true;
+html = static_js_regex.sub(dynamic_js, html)
 
-            const lines = items.map(item => ({
-                merchandiseId: item.id,
-                quantity: item.qty
-            }));
-
-            const query = `
-            mutation cartCreate($input: CartInput!) {
-              cartCreate(input: $input) {
-                cart {
-                  checkoutUrl
-                }
-                userErrors {
-                  field
-                  message
-                }
-              }
-            }`;
-
-            try {
-                const { data } = await shopifyFetch(query, { input: { lines } });
-                if (data.cartCreate.cart.checkoutUrl) {
-                    window.location.href = data.cartCreate.cart.checkoutUrl;
-                } else {
-                    console.error("Checkout errors", data.cartCreate.userErrors);
-                    alert("Unable to create checkout. Try again.");
-                    btn.innerHTML = '<span>Proceed to Checkout</span><span class="material-symbols-outlined text-sm">arrow_forward</span>';
-                    btn.disabled = false;
-                }
-            } catch (err) {
-                console.error(err);
-                btn.innerHTML = 'Error — Try Again';
-                btn.disabled = false;
-            }
-        });
-
-        // ── Filters ──
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.dataset.filter.toLowerCase();
-                document.querySelectorAll('.part-card').forEach(card => {
-                    // Match category if available, otherwise just show all unless strict filtering is needed
-                    // Because Shopify product types might not strictly match our tabs, we'll do a loose text match
-                    const productText = card.innerText.toLowerCase();
-                    const match = filter === 'all' || card.dataset.category.includes(filter) || productText.includes(filter);
-                    card.style.display = match ? '' : 'none';
-                });
-            });
-        });
-
-        // ── Init ──
-        if (localStorage.getItem('asta-theme') === 'dark') document.documentElement.classList.add('dark');
-        loadProducts();
-    </script>"""
-
-# Replace script tag and everything down to bottom
-html = re.sub(r'<script>\s*// ── Cursor ──.*?</script>', js_code, html, flags=re.DOTALL)
-
-with open('parts.html', 'w') as f:
+with open('parts.html', 'w', encoding='utf-8') as f:
     f.write(html)
