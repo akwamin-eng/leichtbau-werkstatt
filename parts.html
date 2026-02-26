@@ -54,12 +54,17 @@
     .grotesk { font-family: 'Space Grotesk', sans-serif; }
     .mono { font-family: 'JetBrains Mono', monospace; }
     #cursor {
-        position: fixed; top: 0; left: 0; width: 20px; height: 20px;
-        border: 1px solid #FF4D00; border-radius: 50%; pointer-events: none;
-        z-index: 10000; transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s, background-color 0.2s; mix-blend-mode: difference;
-    }
-    #cursor.hovered { width: 60px; height: 60px; background-color: rgba(255,77,0,0.2); box-shadow: 0 0 20px rgba(255,77,0,0.4); }
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background-color: #FF4D00; border-radius: 50%; pointer-events: none;
+            z-index: 10000; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            box-shadow: 0 0 10px rgba(255, 77, 0, 0.6);
+        }
+    #cursor.hovered {
+            width: 60px; height: 60px;
+            background-color: rgba(255, 77, 0, 0.15); border: 1px solid rgba(255, 77, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.3);
+        }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #111; }
     ::-webkit-scrollbar-thumb { background: #FF4D00; border-radius: 3px; }

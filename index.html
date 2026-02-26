@@ -116,45 +116,40 @@
             animation: draw 2.5s ease-in-out forwards;
         }
         .headlight {
-            fill: #fff;
-            opacity: 0;
-            animation: turnOn 0.5s step-end 2s forwards, flicker 0.1s 3 2.1s;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 1.5;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 2.5s ease-in-out forwards, turnOnYellow 0.5s step-end 2s forwards, flickerYellow 0.1s 3 2.1s;
         }
         .kidney-grille {
             fill: none;
             stroke: #fff;
             stroke-width: 1.5;
-            opacity: 0;
-            animation: turnOn 0.5s step-end 2s forwards, flicker 0.1s 3 2.1s;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 2.5s ease-in-out forwards;
         }
-        @keyframes turnOn {
-            to { opacity: 0.8; box-shadow: 0 0 10px #fff; }
+        @keyframes turnOnYellow {
+            to { fill: #facc15; stroke: #facc15; filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8)); }
         }
-        @keyframes flicker {
+        @keyframes flickerYellow {
             0% { opacity: 0.2; }
             50% { opacity: 0.8; }
             100% { opacity: 0.2; }
         }
         #cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            border: 1px solid #FF4D00;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background-color: #FF4D00; border-radius: 50%; pointer-events: none;
+            z-index: 10000; transform: translate(-50%, -50%);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
-            mix-blend-mode: difference;
+            box-shadow: 0 0 10px rgba(255, 77, 0, 0.6);
         }
         #cursor.hovered {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 77, 0, 0.2);
-            border-color: #FF4D00;
-            box-shadow: 0 0 20px rgba(255, 77, 0, 0.4);
+            width: 60px; height: 60px;
+            background-color: rgba(255, 77, 0, 0.15); border: 1px solid rgba(255, 77, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.3);
         }
         @property --num {
             syntax: "<integer>";
@@ -215,16 +210,32 @@
     <div id="preloader">
         <div class="relative w-[300px] h-[150px] md:w-[500px] md:h-[250px]">
             <svg class="car-svg w-full h-full" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M50 150 L80 120 L180 115 L250 80 L380 80 L420 120 L450 150 M80 120 L80 150 M420 120 L420 150 M180 115 L180 150 M380 80 L380 150"
+                <!-- Windshield & Roof -->
+                <path d="M160 55 L340 55 L370 95 L130 95 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+                <!-- Body Box -->
+                <path d="M150 40 L350 40 L390 100 L440 100 L450 170 L430 200 L70 200 L50 170 L60 100 L110 100 Z"
                     stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M80 150 A 30 30 0 0 1 140 150" stroke-linecap="round"></path>
-                <path d="M360 150 A 30 30 0 0 1 420 150" stroke-linecap="round"></path>
-                <path d="M20 150 L80 150 M140 150 L360 150 M420 150 L480 150"></path>
-                <circle class="headlight" cx="60" cy="135" r="5"></circle>
-                <circle class="headlight" cx="75" cy="135" r="5"></circle>
-                <rect class="kidney-grille" x="35" y="129" width="6" height="12" rx="2"></rect>
-                <rect class="kidney-grille" x="43" y="129" width="6" height="12" rx="2"></rect>
+                <!-- Mirrors -->
+                <path d="M70 105 L50 105 L45 115 L72 115 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M430 105 L450 105 L455 115 L428 115 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+
+                <!-- Bumper lines -->
+                <path d="M65 160 L435 160 M62 180 L438 180"></path>
+                <!-- Lower Lip -->
+                <path d="M120 200 L120 220 L380 220 L380 200"></path>
+                <!-- Tires -->
+                <path d="M60 200 L60 230 L100 230 L100 200"></path>
+                <path d="M400 200 L400 230 L440 230 L440 200"></path>
+
+                <!-- Kidney Grilles -->
+                <rect class="kidney-grille" x="220" y="110" width="26" height="38" rx="6"></rect>
+                <rect class="kidney-grille" x="254" y="110" width="26" height="38" rx="6"></rect>
+
+                <!-- Headlights (Dual round left & right) -->
+                <circle class="headlight" cx="120" cy="129" r="14"></circle>
+                <circle class="headlight" cx="160" cy="129" r="14"></circle>
+                <circle class="headlight" cx="340" cy="129" r="14"></circle>
+                <circle class="headlight" cx="380" cy="129" r="14"></circle>
             </svg>
         </div>
         <div class="mt-8 flex flex-col items-center w-64">
@@ -449,7 +460,8 @@
                             class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
                             Service →</span>
                     </a>
-                    <a href="race-prep.html" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2" class="flex flex-col items-start md:mt-32 parallax-item group/card"
+                    <a href="race-prep.html" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                        data-tilt-max-glare="0.2" class="flex flex-col items-start md:mt-32 parallax-item group/card"
                         data-speed="0.08">
                         <div class="relative w-full aspect-[4/5] overflow-hidden mb-6 cursor-hover-target shadow-xl">
                             <img alt="Blue BMW E30 race car with exposed orange engine — Race Prep"
@@ -467,7 +479,8 @@
                             class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
                             Service →</span>
                     </a>
-                    <a href="assembly.html" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2" class="flex flex-col items-end md:text-right parallax-item group/card"
+                    <a href="assembly.html" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                        data-tilt-max-glare="0.2" class="flex flex-col items-end md:text-right parallax-item group/card"
                         data-speed="0.06">
                         <div class="relative w-full aspect-[3/2] overflow-hidden mb-6 cursor-hover-target">
                             <img alt="Detailed shot of engine assembly"
