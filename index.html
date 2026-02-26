@@ -525,51 +525,30 @@
                         <p id="rotating-attr"
                             class="text-xs uppercase tracking-widest mt-6 text-gray-500 transition-opacity duration-700">
                         </p>
-                        <!-- Dots -->
-                        <div class="flex gap-2 mt-8" id="quote-dots"></div>
+
                     </div>
                     <script>
                         (function () {
                             const quotes = [
+                                // Colin Chapman
+                                { text: "\u201cSimplify, then add lightness.\u201d", attr: "\u2014 Colin Chapman" },
+                                { text: "\u201cAny car which holds together for a whole race is too heavy.\u201d", attr: "\u2014 Colin Chapman" },
+                                { text: "\u201cAdding power makes you faster on the straights. Subtracting weight makes you faster everywhere.\u201d", attr: "\u2014 Colin Chapman" },
+                                { text: "\u201cI\u2019ve never been interested in just building a car. I\u2019ve always been interested in building a racing car.\u201d", attr: "\u2014 Colin Chapman" },
+                                { text: "\u201cThe perfect racing car crosses the finish line first and simultaneously falls to pieces.\u201d", attr: "\u2014 Colin Chapman" },
+                                // Other motorsport
                                 { text: "\u201cTo finish first, first you must finish.\u201d", attr: "\u2014 Race Driver\u2019s Axiom" },
                                 { text: "\u201cWhen you\u2019re racing, it\u2019s life. Anything that happens before or after is just waiting.\u201d", attr: "\u2014 Steve McQueen" },
                                 { text: "\u201cRacing is the constant search for perfection in an imperfect world.\u201d", attr: "\u2014 Niki Lauda" },
-                                { text: "\u201cA car is useless in New York, essential everywhere else. The same with American Express.\u201d", attr: "\u2014 Andrew Tobias" },
-                                { text: "\u201cSpeed has never killed anyone. Suddenly becoming stationary — that\u2019s what gets you.\u201d", attr: "\u2014 Jeremy Clarkson" }
+                                { text: "\u201cSpeed has never killed anyone. Suddenly becoming stationary \u2014 that\u2019s what gets you.\u201d", attr: "\u2014 Jeremy Clarkson" }
                             ];
-                            let current = 0;
+
+                            const idx = Math.floor(Math.random() * quotes.length);
+                            const q = quotes[idx];
                             const qEl = document.getElementById('rotating-quote');
                             const aEl = document.getElementById('rotating-attr');
-                            const dotsContainer = document.getElementById('quote-dots');
-
-                            // Build dots
-                            quotes.forEach((_, i) => {
-                                const dot = document.createElement('button');
-                                dot.className = 'w-1.5 h-1.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-neon-orange scale-125' : 'bg-gray-300 dark:bg-zinc-700');
-                                dot.setAttribute('aria-label', 'Quote ' + (i + 1));
-                                dot.addEventListener('click', () => showQuote(i));
-                                dotsContainer.appendChild(dot);
-                            });
-
-                            function showQuote(idx) {
-                                qEl.style.opacity = '0';
-                                aEl.style.opacity = '0';
-                                setTimeout(() => {
-                                    current = idx;
-                                    qEl.textContent = quotes[idx].text;
-                                    aEl.textContent = quotes[idx].attr;
-                                    qEl.style.opacity = '1';
-                                    aEl.style.opacity = '1';
-                                    // Update dots
-                                    dotsContainer.querySelectorAll('button').forEach((d, i) => {
-                                        d.className = 'w-1.5 h-1.5 rounded-full transition-all duration-300 ' + (i === idx ? 'bg-neon-orange scale-125' : 'bg-gray-300 dark:bg-zinc-700');
-                                    });
-                                }, 350);
-                            }
-
-                            const startIdx = Math.floor(Math.random() * quotes.length);
-                            showQuote(startIdx);
-                            setInterval(() => showQuote((current + 1) % quotes.length), 5000);
+                            if (qEl) qEl.textContent = q.text;
+                            if (aEl) aEl.textContent = q.attr;
                         })();
                     </script>
                 </div>
