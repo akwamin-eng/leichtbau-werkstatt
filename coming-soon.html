@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leichtbau Werkstatt — Coming Soon</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --orange: #E8642A;
+            --orange-dim: rgba(232, 100, 42, 0.15);
+            --bg: #080808;
+            --surface: #0f0f0f;
+            --border: rgba(255, 255, 255, 0.07);
+            --text-dim: rgba(255, 255, 255, 0.3);
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: var(--bg);
+            color: #e8e8e8;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ── Grid overlay ── */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(232, 100, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232, 100, 42, 0.03) 1px, transparent 1px);
+            background-size: 72px 72px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Ambient glow ── */
+        .glow {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(232, 100, 42, 0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: breathe 6s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 1;
+            }
+        }
+
+        /* ── Top accent line ── */
+        .accent-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent 0%, var(--orange) 40%, var(--orange) 60%, transparent 100%);
+            z-index: 10;
+            opacity: 0.8;
+        }
+
+        /* ── Ticker ── */
+        .ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 36px;
+            background: var(--orange);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: ticker 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0 2.5rem;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ── Layout ── */
+        .stage {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem 36px;
+            text-align: center;
+        }
+
+        /* ── Logo ── */
+        .logo {
+            height: 52px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+            margin-bottom: 3.5rem;
+            animation: fadeDown 0.9s ease both;
+        }
+
+        /* ── Heading ── */
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1.25rem;
+            animation: fadeDown 0.9s 0.1s ease both;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 9vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            color: #fff;
+            margin-bottom: 0.4rem;
+            animation: fadeDown 1s 0.15s ease both;
+        }
+
+        h1 em {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.35);
+            display: block;
+            font-size: 0.7em;
+            letter-spacing: -0.01em;
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+            margin-top: 1.5rem;
+            margin-bottom: 3.5rem;
+            max-width: 36ch;
+            line-height: 1.7;
+            animation: fadeDown 1s 0.2s ease both;
+        }
+
+        /* ── Password form ── */
+        .pw-wrap {
+            width: 100%;
+            max-width: 420px;
+            animation: fadeUp 1s 0.3s ease both;
+        }
+
+        .pw-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            display: block;
+            text-align: left;
+            margin-bottom: 0.75rem;
+        }
+
+        .pw-row {
+            display: flex;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: border-color 0.25s;
+            position: relative;
+        }
+
+        .pw-row:focus-within {
+            border-color: var(--orange);
+        }
+
+        .pw-row.error {
+            border-color: rgba(239, 68, 68, 0.7);
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-8px);
+            }
+
+            40% {
+                transform: translateX(8px);
+            }
+
+            60% {
+                transform: translateX(-5px);
+            }
+
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .pw-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            padding: 1rem 1.25rem;
+        }
+
+        .pw-input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+
+        .pw-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            padding: 0 1.1rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            font-family: 'JetBrains Mono', monospace;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .pw-toggle:hover {
+            color: #fff;
+        }
+
+        .pw-btn {
+            width: 100%;
+            margin-top: 0.75rem;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .pw-btn:hover {
+            background: #d05620;
+        }
+
+        .pw-btn:active {
+            transform: scale(0.98);
+        }
+
+        .pw-btn.loading {
+            opacity: 0.7;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .pw-error {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(239, 68, 68, 0.8);
+            margin-top: 0.75rem;
+            min-height: 1rem;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .pw-error.visible {
+            opacity: 1;
+        }
+
+        /* ── Corner stamp ── */
+        .stamp {
+            position: fixed;
+            bottom: 48px;
+            right: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.12);
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            pointer-events: none;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: clamp(2.5rem, 13vw, 5rem);
+            }
+
+            .logo {
+                height: 38px;
+                margin-bottom: 2.5rem;
+            }
+
+            .stamp {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Check if already unlocked — skip the gate -->
+    <script>
+        if (localStorage.getItem('lw-access') === 'granted') {
+            window.location.replace('index.html');
+        }
+    </script>
+
+    <div class="grid-bg"></div>
+    <div class="glow"></div>
+    <div class="accent-top"></div>
+
+    <div class="stage">
+        <img src="assets/logo-color.png" alt="Leichtbau Werkstatt" class="logo" />
+
+        <p class="eyebrow">Leichtbau Werkstatt — Costa Mesa, CA</p>
+        <h1>Coming<br /><em>Soon.</em></h1>
+        <p class="tagline">Something precise is being assembled.<br />Enter your access code to preview the experience.
+        </p>
+
+        <div class="pw-wrap">
+            <label class="pw-label" for="pw-input">// Access Code</label>
+            <div class="pw-row" id="pw-row">
+                <input class="pw-input" id="pw-input" type="password" placeholder="Enter password"
+                    autocomplete="current-password" spellcheck="false" />
+                <button class="pw-toggle" type="button" id="pw-toggle" aria-label="Show password">Show</button>
+            </div>
+            <div class="pw-error" id="pw-error">Incorrect password. Try again.</div>
+            <button class="pw-btn" id="pw-btn" type="button">Enter →</button>
+        </div>
+    </div>
+
+    <div class="stamp">Leichtbau Werkstatt // Est. 2025 // Costa Mesa CA</div>
+
+    <!-- Ticker -->
+    <div class="ticker">
+        <div class="ticker-track">
+            <span class="ticker-item">Leichtbau Werkstatt</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Fabrication</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Assembly</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Race Prep</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Costa Mesa, CA</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Simplify, Then Add Lightness</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Track Days</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Shop Nights</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Car Meets</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Leichtbau Werkstatt</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Fabrication</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Assembly</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Race Prep</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Costa Mesa, CA</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Simplify, Then Add Lightness</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Track Days</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Shop Nights</span><span class="ticker-item">—</span>
+            <span class="ticker-item">Car Meets</span><span class="ticker-item">—</span>
+        </div>
+    </div>
+
+    <script>
+        const INPUT = document.getElementById('pw-input');
+        const BTN = document.getElementById('pw-btn');
+        const ERR = document.getElementById('pw-error');
+        const ROW = document.getElementById('pw-row');
+        const TOGGLE = document.getElementById('pw-toggle');
+
+        // Show/hide password
+        TOGGLE.addEventListener('click', () => {
+            const isText = INPUT.type === 'text';
+            INPUT.type = isText ? 'password' : 'text';
+            TOGGLE.textContent = isText ? 'Show' : 'Hide';
+        });
+
+        function attempt() {
+            const val = INPUT.value.trim();
+            // Stored as reversed base64 to avoid plain-text in source
+            const key = btoa(val);
+            if (key === 'a2l0dHlmYXJ0Njk=') {
+                BTN.classList.add('loading');
+                BTN.textContent = 'Unlocking…';
+                localStorage.setItem('lw-access', 'granted');
+                setTimeout(() => window.location.replace('index.html'), 400);
+            } else {
+                ERR.classList.add('visible');
+                ROW.classList.add('error');
+                INPUT.value = '';
+                INPUT.focus();
+                setTimeout(() => {
+                    ROW.classList.remove('error');
+                    ERR.classList.remove('visible');
+                }, 2500);
+            }
+        }
+
+        BTN.addEventListener('click', attempt);
+        INPUT.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+
+        // Auto-focus password field
+        INPUT.focus();
+    </script>
+</body>
+
+</html>
