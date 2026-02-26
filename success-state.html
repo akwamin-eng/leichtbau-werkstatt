@@ -147,15 +147,38 @@
             overlay.addEventListener('click', closeMenu);
         })();
     </script>
-    <main class="flex-grow flex flex-col items-center justify-center px-6 relative">
+    <main class="flex-grow flex flex-col items-center justify-center px-6 relative py-32 md:py-48">
         <div class="max-w-2xl w-full text-center flex flex-col items-center animate-fade-in-up">
-            <div class="mb-12 relative">
-                <div class="w-32 h-32 md:w-40 md:h-40 relative flex items-center justify-center">
-                    <img alt="Leichtbau Werkstatt Mark"
-                        class="w-full h-full object-contain mix-blend-multiply opacity-90"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A"
-                        style="clip-path: circle(22% at 50% 15%); transform: scale(3);" />
-                </div>
+            <div class="mb-12 relative flex items-center justify-center">
+                <!-- SVG Checkmark Animation -->
+                <svg class="w-32 h-32 md:w-40 md:h-40 text-neon-orange" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Circle -->
+                    <circle class="stroke-current" cx="26" cy="26" r="25" fill="none" stroke-width="2" stroke-miterlimit="10"
+                        stroke-dasharray="160" stroke-dashoffset="160"
+                        style="animation: drawCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;" />
+                    <!-- Check -->
+                    <path class="stroke-current" fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" 
+                        d="M14 27l7 7 16-16"
+                        stroke-dasharray="40" stroke-dashoffset="40"
+                        style="animation: drawCheck 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;" />
+                </svg>
+            </div>
+            
+            <style>
+                @keyframes drawCircle {
+                    100% { stroke-dashoffset: 0; }
+                }
+                @keyframes drawCheck {
+                    100% { stroke-dashoffset: 0; }
+                }
+                .animate-fade-in-up {
+                    animation: fadeInUp 0.8s ease-out forwards;
+                }
+                @keyframes fadeInUp {
+                    0% { opacity: 0; transform: translateY(20px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                }
+            </style>
             </div>
             <h1 class="grotesk-display text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 leading-tight">
                 Transmission<br />Received.
