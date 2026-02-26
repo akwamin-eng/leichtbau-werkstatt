@@ -57,9 +57,10 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 10000;
-            transform: translate(-50%, -50%);
+            transform: translate3d(-9999px, -9999px, 0) translate(-50%, -50%);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
             box-shadow: 0 0 10px rgba(232, 100, 42, 0.6);
+            will-change: transform;
         }
 
         #cursor.hovered {
@@ -800,7 +801,7 @@
                     </div>
                     <div class="event-action">
                         <span class="event-status-badge badge-open">Open</span>
-                        <a href="contact.html" class="btn-register">Register →</a>
+                        <a href="event-register.html?event=spring-shakedown" class="btn-register">Register →</a>
                     </div>
                 </div>
 
@@ -834,7 +835,7 @@
                     </div>
                     <div class="event-action">
                         <span class="event-status-badge badge-invite">Invite Only</span>
-                        <a href="contact.html" class="btn-register">Enquire →</a>
+                        <a href="event-register.html?event=werkstatt-nights-apr" class="btn-register">Enquire →</a>
                     </div>
                 </div>
 
@@ -868,7 +869,7 @@
                     </div>
                     <div class="event-action">
                         <span class="event-status-badge badge-open">Open</span>
-                        <a href="contact.html" class="btn-register">RSVP →</a>
+                        <a href="event-register.html?event=socal-analog" class="btn-register">RSVP →</a>
                     </div>
                 </div>
 
@@ -903,7 +904,7 @@
                     </div>
                     <div class="event-action">
                         <span class="event-status-badge badge-limited">Filling Fast</span>
-                        <a href="contact.html" class="btn-register">Register →</a>
+                        <a href="event-register.html?event=buttonwillow-may" class="btn-register">Register →</a>
                     </div>
                 </div>
 
@@ -937,7 +938,7 @@
                     </div>
                     <div class="event-action">
                         <span class="event-status-badge badge-limited">3 Spots Left</span>
-                        <a href="contact.html" class="btn-register">Register →</a>
+                        <a href="event-register.html?event=angeles-crest" class="btn-register">Register →</a>
                     </div>
                 </div>
 
@@ -1036,7 +1037,7 @@
                 </div>
                 <div>
                     <form class="cta-form" name="events-notify" method="POST" data-netlify="true"
-                        action="/success-state.html">
+                        action="event-success.html">
                         <input type="email" name="email" placeholder="Your email address" required />
                         <button type="submit">Notify Me</button>
                     </form>
@@ -1050,23 +1051,33 @@
         <img src="assets/logo-white.png" alt="Leichtbau Werkstatt" style="height:32px;width:auto;opacity:0.6;" />
         <span
             style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);">©
-            2025 Leichtbau Werkstatt — Los Angeles // SoCal // San Diego</span>
+            <span id="footer-year"></span> Leichtbau Werkstatt — Los Angeles // SoCal // San Diego</span>
         <a href="contact.html"
             style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">Connect
             →</a>
     </footer>
 
     <script>
-        // Custom Cursor
+        // Custom Cursor — GPU-composited, rAF-throttled
         const cursor = document.getElementById('cursor');
+        let mouseX = -9999, mouseY = -9999, rafPending = false;
         document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            mouseX = e.clientX; mouseY = e.clientY;
+            if (!rafPending) {
+                rafPending = true;
+                requestAnimationFrame(() => {
+                    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                    rafPending = false;
+                });
+            }
         });
         document.querySelectorAll('a, button, .event-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
+        // Dynamic year
+        const yearEl = document.getElementById('footer-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         // Reveal on scroll
         const reveals = document.querySelectorAll('.reveal');

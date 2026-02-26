@@ -150,9 +150,10 @@
         #cursor {
             position: fixed; top: 0; left: 0; width: 12px; height: 12px;
             background-color: #FF4D00; border-radius: 50%; pointer-events: none;
-            z-index: 10000; transform: translate(-50%, -50%);
+            z-index: 10000; transform: translate3d(-9999px, -9999px, 0) translate(-50%, -50%);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
             box-shadow: 0 0 10px rgba(255, 77, 0, 0.6);
+            will-change: transform;
         }
         #cursor.hovered {
             width: 60px; height: 60px;
@@ -658,7 +659,7 @@
             <div
                 class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
                 <p class="text-[10px] uppercase tracking-widest font-mono mb-4 md:mb-0">
-                    © 2024 Leichtbau Werkstatt
+                    © <span id="footer-year"></span> Leichtbau Werkstatt
                 </p>
                 <img alt="Small Logo" class="h-8 w-auto invert opacity-50" src="assets/logo-color.png" />
                 <p class="text-[10px] uppercase tracking-widest font-mono">
@@ -673,21 +674,28 @@
         <span class="material-symbols-outlined text-xl">contrast</span>
     </button>
     <script>
-        // Custom Cursor Logic
+        // Custom Cursor Logic — GPU-composited, rAF-throttled
         const cursor = document.getElementById('cursor');
         const hoverTargets = document.querySelectorAll('.cursor-hover-target');
+        let mouseX = -100, mouseY = -100, rafPending = false;
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!rafPending) {
+                rafPending = true;
+                requestAnimationFrame(() => {
+                    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                    rafPending = false;
+                });
+            }
         });
         hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
-            });
-            target.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
-            });
+            target.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
+        // Dynamic copyright year
+        const yearEl = document.getElementById('footer-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
         // Parallax and Scroll Progress Logic
         const title = document.getElementById('hero-title');
         const parallaxBox = document.getElementById('parallax-box');

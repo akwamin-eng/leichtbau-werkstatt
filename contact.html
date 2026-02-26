@@ -327,7 +327,7 @@
         <div
             class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
             <p class="text-[10px] uppercase tracking-widest font-mono mb-4 md:mb-0">
-                © 2024 Leichtbau Werkstatt
+                © <span id="footer-year"></span> Leichtbau Werkstatt
             </p>
             <p class="text-[10px] uppercase tracking-widest font-mono">
                 Los Angeles // SoCal // San Diego
@@ -340,6 +340,11 @@
         <span class="material-symbols-outlined text-xl">contrast</span>
     </button>
 
+
+    <script>
+        const yearEl = document.getElementById('footer-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
 
     <!-- Anti-Inspection & Asset Protection -->
     <script>

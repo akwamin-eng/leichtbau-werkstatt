@@ -278,7 +278,8 @@
     <footer class="bg-black text-white py-12 px-8 border-t border-white/10">
         <div
             class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
-            <p class="mono text-[10px] uppercase tracking-widest mb-4 md:mb-0">© 2024 Leichtbau Werkstatt</p>
+            <p class="mono text-[10px] uppercase tracking-widest mb-4 md:mb-0">© <span id="footer-year"></span>
+                Leichtbau Werkstatt</p>
             <img alt="Small Logo" class="h-8 w-auto invert opacity-50" src="assets/logo-color.png" />
             <p class="mono text-[10px] uppercase tracking-widest">Los Angeles // SoCal // San Diego</p>
         </div>
@@ -519,6 +520,11 @@
 
         // ── Dark Mode Persistence ──
         if (localStorage.getItem('asta-theme') === 'dark') document.documentElement.classList.add('dark');
+    </script>
+
+    <script>
+        const yearEl = document.getElementById('footer-year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
 
     <!-- Anti-Inspection & Asset Protection -->
