@@ -129,12 +129,20 @@
             stroke-width: 1.5;
             stroke-dasharray: 100;
             stroke-dashoffset: 100;
-            animation: draw 2.5s ease-in-out forwards;
+            animation: draw 2.5s ease-in-out forwards, turnOnWhite 0.5s step-end 2s forwards, flickerWhite 0.1s 3 2.1s;
         }
         @keyframes turnOnYellow {
             to { fill: #facc15; stroke: #facc15; filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8)); }
         }
         @keyframes flickerYellow {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.2; }
+        }
+        @keyframes turnOnWhite {
+            to { fill: transparent; stroke: #fff; filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)); }
+        }
+        @keyframes flickerWhite {
             0% { opacity: 0.2; }
             50% { opacity: 0.8; }
             100% { opacity: 0.2; }
