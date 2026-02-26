@@ -577,6 +577,25 @@
             style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">Connect
             →</a>
     </footer>
+
+    <!-- Anti-Inspection & Asset Protection -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (
+                event.keyCode == 123 ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 74) ||
+                (e.ctrlKey && e.keyCode == 85) ||
+                (e.metaKey && e.altKey && e.keyCode == 73) || // Mac Cmd+Option+I
+                (e.metaKey && e.altKey && e.keyCode == 74) || // Mac Cmd+Option+J
+                (e.metaKey && e.keyCode == 85) // Mac Cmd+U
+            ) {
+                return false;
+            }
+        };
+    </script>
 </body>
 
 </html>
