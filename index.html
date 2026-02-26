@@ -329,17 +329,18 @@
     </div>
     <main class="relative w-full">
         <header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-            <video autoplay="" class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none"
+            <video id="hero-bg-video" autoplay=""
+                class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none transition-opacity duration-[3000ms]"
                 loop="" muted="" playsinline="">
                 <source src="assets/loop.mp4" type="video/mp4" />
             </video>
             <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90"></div>
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-5 pointer-events-none select-none z-0">
+            <div id="hero-watermark"
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-5 pointer-events-none select-none z-0 transition-opacity duration-[2000ms]">
                 <img alt="Leichtbau Watermark" class="w-full h-full object-contain invert"
                     src="assets/logo-color.png" />
             </div>
-            <div class="relative z-10 w-full px-8 max-w-7xl mx-auto flex flex-col justify-end h-full pb-20 md:pb-32"
+            <div class="relative z-10 w-full px-8 max-w-7xl mx-auto flex flex-col justify-end h-full pb-20 md:pb-32 transition-opacity duration-[2000ms]"
                 id="hero-content">
                 <div class="flex items-end justify-between border-b border-white/20 pb-6 mb-6">
                     <p class="uppercase tracking-widest text-xs font-bold text-neon-orange">Est. 2024 // Munich</p>
@@ -666,6 +667,36 @@
             const progress = Math.min(100, Math.max(0, (scrollY / totalScroll) * 100));
             if (scrollPercentage) scrollPercentage.innerText = Math.round(progress) + '%';
             if (scrollProgressBar) scrollProgressBar.style.width = progress + '%';
+        });
+
+        // Cinematic Hero Sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            // Give time for preloader and initial impression to settle
+            setTimeout(() => {
+                const heroContent = document.getElementById('hero-content');
+                const heroWatermark = document.getElementById('hero-watermark');
+                const heroVideo = document.getElementById('hero-bg-video');
+
+                // Fade out text overlay
+                if (heroContent) {
+                    heroContent.classList.add('opacity-0');
+                    heroContent.classList.add('select-none');
+                    // Do not completely remove pointer-events quickly to avoid jump cuts
+                    setTimeout(() => heroContent.classList.add('pointer-events-none'), 2000);
+                }
+
+                // Fade out giant logo watermark completely
+                if (heroWatermark) {
+                    heroWatermark.classList.remove('opacity-5');
+                    heroWatermark.classList.add('opacity-0');
+                }
+
+                // Smoothly bring the background video up from 60% opacity to a majestic 100% full brightness
+                if (heroVideo) {
+                    heroVideo.classList.remove('opacity-60');
+                    heroVideo.classList.add('opacity-100');
+                }
+            }, 6000); // 6 seconds after page load
         });
     </script>
 
