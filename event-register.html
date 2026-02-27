@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
 
+<html class="dark" lang="en">
 <head>
-    <script>if(localStorage.getItem("lw-access")!=="granted")window.location.replace("coming-soon.html");</script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register | Leichtbau Werkstatt Events</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="assets/favicon.png" />
-    <meta name="description"
-        content="Register for a Leichtbau Werkstatt track day, car meet, or motorsport event in Southern California." />
-    <link rel="canonical" href="https://leichtbau-werkstatt.com/event-register.html" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
-        rel="stylesheet" />
-    <style>
+<script>if(localStorage.getItem("lw-access")!=="granted")window.location.replace("coming-soon.html");</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register for Event - Leichtbau Werkstatt</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="assets/favicon.png" rel="icon" sizes="512x512" type="image/png"/>
+<link href="assets/favicon.png" rel="apple-touch-icon" sizes="512x512"/>
+<meta content="Register for upcoming track days and events hosted by Leichtbau Werkstatt." name="description"/>
+<link href="https://www.leichtbauwerkstatt.com/event-register" rel="canonical"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:ital,wght@0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<style>
         *,
         *::before,
         *::after {
@@ -430,208 +427,172 @@
             }
         }
     </style>
-</head>
-
+<meta content="Register for Event - Leichtbau Werkstatt" property="og:title"/><meta content="Register for upcoming track days and events hosted by Leichtbau Werkstatt." property="og:description"/><meta content="https://www.leichtbauwerkstatt.com/event-register" property="og:url"/><meta content="website" property="og:type"/><meta content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Register for Event - Leichtbau Werkstatt" name="twitter:title"/><meta content="Register for upcoming track days and events hosted by Leichtbau Werkstatt." name="twitter:description"/><meta content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" name="twitter:image"/></head>
 <body>
-    <!-- NAV -->
-    <nav>
-        <div class="nav-links" style="display:flex;">
-            <a href="index.html#services">Services</a>
-            <a href="https://shop.leichtbauwerkstatt.com/collections/all" target="_blank" rel="noopener">Parts</a>
-        </div>
-        <div class="nav-logo"><a href="index.html"><img src="assets/logo-white.png" alt="Leichtbau Werkstatt" /></a>
-        </div>
-        <div class="nav-links" style="display:flex;justify-content:flex-end;">
-            <a href="collection-gallery.html">Gallery</a>
-            <a href="events.html">Events</a>
-            <a href="contact.html">Connect</a>
-        </div>
-    </nav>
-
-    <div class="page-wrap">
-        <!-- LEFT: Event Summary -->
-        <div class="event-summary">
-            <a href="events.html" class="back-link">Back to Events</a>
-            <span class="event-type-tag" id="reg-event-type">Track Day</span>
-            <h1 class="event-title-display" id="reg-event-title">Loading event…</h1>
-
-            <div class="event-detail-row">
-                <span class="detail-label">Date</span>
-                <span class="detail-value" id="reg-event-date">—</span>
-            </div>
-            <div class="event-detail-row">
-                <span class="detail-label">Location</span>
-                <span class="detail-value" id="reg-event-location">—</span>
-            </div>
-            <div class="event-detail-row">
-                <span class="detail-label">Time</span>
-                <span class="detail-value" id="reg-event-time">—</span>
-            </div>
-            <div class="event-detail-row">
-                <span class="detail-label">Capacity</span>
-                <span class="detail-value" id="reg-event-capacity">—</span>
-            </div>
-
-            <div class="spots-bar-wrap" id="spots-bar-section" style="display:none;">
-                <div class="spots-label">
+<!-- NAV -->
+<nav>
+<div class="nav-links" style="display:flex;">
+<a href="index.html#services">Services</a>
+<a href="https://shop.leichtbauwerkstatt.com/collections/all" rel="noopener" target="_blank">Parts</a>
+</div>
+<div class="nav-logo"><a href="index.html"><img alt="Leichtbau Werkstatt" src="assets/logo-white.png"/></a>
+</div>
+<div class="nav-links" style="display:flex;justify-content:flex-end;">
+<a href="collection-gallery.html">Gallery</a>
+<a href="events.html">Events</a>
+<a href="contact.html">Connect</a>
+</div>
+</nav>
+<div class="page-wrap">
+<!-- LEFT: Event Summary -->
+<div class="event-summary">
+<a class="back-link" href="events.html">Back to Events</a>
+<span class="event-type-tag" id="reg-event-type">Track Day</span>
+<h1 class="event-title-display" id="reg-event-title">Loading event…</h1>
+<div class="event-detail-row">
+<span class="detail-label">Date</span>
+<span class="detail-value" id="reg-event-date">—</span>
+</div>
+<div class="event-detail-row">
+<span class="detail-label">Location</span>
+<span class="detail-value" id="reg-event-location">—</span>
+</div>
+<div class="event-detail-row">
+<span class="detail-label">Time</span>
+<span class="detail-value" id="reg-event-time">—</span>
+</div>
+<div class="event-detail-row">
+<span class="detail-label">Capacity</span>
+<span class="detail-value" id="reg-event-capacity">—</span>
+</div>
+<div class="spots-bar-wrap" id="spots-bar-section" style="display:none;">
+<div class="spots-label">
                     Spots Remaining <span id="spots-remaining-text">—</span>
-                </div>
-                <div class="spots-track">
-                    <div class="spots-fill" id="spots-fill" style="width:0%"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RIGHT: Form -->
-        <div class="form-panel">
-            <div class="form-head">
-                <span class="form-head-overline">Event Registration</span>
-                <h2>Secure your spot.</h2>
-            </div>
-
-            <form name="event-registration" method="POST" action="event-success.html" data-netlify="true"
-                netlify-honeypot="bot-field" id="reg-form">
-                <!-- Netlify honeypot -->
-                <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
-                <!-- Required for Netlify to route submissions -->
-                <input type="hidden" name="form-name" value="event-registration" />
-                <!-- Hidden fields populated by JS from URL params -->
-                <input type="hidden" name="event-name" id="hidden-event-name" />
-                <input type="hidden" name="event-date" id="hidden-event-date" />
-                <input type="hidden" name="event-type" id="hidden-event-type" />
-
-                <!-- Personal Info -->
-                <p class="form-section-title">// Your Details</p>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="first-name">First Name <span class="required">*</span></label>
-                        <input class="form-input" id="first-name" name="first-name" type="text" placeholder="Alex"
-                            required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="last-name">Last Name <span class="required">*</span></label>
-                        <input class="form-input" id="last-name" name="last-name" type="text" placeholder="Kwamin"
-                            required />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="email">Email Address <span class="required">*</span></label>
-                    <input class="form-input" id="email" name="email" type="email" placeholder="your@email.com"
-                        required />
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="phone">Phone Number</label>
-                    <input class="form-input" id="phone" name="phone" type="tel" placeholder="+1 (310) 000-0000" />
-                </div>
-
-                <hr class="form-divider" />
-
-                <!-- Vehicle Info -->
-                <p class="form-section-title">// Your Car</p>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="car-year">Year <span class="required">*</span></label>
-                        <input class="form-input" id="car-year" name="car-year" type="text" placeholder="1987"
-                            required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="car-make">Make <span class="required">*</span></label>
-                        <input class="form-input" id="car-make" name="car-make" type="text" placeholder="BMW"
-                            required />
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="car-model">Model <span class="required">*</span></label>
-                        <input class="form-input" id="car-model" name="car-model" type="text" placeholder="E30 M3"
-                            required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="car-colour">Colour</label>
-                        <input class="form-input" id="car-colour" name="car-colour" type="text"
-                            placeholder="Schwarz II" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="experience-level">Track Experience <span
-                            class="required">*</span></label>
-                    <select class="form-select" id="experience-level" name="experience-level" required>
-                        <option value="" disabled selected>Select your level</option>
-                        <option value="novice">Novice — First time on track</option>
-                        <option value="beginner">Beginner — A few track days</option>
-                        <option value="intermediate">Intermediate — Comfortable at pace</option>
-                        <option value="advanced">Advanced — Regular track driver</option>
-                        <option value="instructor">Instructor / Competition licence</option>
-                    </select>
-                </div>
-
-                <hr class="form-divider" />
-
-                <!-- Safety & Notes -->
-                <p class="form-section-title">// Safety & Notes</p>
-
-                <div class="form-group">
-                    <label class="form-label" for="helmet-cert">Helmet Certification</label>
-                    <select class="form-select" id="helmet-cert" name="helmet-cert">
-                        <option value="" disabled selected>Select certification</option>
-                        <option value="snell-sa2020">Snell SA2020</option>
-                        <option value="snell-sa2015">Snell SA2015</option>
-                        <option value="fia-8859">FIA 8859-2015</option>
-                        <option value="dot-ece">DOT / ECE (street only)</option>
-                        <option value="none">I need to hire one</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="notes">Additional Notes</label>
-                    <textarea class="form-textarea" id="notes" name="notes"
-                        placeholder="Any special requirements, questions, or things we should know about your car or setup…"></textarea>
-                </div>
-
-                <hr class="form-divider" />
-
-                <!-- Agreements -->
-                <div class="checkbox-row">
-                    <input type="checkbox" id="agree-waiver" name="agree-waiver" value="yes" required />
-                    <label for="agree-waiver">
+</div>
+<div class="spots-track">
+<div class="spots-fill" id="spots-fill" style="width:0%"></div>
+</div>
+</div>
+</div>
+<!-- RIGHT: Form -->
+<div class="form-panel">
+<div class="form-head">
+<span class="form-head-overline">Event Registration</span>
+<h2>Secure your spot.</h2>
+</div>
+<form action="event-success.html" data-netlify="true" id="reg-form" method="POST" name="event-registration" netlify-honeypot="bot-field">
+<!-- Netlify honeypot -->
+<p style="display:none;"><label>Don't fill this out: <input name="bot-field"/></label></p>
+<!-- Required for Netlify to route submissions -->
+<input name="form-name" type="hidden" value="event-registration"/>
+<!-- Hidden fields populated by JS from URL params -->
+<input id="hidden-event-name" name="event-name" type="hidden"/>
+<input id="hidden-event-date" name="event-date" type="hidden"/>
+<input id="hidden-event-type" name="event-type" type="hidden"/>
+<!-- Personal Info -->
+<p class="form-section-title">// Your Details</p>
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="first-name">First Name <span class="required">*</span></label>
+<input class="form-input" id="first-name" name="first-name" placeholder="Alex" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="last-name">Last Name <span class="required">*</span></label>
+<input class="form-input" id="last-name" name="last-name" placeholder="Kwamin" required="" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" for="email">Email Address <span class="required">*</span></label>
+<input class="form-input" id="email" name="email" placeholder="your@email.com" required="" type="email"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="phone">Phone Number</label>
+<input class="form-input" id="phone" name="phone" placeholder="+1 (310) 000-0000" type="tel"/>
+</div>
+<hr class="form-divider"/>
+<!-- Vehicle Info -->
+<p class="form-section-title">// Your Car</p>
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="car-year">Year <span class="required">*</span></label>
+<input class="form-input" id="car-year" name="car-year" placeholder="1987" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="car-make">Make <span class="required">*</span></label>
+<input class="form-input" id="car-make" name="car-make" placeholder="BMW" required="" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="car-model">Model <span class="required">*</span></label>
+<input class="form-input" id="car-model" name="car-model" placeholder="E30 M3" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="car-colour">Colour</label>
+<input class="form-input" id="car-colour" name="car-colour" placeholder="Schwarz II" type="text"/>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" for="experience-level">Track Experience <span class="required">*</span></label>
+<select class="form-select" id="experience-level" name="experience-level" required="">
+<option disabled="" selected="" value="">Select your level</option>
+<option value="novice">Novice — First time on track</option>
+<option value="beginner">Beginner — A few track days</option>
+<option value="intermediate">Intermediate — Comfortable at pace</option>
+<option value="advanced">Advanced — Regular track driver</option>
+<option value="instructor">Instructor / Competition licence</option>
+</select>
+</div>
+<hr class="form-divider"/>
+<!-- Safety & Notes -->
+<p class="form-section-title">// Safety &amp; Notes</p>
+<div class="form-group">
+<label class="form-label" for="helmet-cert">Helmet Certification</label>
+<select class="form-select" id="helmet-cert" name="helmet-cert">
+<option disabled="" selected="" value="">Select certification</option>
+<option value="snell-sa2020">Snell SA2020</option>
+<option value="snell-sa2015">Snell SA2015</option>
+<option value="fia-8859">FIA 8859-2015</option>
+<option value="dot-ece">DOT / ECE (street only)</option>
+<option value="none">I need to hire one</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label" for="notes">Additional Notes</label>
+<textarea class="form-textarea" id="notes" name="notes" placeholder="Any special requirements, questions, or things we should know about your car or setup…"></textarea>
+</div>
+<hr class="form-divider"/>
+<!-- Agreements -->
+<div class="checkbox-row">
+<input id="agree-waiver" name="agree-waiver" required="" type="checkbox" value="yes"/>
+<label for="agree-waiver">
                         I understand this is a motorsport event and accept full personal responsibility for
                         participation. I agree to Leichtbau Werkstatt's <a href="contact.html">event terms and
                             conditions</a>. <span style="color:#E8642A;">*</span>
-                    </label>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" id="agree-updates" name="agree-updates" value="yes" />
-                    <label for="agree-updates">
+</label>
+</div>
+<div class="checkbox-row">
+<input id="agree-updates" name="agree-updates" type="checkbox" value="yes"/>
+<label for="agree-updates">
                         Add me to the Leichtbau commission list for future event announcements and early access.
                     </label>
-                </div>
-
-                <button type="submit" class="btn-submit">Submit Registration →</button>
-                <p class="form-note">Registration is not confirmed until you receive a confirmation email.<br />Spots
+</div>
+<button class="btn-submit" type="submit">Submit Registration →</button>
+<p class="form-note">Registration is not confirmed until you receive a confirmation email.<br/>Spots
                     are allocated on a first-come basis.</p>
-            </form>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-        <img src="assets/logo-white.png" alt="Leichtbau Werkstatt" style="height:30px;width:auto;opacity:0.5;" />
-        <span
-            style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);">
+</form>
+</div>
+</div>
+<!-- FOOTER -->
+<footer>
+<img alt="Leichtbau Werkstatt" src="assets/logo-white.png" style="height:30px;width:auto;opacity:0.5;"/>
+<span style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);">
             © <span id="footer-year"></span> Leichtbau Werkstatt — Costa Mesa, CA
         </span>
-        <a href="events.html"
-            style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">←
+<a href="events.html" style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#E8642A;text-decoration:none;">←
             Events</a>
-    </footer>
-
-    <script>
+</footer>
+<script>
         // Populate event year
         document.getElementById('footer-year').textContent = new Date().getFullYear();
 
@@ -723,9 +684,8 @@
             document.getElementById('reg-event-capacity').textContent = 'Limited spots';
         }
     </script>
-
-    <!-- Anti-Inspection & Asset Protection -->
-    <script>
+<!-- Anti-Inspection & Asset Protection -->
+<script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function (e) {
             if (
@@ -740,5 +700,4 @@
         };
     </script>
 </body>
-
 </html>

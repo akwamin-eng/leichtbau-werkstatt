@@ -1,35 +1,28 @@
 <!DOCTYPE html>
+
 <html class="light" lang="en">
-
 <head>
-    <script>if(localStorage.getItem("lw-access")!=="granted")window.location.replace("coming-soon.html");</script>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Leichtbau Werkstatt | Performance &amp; Perfection</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="assets/favicon.png" />
-
-    <meta name="description"
-        content="Redefining the analog driving experience. We merge vintage soul with modern precision in a pursuit of automotive nirvana. Specializing in European performance machines." />
-    <link rel="canonical" href="https://leichtbau-werkstatt.com/index.html" />
-    <meta property="og:title" content="Leichtbau Werkstatt | Performance &amp; Perfection" />
-    <meta property="og:description"
-        content="Redefining the analog driving experience. We merge vintage soul with modern precision in a pursuit of automotive nirvana." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://leichtbau-werkstatt.com/assets/logo-color.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;600&amp;family=JetBrains+Mono:wght@400;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-    <script>
+<script>if(localStorage.getItem("lw-access")!=="granted")window.location.replace("coming-soon.html");</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leichtbau Werkstatt - Redefining the Analog Driving Experience</title>
+<!-- Favicon -->
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="assets/favicon.png" rel="icon" sizes="512x512" type="image/png"/>
+<link href="assets/favicon.png" rel="apple-touch-icon" sizes="512x512"/>
+<meta content="Leichtbau Werkstatt is dedicated to redefining the analog driving experience. Specializing in bespoke engine assembly, race prep, fabrication, and high-performance parts. Vintage soul, modern precision." name="description"/>
+<link href="https://www.leichtbauwerkstatt.com/" rel="canonical"/>
+<meta content="Leichtbau Werkstatt - Redefining the Analog Driving Experience" property="og:title"/>
+<meta content="Leichtbau Werkstatt is dedicated to redefining the analog driving experience. Specializing in bespoke engine assembly, race prep, fabrication, and high-performance parts. Vintage soul, modern precision." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://leichtbau-werkstatt.com/assets/logo-color.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;600&amp;family=JetBrains+Mono:wght@400;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -73,7 +66,7 @@
             },
         };
     </script>
-    <style type="text/tailwindcss">
+<style type="text/tailwindcss">
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -211,127 +204,101 @@
             border-radius: 3px;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-</head>
-
-<body
-    class="bg-background-light dark:bg-background-dark text-primary dark:text-gray-100 transition-colors duration-300 overflow-x-hidden selection:bg-neon-orange selection:text-white">
-    <div id="cursor"></div>
-    <div id="preloader">
-        <div class="relative w-[300px] h-[150px] md:w-[500px] md:h-[250px]">
-            <svg class="car-svg w-full h-full" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
-                <!-- Windshield & Roof -->
-                <path d="M160 55 L340 55 L370 95 L130 95 Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                <!-- Body Box -->
-                <path d="M150 40 L350 40 L390 100 L440 100 L450 170 L430 200 L70 200 L50 170 L60 100 L110 100 Z"
-                    stroke-linecap="round" stroke-linejoin="round"></path>
-                <!-- Mirrors -->
-                <path d="M70 105 L50 105 L45 115 L72 115 Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M430 105 L450 105 L455 115 L428 115 Z" stroke-linecap="round" stroke-linejoin="round"></path>
-
-                <!-- Bumper lines -->
-                <path d="M65 160 L435 160 M62 180 L438 180"></path>
-                <!-- Lower Lip -->
-                <path d="M120 200 L120 220 L380 220 L380 200"></path>
-                <!-- Tires -->
-                <path d="M60 200 L60 230 L100 230 L100 200"></path>
-                <path d="M400 200 L400 230 L440 230 L440 200"></path>
-
-                <!-- Kidney Grilles -->
-                <rect class="kidney-grille" x="220" y="110" width="26" height="38" rx="6"></rect>
-                <rect class="kidney-grille" x="254" y="110" width="26" height="38" rx="6"></rect>
-
-                <!-- Headlights (Dual round left & right) -->
-                <circle class="headlight" cx="120" cy="129" r="14"></circle>
-                <circle class="headlight" cx="160" cy="129" r="14"></circle>
-                <circle class="headlight" cx="340" cy="129" r="14"></circle>
-                <circle class="headlight" cx="380" cy="129" r="14"></circle>
-            </svg>
-        </div>
-        <div class="mt-8 flex flex-col items-center w-64">
-            <div class="flex justify-between w-full text-neon-orange font-mono text-xs mb-2 uppercase tracking-widest">
-                <span>System Check</span>
-                <span class="counter">00</span><span>%</span>
-            </div>
-            <div class="w-full h-[2px] bg-gray-800 relative overflow-hidden">
-                <div class="absolute top-0 left-0 h-full bg-neon-orange animate-load-progress"></div>
-            </div>
-        </div>
-    </div>
-    <nav
-        class="fixed w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center bg-black/90 md:bg-transparent backdrop-blur-md md:backdrop-blur-none mix-blend-difference transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent">
-        <!-- Left: Builds + Parts -->
-        <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
-            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
-                href="index.html#services">Services<span
-                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
-                href="https://shop.leichtbauwerkstatt.com/collections/all" target="_blank" rel="noopener">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<meta content="https://www.leichtbauwerkstatt.com/" property="og:url"/><meta content="Leichtbau Werkstatt - Redefining the Analog Driving Experience" name="twitter:title"/><meta content="Leichtbau Werkstatt is dedicated to redefining the analog driving experience. Specializing in bespoke engine assembly, race prep, fabrication, and high-performance parts. Vintage soul, modern precision." name="twitter:description"/><meta content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" name="twitter:image"/></head>
+<body class="bg-background-light dark:bg-background-dark text-primary dark:text-gray-100 transition-colors duration-300 overflow-x-hidden selection:bg-neon-orange selection:text-white">
+<div id="cursor"></div>
+<div id="preloader">
+<div class="relative w-[300px] h-[150px] md:w-[500px] md:h-[250px]">
+<svg class="car-svg w-full h-full" viewbox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+<!-- Windshield & Roof -->
+<path d="M160 55 L340 55 L370 95 L130 95 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<!-- Body Box -->
+<path d="M150 40 L350 40 L390 100 L440 100 L450 170 L430 200 L70 200 L50 170 L60 100 L110 100 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<!-- Mirrors -->
+<path d="M70 105 L50 105 L45 115 L72 115 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M430 105 L450 105 L455 115 L428 115 Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<!-- Bumper lines -->
+<path d="M65 160 L435 160 M62 180 L438 180"></path>
+<!-- Lower Lip -->
+<path d="M120 200 L120 220 L380 220 L380 200"></path>
+<!-- Tires -->
+<path d="M60 200 L60 230 L100 230 L100 200"></path>
+<path d="M400 200 L400 230 L440 230 L440 200"></path>
+<!-- Kidney Grilles -->
+<rect class="kidney-grille" height="38" rx="6" width="26" x="220" y="110"></rect>
+<rect class="kidney-grille" height="38" rx="6" width="26" x="254" y="110"></rect>
+<!-- Headlights (Dual round left & right) -->
+<circle class="headlight" cx="120" cy="129" r="14"></circle>
+<circle class="headlight" cx="160" cy="129" r="14"></circle>
+<circle class="headlight" cx="340" cy="129" r="14"></circle>
+<circle class="headlight" cx="380" cy="129" r="14"></circle>
+</svg>
+</div>
+<div class="mt-8 flex flex-col items-center w-64">
+<div class="flex justify-between w-full text-neon-orange font-mono text-xs mb-2 uppercase tracking-widest">
+<span>System Check</span>
+<span class="counter">00</span><span>%</span>
+</div>
+<div class="w-full h-[2px] bg-gray-800 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-neon-orange animate-load-progress"></div>
+</div>
+</div>
+</div>
+<nav class="fixed w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center bg-black/90 md:bg-transparent backdrop-blur-md md:backdrop-blur-none mix-blend-difference transition-all duration-300 bg-gradient-to-b from-black/50 to-transparent">
+<!-- Left: Builds + Parts -->
+<div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+<a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="index.html#services">Services<span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="https://shop.leichtbauwerkstatt.com/collections/all" rel="noopener" target="_blank">
                 Parts
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        </div>
-        <!-- Center: Logo -->
-        <div class="text-center cursor-hover-target">
-            <a href="index.html">
-                <img alt="Leichtbau Werkstatt Logo" class="h-10 md:h-16 w-auto brightness-0 invert"
-                    src="assets/logo-color.png" />
-            </a>
-        </div>
-        <!-- Right: Gallery + Events + Connect -->
-        <div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
-            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
-                href="collection-gallery.html">
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+</a>
+</div>
+<!-- Center: Logo -->
+<div class="text-center cursor-hover-target">
+<a href="index.html">
+<img alt="Leichtbau Werkstatt Logo" class="h-10 md:h-16 w-auto brightness-0 invert" src="assets/logo-color.png"/>
+</a>
+</div>
+<!-- Right: Gallery + Events + Connect -->
+<div class="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest font-semibold">
+<a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="collection-gallery.html">
                 Gallery
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
-                href="events.html">
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="events.html">
                 Events
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white"
-                href="contact.html">
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+</a>
+<a class="hover:text-neon-orange transition-colors cursor-hover-target relative group text-white" href="contact.html">
                 Connect
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        </div>
-        <!-- Mobile menu button -->
-        <button class="md:hidden text-white cursor-hover-target" id="mobile-menu-btn" aria-label="Open menu">
-            <span class="material-symbols-outlined">menu</span>
-        </button>
-    </nav>
-    <!-- Mobile Drawer -->
-    <div id="mobile-drawer" class="fixed inset-0 z-[60] pointer-events-none md:hidden">
-        <div id="mobile-overlay" class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300"></div>
-        <div id="mobile-panel"
-            class="absolute right-0 top-0 h-full w-72 bg-black shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
-            <div class="flex items-center justify-between p-6 border-b border-white/10">
-                <a href="index.html"><img alt="Logo" class="h-10 w-auto brightness-0 invert"
-                        src="assets/logo-color.png" /></a>
-                <button id="mobile-close-btn" aria-label="Close menu" class="text-white"><span
-                        class="material-symbols-outlined">close</span></button>
-            </div>
-            <nav class="flex-1 flex flex-col justify-center px-8 space-y-8">
-                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
-                    href="index.html#services">Services</a>
-                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
-                    href="https://shop.leichtbauwerkstatt.com/collections/all" target="_blank" rel="noopener">Parts</a>
-                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
-                    href="collection-gallery.html">Gallery</a>
-                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4"
-                    href="events.html">Events</a>
-                <a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors"
-                    href="contact.html">Connect</a>
-            </nav>
-        </div>
-    </div>
-    <script>
+                <span class="absolute -bottom-1 left-0 w-0 h-[1px] bg-neon-orange transition-all duration-300 group-hover:w-full"></span>
+</a>
+</div>
+<!-- Mobile menu button -->
+<button aria-label="Open menu" class="md:hidden text-white cursor-hover-target" id="mobile-menu-btn">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+<!-- Mobile Drawer -->
+<div class="fixed inset-0 z-[60] pointer-events-none md:hidden" id="mobile-drawer">
+<div class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300" id="mobile-overlay"></div>
+<div class="absolute right-0 top-0 h-full w-72 bg-black shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col" id="mobile-panel">
+<div class="flex items-center justify-between p-6 border-b border-white/10">
+<a href="index.html"><img alt="Logo" class="h-10 w-auto brightness-0 invert" src="assets/logo-color.png"/></a>
+<button aria-label="Close menu" class="text-white" id="mobile-close-btn"><span class="material-symbols-outlined">close</span></button>
+</div>
+<nav class="flex-1 flex flex-col justify-center px-8 space-y-8">
+<a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="index.html#services">Services</a>
+<a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="https://shop.leichtbauwerkstatt.com/collections/all" rel="noopener" target="_blank">Parts</a>
+<a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="collection-gallery.html">Gallery</a>
+<a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors border-b border-white/10 pb-4" href="events.html">Events</a>
+<a class="text-xs uppercase tracking-[0.3em] font-bold text-white hover:text-neon-orange transition-colors" href="contact.html">Connect</a>
+</nav>
+</div>
+</div>
+<script>
         (function () {
             const btn = document.getElementById('mobile-menu-btn');
             const drawer = document.getElementById('mobile-drawer');
@@ -346,189 +313,140 @@
             overlay.addEventListener('click', closeMenu);
         })();
     </script>
-    <div
-        class="fixed bottom-4 left-4 md:bottom-8 md:left-8 z-40 hidden md:flex flex-col items-start mix-blend-difference text-white">
-        <div class="flex justify-between w-32 text-neon-orange font-mono text-[10px] mb-2 uppercase tracking-widest">
-            <span>Scroll</span>
-            <span id="scroll-percentage">0%</span>
-        </div>
-        <div class="w-32 h-[1px] bg-gray-600 relative overflow-hidden">
-            <div class="absolute top-0 left-0 h-full w-0 bg-neon-orange transition-all duration-100"
-                id="scroll-progress-bar"></div>
-        </div>
-    </div>
-    <main class="relative w-full">
-        <header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-            <video id="hero-bg-video" autoplay=""
-                class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none transition-opacity duration-[3000ms]"
-                loop="" muted="" playsinline="">
-                <source src="assets/loop_hd.mp4" type="video/mp4" />
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90"></div>
-            <div id="hero-watermark"
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-5 pointer-events-none select-none z-0 transition-opacity duration-[2000ms]">
-                <img alt="Leichtbau Watermark" class="w-full h-full object-contain invert"
-                    src="assets/logo-color.png" />
-            </div>
-            <div class="relative z-10 w-full px-8 max-w-7xl mx-auto flex flex-col justify-end h-full pb-20 md:pb-32 transition-opacity duration-[2000ms]"
-                id="hero-content">
-                <div class="flex items-end justify-between border-b border-white/20 pb-6 mb-6">
-                    <p class="uppercase tracking-widest text-xs font-bold text-neon-orange">Est. 2024 // Munich</p>
-                    <p class="uppercase tracking-widest text-xs font-bold text-white hidden md:block opacity-60">
+<div class="fixed bottom-4 left-4 md:bottom-8 md:left-8 z-40 hidden md:flex flex-col items-start mix-blend-difference text-white">
+<div class="flex justify-between w-32 text-neon-orange font-mono text-[10px] mb-2 uppercase tracking-widest">
+<span>Scroll</span>
+<span id="scroll-percentage">0%</span>
+</div>
+<div class="w-32 h-[1px] bg-gray-600 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-0 bg-neon-orange transition-all duration-100" id="scroll-progress-bar"></div>
+</div>
+</div>
+<main class="relative w-full">
+<header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+<video autoplay="" class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none transition-opacity duration-[3000ms]" id="hero-bg-video" loop="" muted="" playsinline="">
+<source src="assets/loop_hd.mp4" type="video/mp4"/>
+</video>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-5 pointer-events-none select-none z-0 transition-opacity duration-[2000ms]" id="hero-watermark">
+<img alt="Leichtbau Watermark" class="w-full h-full object-contain invert" src="assets/logo-color.png"/>
+</div>
+<div class="relative z-10 w-full px-8 max-w-7xl mx-auto flex flex-col justify-end h-full pb-20 md:pb-32 transition-opacity duration-[2000ms]" id="hero-content">
+<div class="flex items-end justify-between border-b border-white/20 pb-6 mb-6">
+<p class="uppercase tracking-widest text-xs font-bold text-neon-orange">Est. 2024 // Munich</p>
+<p class="uppercase tracking-widest text-xs font-bold text-white hidden md:block opacity-60">
                         Leichtbau Werkstatt</p>
-                </div>
-                <h1 class="text-5xl md:text-9xl font-bold leading-[0.85] text-white tracking-tighter uppercase mix-blend-overlay cursor-hover-target"
-                    id="hero-title">
-                    <span
-                        class="block transform translate-y-0 transition-transform duration-1000 grotesk-display">Performance</span>
-                    <span
-                        class="block text-white mix-blend-normal transform translate-y-2 md:translate-x-20 transition-transform duration-1000 delay-100 serif-display italic font-light">&amp;
+</div>
+<h1 class="text-5xl md:text-9xl font-bold leading-[0.85] text-white tracking-tighter uppercase mix-blend-overlay cursor-hover-target" id="hero-title">
+<span class="block transform translate-y-0 transition-transform duration-1000 grotesk-display">Performance</span>
+<span class="block text-white mix-blend-normal transform translate-y-2 md:translate-x-20 transition-transform duration-1000 delay-100 serif-display italic font-light">&amp;
                         Perfection</span>
-                </h1>
-                <div class="mt-12 flex justify-between items-end">
-                    <p
-                        class="text-white/80 max-w-md text-sm md:text-base font-light leading-relaxed border-l border-neon-orange pl-4">
+</h1>
+<div class="mt-12 flex justify-between items-end">
+<p class="text-white/80 max-w-md text-sm md:text-base font-light leading-relaxed border-l border-neon-orange pl-4">
                         Redefining the analog driving experience. We merge vintage soul with modern precision in a
                         pursuit of automotive nirvana.
                     </p>
-                    <div class="hidden md:flex flex-col items-center gap-4">
-                        <span
-                            class="text-[10px] uppercase text-white tracking-widest vertical-rl writing-mode-vertical">Explore</span>
-                        <div class="h-16 w-[1px] bg-gradient-to-b from-neon-orange to-transparent animate-pulse"></div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="relative w-full flex justify-center py-12 bg-black">
-            <div class="vertical-line h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
-        </div>
-        <section id="services"
-            class="max-w-screen-2xl mx-auto px-4 md:px-12 py-20 bg-background-light dark:bg-background-dark relative">
-            <div class="grid md:grid-cols-12 gap-12 items-center relative">
-                <img alt="Background Logo"
-                    class="absolute -left-20 top-0 w-96 h-auto opacity-[0.03] dark:invert pointer-events-none"
-                    src="assets/logo-color.png" />
-                <div class="md:col-span-5 relative z-20">
-                    <div class="bg-black text-white p-1 inline-block mb-8 transform -rotate-1 shadow-lg">
-                        <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-neon-orange px-3 py-1">The
+<div class="hidden md:flex flex-col items-center gap-4">
+<span class="text-[10px] uppercase text-white tracking-widest vertical-rl writing-mode-vertical">Explore</span>
+<div class="h-16 w-[1px] bg-gradient-to-b from-neon-orange to-transparent animate-pulse"></div>
+</div>
+</div>
+</div>
+</header>
+<div class="relative w-full flex justify-center py-12 bg-black">
+<div class="vertical-line h-24 bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
+</div>
+<section class="max-w-screen-2xl mx-auto px-4 md:px-12 py-20 bg-background-light dark:bg-background-dark relative" id="services">
+<div class="grid md:grid-cols-12 gap-12 items-center relative">
+<img alt="Background Logo" class="absolute -left-20 top-0 w-96 h-auto opacity-[0.03] dark:invert pointer-events-none" src="assets/logo-color.png"/>
+<div class="md:col-span-5 relative z-20">
+<div class="bg-black text-white p-1 inline-block mb-8 transform -rotate-1 shadow-lg">
+<span class="text-[10px] uppercase tracking-[0.3em] font-bold text-neon-orange px-3 py-1">The
                             Ethos</span>
-                    </div>
-                    <h3
-                        class="grotesk-display text-5xl md:text-7xl font-bold leading-[0.9] uppercase tracking-tight mb-8 cursor-hover-target text-primary dark:text-white">
-                        Raw.<br /><span
-                            class="serif-display italic font-normal text-4xl md:text-6xl text-neon-orange -ml-2">Analog.</span><br />Unfiltered.
+</div>
+<h3 class="grotesk-display text-5xl md:text-7xl font-bold leading-[0.9] uppercase tracking-tight mb-8 cursor-hover-target text-primary dark:text-white">
+                        Raw.<br/><span class="serif-display italic font-normal text-4xl md:text-6xl text-neon-orange -ml-2">Analog.</span><br/>Unfiltered.
                     </h3>
-                    <p class="text-base font-light leading-relaxed opacity-80 max-w-sm text-primary dark:text-gray-300">
+<p class="text-base font-light leading-relaxed opacity-80 max-w-sm text-primary dark:text-gray-300">
                         We don't just restore; we amplify. A vehicle is functional art, meant to be driven hard. We
                         strip back the unnecessary to reveal the pure mechanical soul of German engineering. It's about
                         the noise, the vibration, and the perfect shift.
                     </p>
-                </div>
-                <div class="md:col-span-7 relative pl-8 md:pl-0">
-                    <div
-                        class="relative aspect-[16/9] bg-gray-100 dark:bg-zinc-900 overflow-hidden cursor-hover-target shadow-2xl">
-                        <img alt="Mechanic working on vintage engine"
-                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvdYXO0X4uaOQUB7sVmbLeWIy_GVnHXVGQYk1vnjhmGGb9kjNcF_2vjbtMGN-fQx3rZT89d5fCdLoi01PKoqA6AKi0fwgTFDZ1tLiRjhGNQPq76pvqTc15gG34EXCz2lnm6wkjAOWCQYPAGb_eMYMp9PxmBzOpSxFYP95Q73CaQuiGDWWnhxJEsLWf3-rT1ILwvCTCqIom5xFW-uE1yFkrhd-dKjZcLWiTA3wWGQ4lMECqUN4e8f0b7HJtQPPLHLvlIa4DDgVmgnk" />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent mix-blend-multiply pointer-events-none">
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-neon-orange/10 backdrop-blur-sm border border-neon-orange/30 p-6 hidden md:flex flex-col justify-between"
-                        id="parallax-box">
-                        <span class="material-symbols-outlined text-neon-orange text-3xl">build_circle</span>
-                        <p class="text-neon-orange text-xs font-mono uppercase tracking-widest">Precision<br />Tooling
+</div>
+<div class="md:col-span-7 relative pl-8 md:pl-0">
+<div class="relative aspect-[16/9] bg-gray-100 dark:bg-zinc-900 overflow-hidden cursor-hover-target shadow-2xl">
+<img alt="Mechanic working on vintage engine" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvdYXO0X4uaOQUB7sVmbLeWIy_GVnHXVGQYk1vnjhmGGb9kjNcF_2vjbtMGN-fQx3rZT89d5fCdLoi01PKoqA6AKi0fwgTFDZ1tLiRjhGNQPq76pvqTc15gG34EXCz2lnm6wkjAOWCQYPAGb_eMYMp9PxmBzOpSxFYP95Q73CaQuiGDWWnhxJEsLWf3-rT1ILwvCTCqIom5xFW-uE1yFkrhd-dKjZcLWiTA3wWGQ4lMECqUN4e8f0b7HJtQPPLHLvlIa4DDgVmgnk"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent mix-blend-multiply pointer-events-none">
+</div>
+</div>
+<div class="absolute -bottom-12 -left-12 w-48 h-48 bg-neon-orange/10 backdrop-blur-sm border border-neon-orange/30 p-6 hidden md:flex flex-col justify-between" id="parallax-box">
+<span class="material-symbols-outlined text-neon-orange text-3xl">build_circle</span>
+<p class="text-neon-orange text-xs font-mono uppercase tracking-widest">Precision<br/>Tooling
                         </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="parts" class="py-32 bg-zinc-50 dark:bg-zinc-950 relative overflow-hidden">
-            <div
-                class="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[1px] bg-gray-200 dark:bg-zinc-800 z-0 hidden md:block">
-            </div>
-            <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="text-center mb-24">
-                    <span
-                        class="block text-neon-orange text-xs font-mono uppercase tracking-[0.4em] mb-4">Workshop</span>
-                    <h2 class="serif-display text-4xl md:text-5xl text-primary dark:text-white mb-4">Caretakers of <span
-                            class="italic">Engineering</span></h2>
-                    <div class="h-12 w-[1px] bg-neon-orange mx-auto mt-8"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-32">
-                    <a href="fabrication.html"
-                        class="flex flex-col items-end md:text-right mt-12 md:mt-0 parallax-item group/card"
-                        data-speed="0.05">
-                        <div class="relative w-full aspect-[4/5] overflow-hidden mb-6 cursor-hover-target">
-                            <img alt="Black and white shot of welding sparks"
-                                class="w-full h-full object-cover grayscale transition-all duration-700 group-hover/card:scale-110 group-hover/card:grayscale-0"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXtaLjNvksE9tjIDP97mO3743Tiyyn_6phITSZTfoG64Zy90gJjwe0PS_ZVMmS5rKPN3k0Z8KDuOEH0DDrGcRj2dHNLfev1sUbknTrhInhvv04M1VzxYXmKsGGdRG8PHsj42ldPsN_5Us1Qt8-05sOhTYTXhQ2dT9nA6fFzHB3RwbbAFiqCG2cJfLGRBHpUnpPaq48zzLgI_6LWaGNHcxHfpE1YAr-clv298fRJjj2jrSowYSgNRrWkNv3NSWh8GX3yJZjy3z2G4Q" />
-                            <div
-                                class="absolute inset-0 bg-black/20 group-hover/card:bg-transparent transition-colors duration-500">
-                            </div>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-neon-orange mb-2">Process
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 bg-zinc-50 dark:bg-zinc-950 relative overflow-hidden" id="parts">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[1px] bg-gray-200 dark:bg-zinc-800 z-0 hidden md:block">
+</div>
+<div class="max-w-7xl mx-auto px-6 relative z-10">
+<div class="text-center mb-24">
+<span class="block text-neon-orange text-xs font-mono uppercase tracking-[0.4em] mb-4">Workshop</span>
+<h2 class="serif-display text-4xl md:text-5xl text-primary dark:text-white mb-4">Caretakers of <span class="italic">Engineering</span></h2>
+<div class="h-12 w-[1px] bg-neon-orange mx-auto mt-8"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-32">
+<a class="flex flex-col items-end md:text-right mt-12 md:mt-0 parallax-item group/card" data-speed="0.05" href="fabrication.html">
+<div class="relative w-full aspect-[4/5] overflow-hidden mb-6 cursor-hover-target">
+<img alt="Black and white shot of welding sparks" class="w-full h-full object-cover grayscale transition-all duration-700 group-hover/card:scale-110 group-hover/card:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXtaLjNvksE9tjIDP97mO3743Tiyyn_6phITSZTfoG64Zy90gJjwe0PS_ZVMmS5rKPN3k0Z8KDuOEH0DDrGcRj2dHNLfev1sUbknTrhInhvv04M1VzxYXmKsGGdRG8PHsj42ldPsN_5Us1Qt8-05sOhTYTXhQ2dT9nA6fFzHB3RwbbAFiqCG2cJfLGRBHpUnpPaq48zzLgI_6LWaGNHcxHfpE1YAr-clv298fRJjj2jrSowYSgNRrWkNv3NSWh8GX3yJZjy3z2G4Q"/>
+<div class="absolute inset-0 bg-black/20 group-hover/card:bg-transparent transition-colors duration-500">
+</div>
+</div>
+<span class="text-xs font-bold uppercase tracking-widest text-neon-orange mb-2">Process
                             01</span>
-                        <h4
-                            class="text-2xl font-bold dark:text-white grotesk-display group-hover/card:text-neon-orange transition-colors">
+<h4 class="text-2xl font-bold dark:text-white grotesk-display group-hover/card:text-neon-orange transition-colors">
                             Fabrication</h4>
-                        <p class="text-sm text-gray-500 mt-2 max-w-xs font-light">Hand-formed metalwork restoring
+<p class="text-sm text-gray-500 mt-2 max-w-xs font-light">Hand-formed metalwork restoring
                             structural integrity.</p>
-                        <span
-                            class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
+<span class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
                             Service →</span>
-                    </a>
-                    <a href="race-prep.html" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
-                        data-tilt-max-glare="0.2" class="flex flex-col items-start md:mt-32 parallax-item group/card"
-                        data-speed="0.08">
-                        <div class="relative w-full aspect-[4/5] overflow-hidden mb-6 cursor-hover-target shadow-xl">
-                            <img alt="Blue BMW E30 race car with exposed orange engine — Race Prep"
-                                class="w-full h-full object-cover saturate-0 group-hover/card:saturate-100 transition-all duration-700 group-hover/card:scale-110"
-                                src="assets/race-prep-bmw.png" />
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-neon-orange mb-2">Process
+</a>
+<a class="flex flex-col items-start md:mt-32 parallax-item group/card" data-speed="0.08" data-tilt="" data-tilt-glare="" data-tilt-max="5" data-tilt-max-glare="0.2" data-tilt-speed="400" href="race-prep.html">
+<div class="relative w-full aspect-[4/5] overflow-hidden mb-6 cursor-hover-target shadow-xl">
+<img alt="Blue BMW E30 race car with exposed orange engine — Race Prep" class="w-full h-full object-cover saturate-0 group-hover/card:saturate-100 transition-all duration-700 group-hover/card:scale-110" src="assets/race-prep-bmw.png"/>
+</div>
+<span class="text-xs font-bold uppercase tracking-widest text-neon-orange mb-2">Process
                             02</span>
-                        <h4
-                            class="text-2xl font-bold dark:text-white grotesk-display group-hover/card:text-neon-orange transition-colors">
+<h4 class="text-2xl font-bold dark:text-white grotesk-display group-hover/card:text-neon-orange transition-colors">
                             Race Prep</h4>
-                        <p class="text-sm text-gray-500 mt-2 max-w-xs font-light">Corner weights, alignment, and safety
+<p class="text-sm text-gray-500 mt-2 max-w-xs font-light">Corner weights, alignment, and safety
                             compliance to get you to the grid, season-ready.</p>
-                        <span
-                            class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
+<span class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
                             Service →</span>
-                    </a>
-                    <a href="assembly.html" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
-                        data-tilt-max-glare="0.2" class="flex flex-col items-end md:text-right parallax-item group/card"
-                        data-speed="0.06">
-                        <div class="relative w-full aspect-[3/2] overflow-hidden mb-6 cursor-hover-target">
-                            <img alt="Detailed shot of engine assembly"
-                                class="w-full h-full object-cover grayscale contrast-125 transition-all duration-700 group-hover/card:scale-110 group-hover/card:grayscale-0"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY6WhjWFtVXEYtkZT642eBwczf0uND9NuR_guLBWUHpcBmnz1i6JeoJqxooBhGAWDD8op25qD64xGFRjU1L3aVX8BLSdvi0inkvdiGRXjlTO2GYi9LYPt6rUYyzdIQcCo9lmIbbApKT-yX4CSV4KWnAHOdsOdTDFyN00DnlLADflEqS4Ww2tBH1uNLqRFCDnVrRPid3zOnsYsJHafBkwBqsBHfOvwIGX1GWsZPxOdDkNnHwsSr51tfrPNkBuKbTvN4Cr7kzxW2wzw" />
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-neon-orange mb-2">Process
+</a>
+<a class="flex flex-col items-end md:text-right parallax-item group/card" data-speed="0.06" data-tilt="" data-tilt-glare="" data-tilt-max="5" data-tilt-max-glare="0.2" data-tilt-speed="400" href="assembly.html">
+<div class="relative w-full aspect-[3/2] overflow-hidden mb-6 cursor-hover-target">
+<img alt="Detailed shot of engine assembly" class="w-full h-full object-cover grayscale contrast-125 transition-all duration-700 group-hover/card:scale-110 group-hover/card:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY6WhjWFtVXEYtkZT642eBwczf0uND9NuR_guLBWUHpcBmnz1i6JeoJqxooBhGAWDD8op25qD64xGFRjU1L3aVX8BLSdvi0inkvdiGRXjlTO2GYi9LYPt6rUYyzdIQcCo9lmIbbApKT-yX4CSV4KWnAHOdsOdTDFyN00DnlLADflEqS4Ww2tBH1uNLqRFCDnVrRPid3zOnsYsJHafBkwBqsBHfOvwIGX1GWsZPxOdDkNnHwsSr51tfrPNkBuKbTvN4Cr7kzxW2wzw"/>
+</div>
+<span class="text-xs font-bold uppercase tracking-widest text-neon-orange mb-2">Process
                             03</span>
-                        <h4
-                            class="text-2xl font-bold dark:text-white grotesk-display group-hover/card:text-neon-orange transition-colors">
+<h4 class="text-2xl font-bold dark:text-white grotesk-display group-hover/card:text-neon-orange transition-colors">
                             Assembly</h4>
-                        <p class="text-sm text-gray-500 mt-2 max-w-xs font-light">Every bolt torqued, every seal
+<p class="text-sm text-gray-500 mt-2 max-w-xs font-light">Every bolt torqued, every seal
                             replaced.</p>
-                        <span
-                            class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
+<span class="mt-3 text-xs font-mono uppercase tracking-widest text-neon-orange opacity-0 group-hover/card:opacity-100 transition-opacity">View
                             Service →</span>
-                    </a>
-                    <div class="flex flex-col justify-center items-center md:items-start p-12 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-black self-center"
-                        id="quote-card">
-                        <img alt="Leichtbau Icon" class="h-12 w-auto mb-6 opacity-80 invert dark:invert-0"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A" />
-                        <p id="rotating-quote"
-                            class="serif-display text-2xl italic dark:text-white text-center md:text-left leading-relaxed transition-opacity duration-700">
-                        </p>
-                        <p id="rotating-attr"
-                            class="text-xs uppercase tracking-widest mt-6 text-gray-500 transition-opacity duration-700">
-                        </p>
-
-                    </div>
-                    <script>
+</a>
+<div class="flex flex-col justify-center items-center md:items-start p-12 border border-gray-200 dark:border-zinc-800 bg-white dark:bg-black self-center" id="quote-card">
+<img alt="Leichtbau Icon" class="h-12 w-auto mb-6 opacity-80 invert dark:invert-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A"/>
+<p class="serif-display text-2xl italic dark:text-white text-center md:text-left leading-relaxed transition-opacity duration-700" id="rotating-quote">
+</p>
+<p class="text-xs uppercase tracking-widest mt-6 text-gray-500 transition-opacity duration-700" id="rotating-attr">
+</p>
+</div>
+<script>
                         (function () {
                             const quotes = [
                                 // Colin Chapman
@@ -552,111 +470,86 @@
                             if (aEl) aEl.textContent = q.attr;
                         })();
                     </script>
-                </div>
-            </div>
-        </section>
-        <section class="bg-black text-white py-32 px-6 relative overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img alt="Dark garage background" class="w-full h-full object-cover opacity-20"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfvJVEMBt-4B-58te0M27EbfW23jQdcwYbERLKiTf6FXBftOG6QnNzoy8o38ySEn9xm4m4kYfEkDLQyDD7x10c7adW0A-4-nMspLRBcpTkqFptt0UohDxGhSvgwLiBiNbNGqO8Ee9ZJTFNjtKA3kAVMBuuTeZKE39RDQ01qzAl_IuYXQ48c5_vggl4vObghemrCT5Ze6HLUiGG3Ctbva4PcyyNJMfxMJbGCfPC7AuKs91t5i1oDWEXSemBmA37dIDFoHqi7bfG5fw" />
-                <div class="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent"></div>
-            </div>
-            <div class="absolute top-0 right-0 w-1/3 h-full bg-neon-orange/5 skew-x-12 border-l border-white/5"></div>
-            <div
-                class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row items-center md:items-end justify-between gap-16">
-                <div class="flex-1">
-                    <img alt="Leichtbau Werkstatt Icon" class="h-20 w-auto mb-10 invert opacity-80 cursor-hover-target"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A"
-                        style="clip-path: circle(22% at 50% 15%); transform: scale(1.5);" />
-                    <h2 class="grotesk-display text-5xl md:text-6xl font-bold uppercase leading-none mb-6">
-                        Join the<br /><span
-                            class="text-neon-orange serif-display italic normal-case text-4xl md:text-inherit -ml-1">Commission</span>
+</div>
+</div>
+</section>
+<section class="bg-black text-white py-32 px-6 relative overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Dark garage background" class="w-full h-full object-cover opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfvJVEMBt-4B-58te0M27EbfW23jQdcwYbERLKiTf6FXBftOG6QnNzoy8o38ySEn9xm4m4kYfEkDLQyDD7x10c7adW0A-4-nMspLRBcpTkqFptt0UohDxGhSvgwLiBiNbNGqO8Ee9ZJTFNjtKA3kAVMBuuTeZKE39RDQ01qzAl_IuYXQ48c5_vggl4vObghemrCT5Ze6HLUiGG3Ctbva4PcyyNJMfxMJbGCfPC7AuKs91t5i1oDWEXSemBmA37dIDFoHqi7bfG5fw"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent"></div>
+</div>
+<div class="absolute top-0 right-0 w-1/3 h-full bg-neon-orange/5 skew-x-12 border-l border-white/5"></div>
+<div class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row items-center md:items-end justify-between gap-16">
+<div class="flex-1">
+<img alt="Leichtbau Werkstatt Icon" class="h-20 w-auto mb-10 invert opacity-80 cursor-hover-target" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jjWv5pUupBuaBvao1jF3TN6IG-KcUNksqPQkNwPOlTp5mKF1OayXTrqu4shX66ZZNLtt8_afTbCm_n5YqFsi7o1S0Inv-AvFa4jUnBcqzvu-ffDsuBiKIYqMH6AEI5FIzN7lXyDujuk_Xo26QqpiQjLDVmujTkOdZR_J-dtD_VnCPiJ811OA8r5IamB3EkZce5cJ8eG8xsiNGflHqF94s-MaalfHBKuob-HwTga3xLay8cpwn4qfOrIohU1KTLCL2j9RKkOSe9A" style="clip-path: circle(22% at 50% 15%); transform: scale(1.5);"/>
+<h2 class="grotesk-display text-5xl md:text-6xl font-bold uppercase leading-none mb-6">
+                        Join the<br/><span class="text-neon-orange serif-display italic normal-case text-4xl md:text-inherit -ml-1">Commission</span>
                         List
                     </h2>
-                    <p
-                        class="text-gray-400 font-mono text-xs uppercase tracking-widest mb-10 max-w-xs leading-relaxed border-l-2 border-neon-orange pl-4">
+<p class="text-gray-400 font-mono text-xs uppercase tracking-widest mb-10 max-w-xs leading-relaxed border-l-2 border-neon-orange pl-4">
                         Limited slots available for 2025. Rare parts drops. Track day invites.
                     </p>
-                </div>
-                <div class="w-full md:w-auto flex-1">
-                    <form class="flex flex-col gap-4 w-full" name="commission-list" method="POST" data-netlify="true"
-                        netlify-honeypot="bot-field" action="/success-state.html">
-                        <input type="hidden" name="form-name" value="commission-list" />
-                        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
-                        <div class="relative group">
-                            <input name="email"
-                                class="w-full bg-transparent border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-neon-orange text-lg font-mono placeholder:text-white/30 transition-colors rounded-none cursor-hover-target"
-                                placeholder="ENTER YOUR EMAIL" required="" type="email" />
-                            <div
-                                class="absolute right-0 bottom-4 text-neon-orange opacity-0 group-focus-within:opacity-100 transition-opacity">
-                                <span class="material-symbols-outlined">subdirectory_arrow_left</span>
-                            </div>
-                        </div>
-                        <button
-                            class="w-full bg-white text-black py-4 px-8 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange hover:text-white transition-colors mt-4 cursor-hover-target border border-white hover:border-neon-orange"
-                            type="submit">
+</div>
+<div class="w-full md:w-auto flex-1">
+<form action="/success-state.html" class="flex flex-col gap-4 w-full" data-netlify="true" method="POST" name="commission-list" netlify-honeypot="bot-field">
+<input name="form-name" type="hidden" value="commission-list"/>
+<p style="display:none;"><label>Don't fill this out: <input name="bot-field"/></label></p>
+<div class="relative group">
+<input class="w-full bg-transparent border-b border-white/20 py-4 px-0 focus:ring-0 focus:border-neon-orange text-lg font-mono placeholder:text-white/30 transition-colors rounded-none cursor-hover-target" name="email" placeholder="ENTER YOUR EMAIL" required="" type="email"/>
+<div class="absolute right-0 bottom-4 text-neon-orange opacity-0 group-focus-within:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">subdirectory_arrow_left</span>
+</div>
+</div>
+<button class="w-full bg-white text-black py-4 px-8 text-xs font-bold uppercase tracking-[0.2em] hover:bg-neon-orange hover:text-white transition-colors mt-4 cursor-hover-target border border-white hover:border-neon-orange" type="submit">
                             Request Access
                         </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        <section
-            class="py-20 px-6 border-t border-gray-200 dark:border-zinc-800 bg-background-light dark:bg-background-dark">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                    <div>
-                        <h4 class="grotesk-display text-3xl font-bold uppercase mb-2 dark:text-white">Social Grid</h4>
-                        <p class="text-[10px] uppercase tracking-widest opacity-50 dark:text-gray-400">Follow the
+</form>
+</div>
+</div>
+</section>
+<section class="py-20 px-6 border-t border-gray-200 dark:border-zinc-800 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+<div>
+<h4 class="grotesk-display text-3xl font-bold uppercase mb-2 dark:text-white">Social Grid</h4>
+<p class="text-[10px] uppercase tracking-widest opacity-50 dark:text-gray-400">Follow the
                             restoration process</p>
-                    </div>
-                    <div class="flex space-x-12 mt-8 md:mt-0">
-                        <a class="group flex items-center space-x-2 cursor-hover-target"
-                            href="https://www.google.com/search?q=Leichtbau+Costa+Mesa" target="_blank" rel="noopener">
-                            <span
-                                class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
-                            <span
-                                class="text-xs font-bold uppercase tracking-widest dark:text-white flex items-center gap-1">Google
-                                <span class="text-neon-orange tracking-tighter text-[10px] mt-[1px]">★★★★★</span> <span
-                                    class="text-[8px] text-gray-400 ml-0.5">(15)</span></span>
-                        </a>
-                        <a class="group flex items-center space-x-2 cursor-hover-target"
-                            href="https://www.yelp.com/biz/leichtbau-costa-mesa?osq=leichtbau" target="_blank"
-                            rel="noopener">
-                            <span
-                                class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
-                            <span
-                                class="text-xs font-bold uppercase tracking-widest dark:text-white flex items-center gap-1">Yelp
+</div>
+<div class="flex space-x-12 mt-8 md:mt-0">
+<a class="group flex items-center space-x-2 cursor-hover-target" href="https://www.google.com/search?q=Leichtbau+Costa+Mesa" rel="noopener" target="_blank">
+<span class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
+<span class="text-xs font-bold uppercase tracking-widest dark:text-white flex items-center gap-1">Google
+                                <span class="text-neon-orange tracking-tighter text-[10px] mt-[1px]">★★★★★</span> <span class="text-[8px] text-gray-400 ml-0.5">(15)</span></span>
+</a>
+<a class="group flex items-center space-x-2 cursor-hover-target" href="https://www.yelp.com/biz/leichtbau-costa-mesa?osq=leichtbau" rel="noopener" target="_blank">
+<span class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
+<span class="text-xs font-bold uppercase tracking-widest dark:text-white flex items-center gap-1">Yelp
                                 <span class="text-neon-orange tracking-tighter text-[10px] mt-[1px]">★★★★★</span></span>
-                        </a>
-                        <a class="group flex items-center space-x-2 cursor-hover-target" href="#">
-                            <span
-                                class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
-                            <span class="text-xs font-bold uppercase tracking-widest dark:text-white">Instagram</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <footer class="bg-black text-white py-12 px-8 border-t border-white/10">
-            <div
-                class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
-                <p class="text-[10px] uppercase tracking-widest font-mono mb-4 md:mb-0">
+</a>
+<a class="group flex items-center space-x-2 cursor-hover-target" href="#">
+<span class="w-2 h-2 bg-black dark:bg-white rounded-full group-hover:bg-neon-orange transition-colors"></span>
+<span class="text-xs font-bold uppercase tracking-widest dark:text-white">Instagram</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-black text-white py-12 px-8 border-t border-white/10">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
+<p class="text-[10px] uppercase tracking-widest font-mono mb-4 md:mb-0">
                     © 2025 Leichtbau Werkstatt
                 </p>
-                <img alt="Small Logo" class="h-8 w-auto invert opacity-50" src="assets/logo-color.png" />
-                <p class="text-[10px] uppercase tracking-widest font-mono">
+<img alt="Small Logo" class="h-8 w-auto invert opacity-50" src="assets/logo-color.png"/>
+<p class="text-[10px] uppercase tracking-widest font-mono">
                     Los Angeles // SoCal // San Diego
                 </p>
-            </div>
-        </footer>
-    </main>
-    <button
-        class="fixed bottom-8 right-8 w-12 h-12 bg-neon-orange text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] flex items-center justify-center z-50 hover:-translate-y-1 transition-transform active:translate-y-0 active:shadow-none border-2 border-black cursor-hover-target"
-        onclick="document.documentElement.classList.toggle('dark')">
-        <span class="material-symbols-outlined text-xl">contrast</span>
-    </button>
-    <script>
+</div>
+</footer>
+</main>
+<button class="fixed bottom-8 right-8 w-12 h-12 bg-neon-orange text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] flex items-center justify-center z-50 hover:-translate-y-1 transition-transform active:translate-y-0 active:shadow-none border-2 border-black cursor-hover-target" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-xl">contrast</span>
+</button>
+<script>
         // Custom Cursor Logic — GPU-composited, rAF-throttled
         const cursor = document.getElementById('cursor');
         const hoverTargets = document.querySelectorAll('.cursor-hover-target');
@@ -748,9 +641,8 @@
             }, 6000); // 6 seconds after page load
         });
     </script>
-
-    <!-- Anti-Inspection & Asset Protection -->
-    <script>
+<!-- Anti-Inspection & Asset Protection -->
+<script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function (e) {
             // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
@@ -768,5 +660,4 @@
         };
     </script>
 </body>
-
 </html>

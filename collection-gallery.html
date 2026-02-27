@@ -1,29 +1,25 @@
 <!DOCTYPE html>
+
 <html class="dark" lang="en">
-
 <head>
-    <script>if(localStorage.getItem("lw-access")!=="granted")window.location.replace("coming-soon.html");</script>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Leichtbau Werkstatt | Gallery</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="assets/favicon.png" />
-
-    <meta name="description" content="An artistic showcase of precision-restored European performance machines." />
-    <link rel="canonical" href="https://leichtbau-werkstatt.com/collection-gallery.html" />
-    <meta property="og:title" content="Leichtbau Werkstatt | Gallery" />
-    <meta property="og:description"
-        content="An artistic showcase of precision-restored European performance machines." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet" />
-    <style>
+<script>if(localStorage.getItem("lw-access")!=="granted")window.location.replace("coming-soon.html");</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collection &amp; Gallery - Leichtbau Werkstatt</title>
+<!-- Favicon -->
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="assets/favicon.png" rel="icon" sizes="512x512" type="image/png"/>
+<link href="assets/favicon.png" rel="apple-touch-icon" sizes="512x512"/>
+<meta content="Explore our collection and gallery of custom builds, race cars, and high-performance engineering projects." name="description"/>
+<link href="https://www.leichtbauwerkstatt.com/collection-gallery" rel="canonical"/>
+<meta content="Collection &amp; Gallery - Leichtbau Werkstatt" property="og:title"/>
+<meta content="Explore our collection and gallery of custom builds, race cars, and high-performance engineering projects." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
         *,
         *::before,
         *::after {
@@ -415,72 +411,63 @@
             animation: fadein .6s ease .3s both;
         }
     </style>
-    <!-- OpenGraph & Social Meta Tags -->
-    <meta property="og:title" content="Leichtbau Werkstatt" />
-    <meta property="og:description" content="Redefining the analog driving experience. Vintage soul, modern precision." />
-    <meta property="og:image" content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" />
-    <meta property="og:url" content="https://www.leichtbauwerkstatt.com/" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Leichtbau Werkstatt" />
-    <meta name="twitter:description" content="Redefining the analog driving experience. Vintage soul, modern precision." />
-    <meta name="twitter:image" content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" />
+<!-- OpenGraph & Social Meta Tags -->
+<meta content="Leichtbau Werkstatt" property="og:title"/>
+<meta content="Redefining the analog driving experience. Vintage soul, modern precision." property="og:description"/>
+<meta content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" property="og:image"/>
+<meta content="https://www.leichtbauwerkstatt.com/collection-gallery" property="og:url"/>
+<meta content="website" property="og:type"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Collection &amp; Gallery - Leichtbau Werkstatt" name="twitter:title"/>
+<meta content="Explore our collection and gallery of custom builds, race cars, and high-performance engineering projects." name="twitter:description"/>
+<meta content="https://www.leichtbauwerkstatt.com/assets/og-preview.jpg" name="twitter:image"/>
 </head>
-
 <body>
-
-    <!-- Veil -->
-    <div id="veil">
-        <img class="veil-logo" src="assets/logo-white.png" alt="" />
-    </div>
-
-    <!-- Cursor -->
-    <div id="cur-dot"></div>
-    <div id="cur-ring"></div>
-
-    <!-- Nav -->
-    <nav>
-        <div class="nav-side">
-            <a class="nl" href="index.html#services">Services</a>
-            <a class="nl" href="https://shop.leichtbauwerkstatt.com/collections/all" target="_blank" rel="noopener">Parts</a>
-        </div>
-        <a href="index.html">
-            <img src="assets/logo-white.png" alt="LW" style="height:52px;width:auto;filter:none;" />
-        </a>
-        <div class="nav-side">
-            <a class="nl active" href="collection-gallery.html">Gallery</a>
-            <a class="nl" href="contact.html">Connect</a>
-        </div>
-    </nav>
-
-    <!-- Canvas -->
-    <div id="canvas"></div>
-
-    <!-- Hover preview -->
-    <div id="preview">
-        <img id="preview-img" src="" alt="" />
-        <div id="preview-label">
-            <span id="preview-title">—</span>
-            <span id="preview-idx">01</span>
-        </div>
-    </div>
-
-    <!-- Lightbox -->
-    <div id="lb" role="dialog" aria-modal="true">
-        <button id="lb-close">Close ✕</button>
-        <button class="lb-nav" id="lb-prev">← Prev</button>
-        <img id="lb-img" src="" alt="" />
-        <button class="lb-nav" id="lb-next">Next →</button>
-        <div id="lb-counter"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></div>
-    </div>
-
-    <!-- Hint -->
-    <div id="hint">
-        <div id="hint-bar"></div>
-        <span>Hover · Click to expand</span>
-    </div>
-
-    <script>
+<!-- Veil -->
+<div id="veil">
+<img alt="Logo White - Leichtbau Werkstatt" class="veil-logo" src="assets/logo-white.png"/>
+</div>
+<!-- Cursor -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+<!-- Nav -->
+<nav>
+<div class="nav-side">
+<a class="nl" href="index.html#services">Services</a>
+<a class="nl" href="https://shop.leichtbauwerkstatt.com/collections/all" rel="noopener" target="_blank">Parts</a>
+</div>
+<a href="index.html">
+<img alt="LW" src="assets/logo-white.png" style="height:52px;width:auto;filter:none;"/>
+</a>
+<div class="nav-side">
+<a class="nl active" href="collection-gallery.html">Gallery</a>
+<a class="nl" href="contact.html">Connect</a>
+</div>
+</nav>
+<!-- Canvas -->
+<div id="canvas"></div>
+<!-- Hover preview -->
+<div id="preview">
+<img alt="Leichtbau Werkstatt image" id="preview-img" src=""/>
+<div id="preview-label">
+<span id="preview-title">—</span>
+<span id="preview-idx">01</span>
+</div>
+</div>
+<!-- Lightbox -->
+<div aria-modal="true" id="lb" role="dialog">
+<button id="lb-close">Close ✕</button>
+<button class="lb-nav" id="lb-prev">← Prev</button>
+<img alt="Leichtbau Werkstatt image" id="lb-img" src=""/>
+<button class="lb-nav" id="lb-next">Next →</button>
+<div id="lb-counter"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></div>
+</div>
+<!-- Hint -->
+<div id="hint">
+<div id="hint-bar"></div>
+<span>Hover · Click to expand</span>
+</div>
+<script>
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  PHOTOS  — add as many as you like here
         //  { src, thumb (optional, defaults to src), title, x(vw), y(vh), w(vw), h(vh), depth, rot }
@@ -715,9 +702,8 @@
             document.getElementById('hint').classList.add('gone');
         }, { once: true });
     </script>
-
-    <!-- Anti-Inspection & Asset Protection -->
-    <script>
+<!-- Anti-Inspection & Asset Protection -->
+<script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function (e) {
             // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
@@ -735,5 +721,4 @@
         };
     </script>
 </body>
-
 </html>
